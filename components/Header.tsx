@@ -1,7 +1,10 @@
+import { CartContextType, CartContext } from "@/Context/CartContext";
 import Link from "next/link";
-import { CartProductState } from "@/pages";
+import { useContext } from "react";
 
-export default function Header({cartProducts, setCartProducts}: CartProductState) {
+export default function Header() {
+    const { cartProducts } = useContext(CartContext) as CartContextType;
+
     return (
         <header className="grid grid-cols-6 bg-slate-800 text-white">
             <Link href={'/'} className="col-span-2 text-3xl text-center m-2">
@@ -16,7 +19,9 @@ export default function Header({cartProducts, setCartProducts}: CartProductState
                     Cart({cartProducts.length})
                 </Link>
             </nav>
-            <button className="col-span-1 text-gray-300 m-1 p-2">Log in</button>
+            <button className="col-span-1 text-gray-300 m-1 p-2">
+                Log in
+            </button>
         </header>
     )
 }

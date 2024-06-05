@@ -5,10 +5,13 @@ import axios from "axios";
 import TransparentButton from "./TransparentButton";
 import { MdShoppingCart } from "react-icons/md";
 import { Product } from "@/config/types";
-import { CartProductState } from "@/pages";
+import { CartContext, CartContextType } from "@/Context/CartContext";
 
-export default function Banner({cartProducts, setCartProducts}: CartProductState) {
+const DependencyArray = 10;
+
+export default function Banner() {
     const [product, setProduct] = useState<Product | null>(null);
+    const { addProductToCart } = useContext(CartContext) as CartContextType;
 
     useEffect(() => {
         async function fetchProduct() {
@@ -21,15 +24,13 @@ export default function Banner({cartProducts, setCartProducts}: CartProductState
             }
         }
         fetchProduct();
-    }, [])
-
-    const addProductToCart = () => {
-        setCartProducts((prev: string[]) => [...prev, product?._id as string])
-    }
+    }, [DependencyArray])
 
 
     return (
-        <div className="flex justify-between bg-slate-800 min-h-72 text-white gap-6 overflow-x-hidden p-10">
+        <div 
+            className="flex justify-between bg-slate-800 min-h-72 text-white gap-6 overflow-x-hidden p-10"
+        >
             <div className="w-[4%] max-lg:hidden"></div>
             <div className="w-[40%]">
                 <div className="text-4xl font-medium mb-4">
@@ -46,7 +47,7 @@ export default function Banner({cartProducts, setCartProducts}: CartProductState
                     </TransparentButton>
                     <button type="button"
                         className="bg-orange-400 border-0 px-4 py-2 rounded-md flex items-center justify-center ml-3 font-medium"
-                        onClick={addProductToCart}
+                        onClick={() => addProductToCart(product?._id!)}
                     >
                         <MdShoppingCart className="w-[19px] h-[19px] mr-2" />
                         ADD TO CART

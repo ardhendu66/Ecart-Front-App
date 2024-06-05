@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import Product from "@/lib/Product";
 import { ConnectionWithMongoose } from "@/lib/mongoose";
+import Product from "@/lib/Product";
 
 ConnectionWithMongoose();
 
