@@ -14,8 +14,7 @@ export default function NewProducts() {
     useEffect(() => {
         async function fetchProductArray() {
             try {
-                const res = await axios.get('/api/product/get-products')
-                console.log(res.data.products);                
+                const res = await axios.get('/api/product/get-products')                
                 setProductArray(res.data.products);
             }
             catch(err: any) {

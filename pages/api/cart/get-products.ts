@@ -11,7 +11,6 @@ export default async function(request: NextApiRequest, res: NextApiResponse) {
         try {
             const { ids } = request.body;
             const products = await Product.find({_id: {$in: ids}});
-            console.log(products);
             res.status(200).json(products);
         }
         catch(err: any) {
