@@ -39,6 +39,9 @@ export default function CartProvider({children}: any) {
 
     const removeProductFromCart = (productId: string) => {
         setCartProducts(prev => {
+            if(checkFrequency(prev) && prev.length === 1) {
+                setClearCart(true);
+            }
             const pos = prev.indexOf(productId);
             if(pos === -1) {
                 return prev;
