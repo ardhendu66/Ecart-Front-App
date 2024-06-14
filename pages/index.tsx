@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Featured from "@/components/Featured";
-import NewProducts from "@/components/NewProducts";
+import AllProducts from "@/components/HomeProducts"
 
 export default function Home() {    
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       <div className="text-4xl font-normal ml-10 mt-3 -mb-4">
         New Arrivals
       </div>
-      <NewProducts />
+      <AllProducts />
     </main>
   )
 }

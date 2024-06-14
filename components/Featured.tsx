@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import TransparentButton from "./TransparentButton";
+import TransparentButton from "./Button/TransparentButton";
 import { MdShoppingCart } from "react-icons/md";
 import { Product } from "@/config/types";
 import { CartContext, CartContextType } from "@/Context/CartContext";
@@ -57,11 +57,11 @@ export default function Banner() {
             <div className="w-[43%]">
                 <div className="flex items-center justify-center w-[430px] h-[270px] rounded-md bg-white">
                     <Image
-                        src={"https://res.cloudinary.com/next-ecom-cloud/image/upload/v1717484163/macbook-pro-m2_bhradg.webp"}
+                        src="https://res.cloudinary.com/next-ecom-cloud/image/upload/v1717869276/iPhone13_anp1os.jpg"
                         alt="error"
                         width={200}
                         height={200}
-                        className="w-[90%] h-[85%] rounded-md"
+                        className="w-[80%] h-full rounded-md"
                         priority
                         fetchPriority="auto"
                     />

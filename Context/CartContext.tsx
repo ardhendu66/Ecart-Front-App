@@ -8,6 +8,7 @@ export interface CartContextType {
     addProductToCart: (params: string) => void,
     removeProductFromCart: (params: string) => void,
     removeCertainProduct: (params: string) => void,
+    clearCartProducts: () => void,
 }
 
 export const CartContext = createContext<CartContextType | Object>({})
@@ -21,11 +22,13 @@ export default function CartProvider({children}: any) {
         if (cartProducts?.length > 0) {
             ls?.setItem('cart', JSON.stringify(cartProducts));
         }
+    }, [cartProducts]);
 
+    useEffect(() => {
         if(clearCart === true) {
             ls?.setItem('cart', JSON.stringify([]))
         }
-    }, [cartProducts, clearCart]);
+    }, [clearCart])
 
     useEffect(() => {
         if (ls && ls.getItem('cart')) {
@@ -48,6 +51,10 @@ export default function CartProvider({children}: any) {
             }
             return prev.filter((value, index) => index !== pos);
         })
+    }
+
+    const clearCartProducts = () => {
+        setClearCart(true);
     }
 
     const removeCertainProduct = (productId: string) => {
@@ -73,6 +80,7 @@ export default function CartProvider({children}: any) {
             addProductToCart,
             removeProductFromCart,
             removeCertainProduct,
+            clearCartProducts,
         }}>
             {children}
         </CartContext.Provider>
