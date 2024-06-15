@@ -55,6 +55,7 @@ export default function CartProvider({children}: any) {
 
     const clearCartProducts = () => {
         setClearCart(true);
+        setCartProducts([]);
     }
 
     const removeCertainProduct = (productId: string) => {

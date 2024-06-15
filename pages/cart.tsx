@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext, CartContextType } from "@/Context/CartContext";
-import Header from "@/components/Header";
+import { useRouter } from "next/router";
 import axios from "axios";
+import Header from "@/components/Header";
 import { Product } from "@/config/types";
 import { moneyComaSeperator } from "@/config/functions";
 import Cartorder from "@/components/Cart/Cartorder";
 import Emptycart from "@/components/Cart/Emptycart";
+import Successcart from "@/components/Cart/Successcart";
 import Cartproducts from "@/components/Cart/Cartproducts";
 
 export default function Cart() {
@@ -17,6 +19,7 @@ export default function Cart() {
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
+    const router = useRouter()
 
     useEffect(() => {
         async function fetchProducts() {
@@ -27,7 +30,6 @@ export default function Cart() {
             console.log("render cart products");        
         }
         fetchProducts()
-        .then(res => {})
     }, [cartProducts])
 
     var subTotalPrice = 0;
@@ -35,10 +37,24 @@ export default function Cart() {
         const price = products.find(p => p._id === productId)?.price || 0;
         subTotalPrice += price;
     }
-    // console.log("Subtotal: ", subTotalPrice);
+
+    if(router.query.action === "success") {
+        return (
+            <main className="w-screen min-h-screen bg-gray-300">
+                <Header />
+                <div className="flex items-start justify-between gap-1 mt-6">
+                    <div className="flex items-center justify-center w-2/3 p-4">
+                        <div className="p-4 bg-white w-[95%] rounded-md">
+                            <Successcart />
+                        </div>
+                    </div>
+                </div>
+            </main>
+        )
+    }
 
     return(
-        <main className="w-[98.72vw] min-h-screen bg-gray-300">
+        <main className="w-screen min-h-screen bg-gray-300">
             <Header />
             <div className="flex items-start justify-between gap-1 mt-6">
                 <div className="flex items-center justify-center w-2/3 p-4">

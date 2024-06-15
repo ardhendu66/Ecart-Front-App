@@ -7,8 +7,7 @@ import { ResponseBody } from "@/components/Cart/Cartorder";
 import { Stripe } from "stripe";
 const stripe = new Stripe(envVariables.stripeSecrectKey);
 
-ConnectionWithMongoose()
-.then(() => {})
+ConnectionWithMongoose().then(() => {})
 
 export default async function handler(request: NextApiRequest, res: NextApiResponse) {
     if(request.method === "POST") {
@@ -32,7 +31,7 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
                                 name: productInfo.name,
                             },
                             // unit_amount: Number(quantity * productInfo.price),
-                            unit_amount: subTotal,
+                            unit_amount: subTotal * 100,
                         }
                     })
                 }

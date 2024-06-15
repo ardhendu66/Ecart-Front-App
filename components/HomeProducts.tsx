@@ -32,7 +32,7 @@ export default function NewProducts() {
             productArray && productArray?.map((product: Product) => (
                 <div  
                     key={product._id} 
-                    className="relative flex flex-col items-center bg-white cols-span-1 gap-3 p-6 rounded-xl m-4"
+                    className="relative flex flex-col items-center bg-white cols-span-1 gap-3 p-6 rounded-xl m-4 shadow-sm"
                 >
                     <Link href={`/products/${product._id}`} 
                         className="relative w-full max-h-60 border border-gray-300 rounded-sm p-5"

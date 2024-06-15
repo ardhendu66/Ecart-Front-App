@@ -20,7 +20,6 @@ interface Props {
     setStreetAddress: Dispatch<SetStateAction<string>>,
     subTotal: number,
 }
-
 export interface ResponseBody {
     name: string,
     phoneNumber: string,
@@ -36,12 +35,12 @@ export default function Cartorder({
     name, setName, phoneNumber, setPhoneNumber, email, setEmail, city, setCity, pinCode, setPinCode, streetAddress, setStreetAddress, subTotal
 } : Props) {
 
-    const [isPurchasingDone, setIsPurchasingDone] = useState(false);
     const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
-    const { cartProducts, setCartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
-    const router = useRouter();
+    const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
+    const router = useRouter()
+    const { action } = router.query;
 
-    if(isPurchasingDone) {
+    if(action === "success") {
         clearCartProducts();
     }
 
@@ -54,15 +53,10 @@ export default function Cartorder({
                 products: cartProducts, subTotal
             })
             if(res.status === 200) {
-                console.log("Payment_Res: ", res.data);                
+                console.log("Payment_Res: ", res.data);
                 setTimeout(() => {
                     router.push(res.data.url);
-                }, 1000)
-                    
-                setTimeout(() => {
-                    setIsPurchasingDone(true);
-                    setCartProducts([]);
-                }, 3000)
+                }, 300)
             }         
         }
         catch(err: any) {
@@ -75,7 +69,11 @@ export default function Cartorder({
     }
 
     return (
-        <div className="flex items-center justify-center w-1/3 p-4">
+        <div 
+            className={
+                `flex items-center justify-center w-1/3 p-4 ${action === "success" && "hidden"}`
+            }
+        >
             <form 
                 className="flex flex-col items-center justify-center bg-white w-full py-6 px-8 rounded-md"
                 onSubmit={e => processOrderInformation(e)}
