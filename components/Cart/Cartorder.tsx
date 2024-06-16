@@ -40,10 +40,6 @@ export default function Cartorder({
     const router = useRouter()
     const { action } = router.query;
 
-    if(action === "success") {
-        clearCartProducts();
-    }
-
     const processOrderInformation = async (e: any) => {
         e.preventDefault();
         setIsPaymentProcessing(true);
@@ -84,52 +80,52 @@ export default function Cartorder({
                 <input 
                     type="text" 
                     placeholder="Name" 
-                    className="w-full border-black border p-1 px-2 rounded-sm mt-2 mb-[2[px] outline-none font-medium"
+                    className="w-full border-black border-b-[1.7px] p-1 my-2 mb-[2[px] outline-none font-medium"
                     onChange={e => setName(e.target.value)}
                 />
                 <div className="flex gap-2">
                     <input 
                         type="text"
-                        className="w-[18%] border-black border p-1 px-2 rounded-sm my-2 outline-none font-medium" 
+                        className="w-[18%] bg-gray-200 p-1 px-2 my-3 outline-none font-medium rounded-md" 
                         value={'+91'}
                         disabled
                     />
                     <input 
                         type="number"
                         placeholder="Phone number" 
-                        className="w-full border-black border p-1 px-2 rounded-sm my-2 outline-none font-medium"
+                        className="w-full border-black border-b-[1.7px] p-1 my-3 outline-none font-medium"
                         onChange={e => setPhoneNumber(String(e.target.value))}
                     />
                 </div>
                 <input 
                     type="email" 
                     placeholder="Email" 
-                    className="w-full border-black border p-1 px-2 rounded-sm mb-2 outline-none font-medium"
+                    className="w-full border-black border-b-[1.7px] p-1 my-3 outline-none font-medium"
                     onChange={e => setEmail(e.target.value)}
                 />
-                <div className="flex gap-1">
+                <div className="flex gap-x-5">
                     <input 
                         type="text" 
                         placeholder="City" 
-                        className="w-full border-black border p-1 px-2 rounded-sm mb-2 outline-none font-medium"
+                        className="w-full border-black border-b-[1.7px] p-1 my-3 outline-none font-medium"
                         onChange={e => setCity(e.target.value)}
                     />
                     <input 
                         type="number" 
                         placeholder="PIN Code" 
-                        className="w-full border-black border p-1 px-2 rounded-sm mb-2 outline-none font-medium"
+                        className="w-full border-black border-b-[1.7px] p-1 my-3 outline-none font-medium"
                         onChange={e => setPinCode(String(e.target.value))}
                     />
                 </div>
                 <input 
                     type="text" 
                     placeholder="Street Address" 
-                    className="w-full border-black border p-1 px-2 rounded-sm mb-2 outline-none font-medium"
+                    className="w-full border-black border-b-[1.7px] p-1 my-3 outline-none font-medium"
                     onChange={e => setStreetAddress(e.target.value)}
                 />
                 <button 
                     type="submit"
-                    className="w-full bg-black text-white px-4 py-2 rounded-md my-2 text-lg font-medium"
+                    className="w-full bg-black text-white px-4 py-2 rounded-md mt-3 mb-2 text-lg font-medium"
                     disabled={isPaymentProcessing}
                 >
                 {

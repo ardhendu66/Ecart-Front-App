@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -11,7 +11,7 @@ import Successcart from "@/components/Cart/Successcart";
 import Cartproducts from "@/components/Cart/Cartproducts";
 
 export default function Cart() {
-    const { cartProducts } = useContext(CartContext) as CartContextType;
+    const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
     const [products, setProducts] = useState<Product[]>([])
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -29,7 +29,7 @@ export default function Cart() {
             setProducts(res.data);
             console.log("render cart products");        
         }
-        fetchProducts()
+        fetchProducts();
     }, [cartProducts])
 
     var subTotalPrice = 0;
@@ -52,6 +52,20 @@ export default function Cart() {
             </main>
         )
     }
+    else if(!cartProducts.length) {
+        return (
+            <main className="w-screen min-h-screen bg-gray-300">
+                <Header />
+                <div className="flex items-start justify-between gap-1 mt-6">
+                    <div className="flex items-center justify-center w-2/3 p-4">
+                        <div className="p-4 bg-white w-[95%] rounded-md">
+                            <Emptycart />
+                        </div>
+                    </div>
+                </div>
+            </main>
+        )
+    }
 
     return(
         <main className="w-screen min-h-screen bg-gray-300">
@@ -59,14 +73,17 @@ export default function Cart() {
             <div className="flex items-start justify-between gap-1 mt-6">
                 <div className="flex items-center justify-center w-2/3 p-4">
                     <div className="p-4 bg-white w-[95%] rounded-md">
-                    {
-                        cartProducts.length === 0
-                            ?
-                        <Emptycart />
-                            : 
                         <div className="w-full p-8 pt-2">
-                            <h2 className="text-5xl text-left font-medium mb-10">
+                            <h2 
+                                className="flex justify-between text-5xl text-left font-medium mb-10"
+                            >
                                 Shopping Cart
+                                <button
+                                    className="bg-red-600 text-white px-5 p-2 rounded-md text-xl"
+                                    onClick={() => clearCartProducts()}
+                                >
+                                    Clear Cart
+                                </button>
                             </h2>
 
                             <Cartproducts products={products} />
@@ -80,9 +97,9 @@ export default function Cart() {
                                 </span>
                             </div>
                         </div>
-                    }
                     </div>
                 </div>
+
                 <Cartorder
                     name={name}
                     setName={setName}
@@ -98,6 +115,7 @@ export default function Cart() {
                     setStreetAddress={setStreetAddress}
                     subTotal={subTotalPrice}
                 />
+
             </div>
         </main>
     )
