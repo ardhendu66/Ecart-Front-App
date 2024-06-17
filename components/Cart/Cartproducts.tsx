@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useContext } from "react"
+import { memo, useContext } from "react"
 import { Product } from "@/config/types"
 import { CartContext, CartContextType } from "@/Context/CartContext"
 import { moneyComaSeperator } from "@/config/functions"
@@ -10,7 +10,7 @@ interface Props {
     products: Product[],
 }
 
-export default function Cartproducts({products}: Props) {
+export const Cartproducts = memo(({products}: Props) => {
     const { 
         cartProducts, addProductToCart, removeProductFromCart, removeCertainProduct 
     } = useContext(CartContext) as CartContextType;
@@ -95,4 +95,4 @@ export default function Cartproducts({products}: Props) {
         }
         </div>
     )
-}
+})

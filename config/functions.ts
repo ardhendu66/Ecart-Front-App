@@ -63,8 +63,7 @@ export function moneyComaSeperator(param: number) {
     return newParams;
 }
 
-
-export function checkFrequency(array : string[]): number {
+export function checkFrequency(array: string[]): number {
     const countObject: any = {};
     for (let i = 0; i < array.length; i++) {
         if(countObject[array[i]]) {
@@ -75,4 +74,17 @@ export function checkFrequency(array : string[]): number {
         }
     }
     return Object.keys(countObject).length;
+}
+
+export function countObject(array: string[]) {
+    const object: any = {};
+    for (let i = 0; i < array.length; i++) {
+        if(object[array[i]]) {
+            object[array[i]]++;
+        }
+        else {
+            object[array[i]] = 1;
+        }
+    }
+    return object;
 }

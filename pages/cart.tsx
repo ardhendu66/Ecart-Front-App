@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -7,8 +7,8 @@ import { Product } from "@/config/types";
 import { moneyComaSeperator } from "@/config/functions";
 import Cartorder from "@/components/Cart/Cartorder";
 import Emptycart from "@/components/Cart/Emptycart";
-import Successcart from "@/components/Cart/Successcart";
-import Cartproducts from "@/components/Cart/Cartproducts";
+import { Cartproducts } from "@/components/Cart/Cartproducts";
+import { PaymentSuccess } from "@/components/Cart/PaymentSuccess";
 
 export default function Cart() {
     const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
@@ -39,18 +39,7 @@ export default function Cart() {
     }
 
     if(router.query.action === "success") {
-        return (
-            <main className="w-screen min-h-screen bg-gray-300">
-                <Header />
-                <div className="flex items-start justify-between gap-1 mt-6">
-                    <div className="flex items-center justify-center w-2/3 p-4">
-                        <div className="p-4 bg-white w-[95%] rounded-md">
-                            <Successcart />
-                        </div>
-                    </div>
-                </div>
-            </main>
-        )
+        return <PaymentSuccess />
     }
     else if(!cartProducts.length) {
         return (

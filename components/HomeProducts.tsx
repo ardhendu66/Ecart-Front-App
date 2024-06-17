@@ -6,6 +6,7 @@ import { Product } from "@/config/types";
 import { MdShoppingCart } from "react-icons/md";
 import { PiCurrencyInrBold } from "react-icons/pi";
 import { CartContext, CartContextType } from "@/Context/CartContext";
+import { toast } from "react-toastify";
 
 export default function NewProducts() {
     const [productArray, setProductArray] = useState<Product[] | null>(null);
@@ -18,7 +19,8 @@ export default function NewProducts() {
                 setProductArray(res.data.products);
             }
             catch(err: any) {
-                throw new Error("Something went wrong");
+                toast.info('Not able to fetch Products', { position: "top-center" })
+                console.error(err);              
             }
         }
         fetchProductArray();

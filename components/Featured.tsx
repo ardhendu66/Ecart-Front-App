@@ -6,8 +6,7 @@ import TransparentButton from "./Button/TransparentButton";
 import { MdShoppingCart } from "react-icons/md";
 import { Product } from "@/config/types";
 import { CartContext, CartContextType } from "@/Context/CartContext";
-
-const DependencyArray = 10;
+import { toast } from "react-toastify";
 
 export default function Banner() {
     const [product, setProduct] = useState<Product | null>(null);
@@ -20,11 +19,12 @@ export default function Banner() {
                 setProduct(res.data.product);
             }
             catch(err: any) {
-                throw new Error("Something went wrong");
+                toast.info('Not able to fetch Products', { position: "top-center" })
+                console.error(err); 
             }
         }
         fetchProduct();
-    }, [DependencyArray])
+    }, [])
 
 
     return (
