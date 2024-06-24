@@ -11,7 +11,7 @@ interface Props {
     loading: boolean,
 }
 
-const Cartproducts = memo(({products, loading}: Props) => {
+const Cartproducts = ({products, loading}: Props) => {
     const { 
         cartProducts, addProductToCart, removeProductFromCart, removeCertainProduct 
     } = useContext(CartContext) as CartContextType;
@@ -40,6 +40,7 @@ const Cartproducts = memo(({products, loading}: Props) => {
                                 alt="error"
                                 width={100}
                                 height={100}
+                                priority
                                 className="w-full h-full rounded-xl"
                             />
                         </div>
@@ -108,6 +109,6 @@ const Cartproducts = memo(({products, loading}: Props) => {
         }
         </div>
     )
-})
+}
 
 export default Cartproducts;

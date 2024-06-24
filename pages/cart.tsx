@@ -7,8 +7,8 @@ import { Product } from "@/config/types";
 import { moneyComaSeperator } from "@/config/functions";
 import Cartorder from "@/components/Cart/Cartorder";
 import Emptycart from "@/components/Cart/Emptycart";
-import { Cartproducts } from "@/components/Cart/Cartproducts";
-import { PaymentSuccess } from "@/components/Cart/PaymentSuccess";
+import Cartproducts from "@/components/Cart/Cartproducts";
+import PaymentSuccess from "@/components/Cart/PaymentSuccess";
 
 export default function Cart() {
     const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;

@@ -5,7 +5,7 @@ import Header from "../Header";
 import Successcart from "./Successcart";
 import { toast } from "react-toastify";
 
-const PaymentSuccess = memo(() => {
+const PaymentSuccess = () => {
     const { cartProducts } = useContext(CartContext) as CartContextType;
 
     const adjustQuantityOfProducts = async () => {
@@ -38,6 +38,6 @@ const PaymentSuccess = memo(() => {
             </div>
         </main>
     )
-})
+}
 
 export default PaymentSuccess;
