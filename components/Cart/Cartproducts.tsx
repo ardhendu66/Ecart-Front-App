@@ -11,7 +11,7 @@ interface Props {
     loading: boolean,
 }
 
-export const Cartproducts = memo(({products, loading}: Props) => {
+const Cartproducts = memo(({products, loading}: Props) => {
     const { 
         cartProducts, addProductToCart, removeProductFromCart, removeCertainProduct 
     } = useContext(CartContext) as CartContextType;
@@ -109,3 +109,5 @@ export const Cartproducts = memo(({products, loading}: Props) => {
         </div>
     )
 })
+
+export default Cartproducts;
