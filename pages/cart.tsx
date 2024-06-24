@@ -19,15 +19,30 @@ export default function Cart() {
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
+    const [loadingCartProducts, setLoadingCartProducts] = useState(false);
     const router = useRouter()
 
     useEffect(() => {
+        document.title = 'Cart'
+        console.log("title");        
+    }, [])
+
+    useEffect(() => {
         async function fetchProducts() {
-            const res = await axios.post('/api/cart/get-products', {
-                ids: cartProducts 
-            })          
-            setProducts(res.data);
-            console.log("render cart products");        
+            try {
+                setLoadingCartProducts(true);
+                const res = await axios.post('/api/cart/get-products', {
+                    ids: cartProducts 
+                })          
+                setProducts(res.data);
+                console.log("Render cart products");        
+            }
+            catch(err) {
+                console.error(err);                
+            }
+            finally {
+                setLoadingCartProducts(false);
+            }
         }
         fetchProducts();
     }, [cartProducts])
@@ -57,25 +72,28 @@ export default function Cart() {
     }
 
     return(
-        <main className="w-screen min-h-screen bg-gray-300">
+        <main className="bg-gray-300">
             <Header />
             <div className="flex items-start justify-between gap-1 mt-6">
                 <div className="flex items-center justify-center w-2/3 p-4">
                     <div className="p-4 bg-white w-[95%] rounded-md">
                         <div className="w-full p-8 pt-2">
                             <h2 
-                                className="flex justify-between text-5xl text-left font-medium mb-10"
+                                className="flex justify-between text-5xl text-left font-semibold mb-10 tracking-tighter"
                             >
-                                Shopping Cart
+                                My Shopping Cart
                                 <button
-                                    className="bg-red-600 text-white px-5 p-2 rounded-md text-xl"
+                                    className="bg-red-600 text-white px-5 p-2 rounded-sm text-xl font-medium tracking-normal shadow-sm shadow-black"
                                     onClick={() => clearCartProducts()}
                                 >
-                                    Clear Cart
+                                    Clear cart
                                 </button>
                             </h2>
 
-                            <Cartproducts products={products} />
+                            <Cartproducts 
+                                products={products} 
+                                loading={loadingCartProducts}
+                            />
                             
                             <div className="text-xl text-end border-black border-t-[1.5px] pt-2">
                                 <span className="font-medium mr-2">

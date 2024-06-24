@@ -1,8 +1,8 @@
-import mongoose from "mongoose"
+import { Schema, Document, model, models, Types } from "mongoose";
 
-interface ProductClass extends mongoose.Document {
+interface ProductClass extends Document {
     name: string,
-    category?: mongoose.Types.ObjectId,
+    category?: Types.ObjectId,
     images: string[],
     description: string,
     price: number,
@@ -10,13 +10,13 @@ interface ProductClass extends mongoose.Document {
     categoryProperties: Object,
 }
 
-const productSchema: mongoose.Schema<ProductClass> = new mongoose.Schema({
+const productSchema: Schema<ProductClass> = new Schema<ProductClass>({
     name: {
         type: String,
         required: [true, "Product_name is required"],
     },
     category: {
-        type: mongoose.Types.ObjectId,
+        type: Types.ObjectId,
         ref: "Category"
     },
     images: {
@@ -41,6 +41,6 @@ const productSchema: mongoose.Schema<ProductClass> = new mongoose.Schema({
     },
 })
 
-const Product = mongoose.models?.Product || mongoose.model('Product', productSchema);
+const Product = models?.Product || model('Product', productSchema);
 
 export default Product;

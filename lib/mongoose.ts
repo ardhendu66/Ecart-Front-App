@@ -13,7 +13,6 @@ export const ConnectionWithMongoose = async () => {
         }
     }
     catch(err: any) {
-        console.error(err.message)
-        throw new Error(err.message)
+        console.error(err.message);
     }
 }

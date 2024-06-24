@@ -4,20 +4,31 @@ import { Product } from "@/config/types"
 import { CartContext, CartContextType } from "@/Context/CartContext"
 import { moneyComaSeperator } from "@/config/functions"
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { ClipLoader } from "react-spinners"
 
 interface Props {
     products: Product[],
+    loading: boolean,
 }
 
-export const Cartproducts = memo(({products}: Props) => {
+export const Cartproducts = memo(({products, loading}: Props) => {
     const { 
         cartProducts, addProductToCart, removeProductFromCart, removeCertainProduct 
     } = useContext(CartContext) as CartContextType;
 
     return (
-        <div className="mt-3">
+        <div className={`mt-3 ${loading && "text-center"}`}>
         {
+            loading 
+                ?
+            <ClipLoader
+                size={70}
+                color="#1b6ea5"
+                speedMultiplier={2}
+            />
+                :
+            products.length > 0
+                ?
             products?.map(product => (
                 <div key={product._id}
                     className="flex mb-5 bg-gray-100 border-y-[1.3px] p-4 h-[230px] rounded-sm" 
@@ -84,14 +95,16 @@ export const Cartproducts = memo(({products}: Props) => {
                             <span>return available</span>
                         </div>
                     </div>
-                    <div className="w-[0.7%]">
-                        <RiDeleteBin6Line
-                            className="w-10 h-10 text-red-500 cursor-pointer -mt-2 ml-3" 
+                    <div className="w-[11%]">
+                        <button
+                            className=" bg-transparent text-gray-600 p-2 -mt-2 rounded-md border-[1.5px] border-gray-500 tracking-tighter" 
                             onClick={() => removeCertainProduct(product._id)}
-                        />
+                        >Remove</button>
                     </div>
                 </div>
             ))
+                :
+            <div className="text-xl font-semibold">No products found.</div>
         }
         </div>
     )

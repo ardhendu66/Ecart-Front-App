@@ -1,39 +1,14 @@
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners"
-
-interface Props {
-    name: string, 
-    setName: Dispatch<SetStateAction<string>>, 
-    phoneNumber: string, 
-    setPhoneNumber: Dispatch<SetStateAction<string>>, 
-    email: string, 
-    setEmail: Dispatch<SetStateAction<string>>,
-    city: string, 
-    setCity: Dispatch<SetStateAction<string>>, 
-    pinCode: string, 
-    setPinCode: Dispatch<SetStateAction<string>>, 
-    streetAddress: string, 
-    setStreetAddress: Dispatch<SetStateAction<string>>,
-    subTotal: number,
-}
-export interface ResponseBody {
-    name: string,
-    phoneNumber: string,
-    email: string,
-    city: string,
-    pinCode: string,
-    streetAddress: string,
-    products: string[],
-    subTotal: number,
-}
+import { CartOrderProps } from "@/config/types";
 
 export default function Cartorder({
     name, setName, phoneNumber, setPhoneNumber, email, setEmail, city, setCity, pinCode, setPinCode, streetAddress, setStreetAddress, subTotal
-} : Props) {
+} : CartOrderProps) {
 
     const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
     const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
@@ -42,11 +17,18 @@ export default function Cartorder({
 
     const processOrderInformation = async (e: any) => {
         e.preventDefault();
-        setIsPaymentProcessing(true);
+        if(
+            name === "" || phoneNumber === "" || email === "" || city === "" || pinCode === "" || streetAddress === "" || subTotal < 1
+        ) {
+            toast.info("Please fill all information", { position: "top-center" })
+            return;
+        }
+        
         try {
+            setIsPaymentProcessing(true);
             const res = await axios.post('/api/cart/checkout', {
                 name, phoneNumber, email, city, pinCode, streetAddress, 
-                products: cartProducts, subTotal
+                products: cartProducts
             })
             if(res.status === 200) {
                 console.log("Payment_Res: ", res.data);

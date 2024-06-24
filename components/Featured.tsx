@@ -15,7 +15,9 @@ export default function Banner() {
     useEffect(() => {
         async function fetchProduct() {
             try {
-                const res = await axios.get('/api/product/get-product')               
+                const res = await axios.get(
+                    '/api/product/get-product?id=6633d11d4dc5a3f9c4eac9c9'
+                )               
                 setProduct(res.data.product);
             }
             catch(err: any) {
@@ -29,10 +31,10 @@ export default function Banner() {
 
     return (
         <div 
-            className="flex justify-between bg-slate-800 min-h-72 text-white gap-6 overflow-x-hidden p-10"
+            className="flex max-sm:flex-col-reverse sm:justify-between bg-slate-800 min-h-72 text-white gap-6 overflow-x-hidden p-10"
         >
             <div className="w-[4%] max-lg:hidden"></div>
-            <div className="w-[40%]">
+            <div className="w-[40%] max-sm:w-full">
                 <div className="text-4xl font-medium mb-4">
                     {product && product.name}
                 </div>
@@ -41,12 +43,12 @@ export default function Banner() {
                 </div>
                 <div className="flex justify-start mt-4">
                     <TransparentButton addedClass="font-medium">
-                        <Link href={`/products/${product?._id}`} className="text-gray-300">
+                        <Link href={`/products/${product?._id}`} className="text-white">
                             Read more
                         </Link>
                     </TransparentButton>
                     <button type="button"
-                        className="bg-orange-400 border-0 px-4 py-2 rounded-md flex items-center justify-center ml-3 font-medium"
+                        className="bg-yellow-600 border-0 px-4 py-2 rounded-md flex items-center justify-center ml-3 font-medium"
                         onClick={() => addProductToCart(product?._id!)}
                     >
                         <MdShoppingCart className="w-[19px] h-[19px] mr-2" />
@@ -54,8 +56,8 @@ export default function Banner() {
                     </button>
                 </div>
             </div>
-            <div className="w-[43%]">
-                <div className="flex items-center justify-center w-[430px] h-[270px] rounded-md bg-white">
+            <div className="w-[43%] max-sm:w-full">
+                <div className="flex items-center justify-center w-[430px] h-[270px] rounded-md bg-white max-sm:w-full">
                     <Image
                         src="https://res.cloudinary.com/next-ecom-cloud/image/upload/v1717869276/iPhone13_anp1os.jpg"
                         alt="error"
@@ -63,7 +65,6 @@ export default function Banner() {
                         height={200}
                         className="w-[80%] h-full rounded-md"
                         priority
-                        fetchPriority="auto"
                     />
                 </div>
             </div>

@@ -11,7 +11,7 @@ interface Order extends Document {
     paid: boolean,
 }
 
-const orderSchema: Schema<Order> = new Schema({
+const orderSchema: Schema<Order> = new Schema<Order>({
     items: {
         type: Object,
     },
