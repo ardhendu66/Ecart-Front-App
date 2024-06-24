@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { CartContext, CartContextType } from "@/Context/CartContext";
@@ -11,9 +11,20 @@ export default function Cartorder({
 } : CartOrderProps) {
 
     const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
-    const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
-    const router = useRouter()
+    const [urlInfo, setUrlInfo] = useState("");
+    const { cartProducts } = useContext(CartContext) as CartContextType;
+    const router = useRouter();
     const { action } = router.query;
+
+    useEffect(() => {
+        const getResponse = async () => {
+            const res = await axios.get('/api/cart/webhook');
+            console.log(res.data.event);  
+            console.log("render");              
+        }
+        getResponse();
+    }, [urlInfo])
+
 
     const processOrderInformation = async (e: any) => {
         e.preventDefault();
@@ -31,6 +42,7 @@ export default function Cartorder({
                 products: cartProducts
             })
             if(res.status === 200) {
+                setUrlInfo(res.data.url)
                 console.log("Payment_Res: ", res.data);
                 setTimeout(() => {
                     router.push(res.data.url);

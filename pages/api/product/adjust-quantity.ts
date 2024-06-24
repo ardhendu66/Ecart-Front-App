@@ -9,7 +9,6 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
         try {
             const { ids }: {ids: string[]} = request.body;
             const object: Object = countObject(ids);
-            console.log("Object: ", object);
             Object.entries(object).map(async ([key, value]: [string, number]) => {
                 await Product.findByIdAndUpdate({_id: key}, {
                     $inc: { amount: -value }
