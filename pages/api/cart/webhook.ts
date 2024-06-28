@@ -9,8 +9,8 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
     const buf = await buffer(request);
     let event: Stripe.Event;
     event = stripe.webhooks.constructEvent(
-        buf.toString(), 
-        signature as string, 
+        buf.toString(),
+        signature as string,
         envVariables.stripeWebhookSecret
     )
     switch(event?.type) {

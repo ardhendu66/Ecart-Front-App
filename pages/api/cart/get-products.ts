@@ -2,10 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Product from "@/lib/Product";
 import { ConnectionWithMongoose } from "@/lib/mongoose";
 
-ConnectionWithMongoose()
-.then(() => {})
-
 export default async function handler(request: NextApiRequest, res: NextApiResponse) {
+    await ConnectionWithMongoose();
     if(request.method === "POST") {
         try {
             const { ids } = request.body;
