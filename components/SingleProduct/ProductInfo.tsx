@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa6";
 import { MdShoppingCart } from "react-icons/md";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { IoIosArrowRoundDown } from "react-icons/io";
-import { RatingsAndReviews } from "./Rating&Reviews";
+import RatingsAndReviews from "./Rating&Reviews";
 
 interface Props {
     product: Product | null;

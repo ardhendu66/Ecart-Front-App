@@ -1,9 +1,8 @@
-import { memo } from "react";
 import { data } from "@/config/data";
 import { FaStar } from "react-icons/fa6";
 import { MdCheckCircle } from "react-icons/md";
 
-export const RatingsAndReviews = memo(() => {
+export default function RatingsAndReviews() {
     return (
         <div className="">
         {
@@ -36,4 +35,4 @@ export const RatingsAndReviews = memo(() => {
         }
         </div>
     )
-})
+}
