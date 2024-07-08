@@ -61,7 +61,7 @@ export default function Cartorder({
     return (
         <div 
             className={
-                `flex items-center justify-center w-1/3 p-4 ${action === "success" && "hidden"}`
+                `flex items-center justify-center w-[70%] max-md:w-full p-4 ${action === "success" && "hidden"}`
             }
         >
             <form 
@@ -77,10 +77,10 @@ export default function Cartorder({
                     className="w-full border-black border-b-[1.7px] p-1 my-2 mb-[2[px] outline-none font-medium"
                     onChange={e => setName(e.target.value)}
                 />
-                <div className="flex gap-2">
+                <div className="w-full flex gap-2">
                     <input 
                         type="text"
-                        className="w-[18%] bg-gray-200 p-1 px-2 my-3 outline-none font-medium rounded-md" 
+                        className="w-[10%] bg-gray-200 p-1 px-2 my-3 outline-none font-medium rounded-md" 
                         value={'+91'}
                         disabled
                     />
@@ -97,7 +97,7 @@ export default function Cartorder({
                     className="w-full border-black border-b-[1.7px] p-1 my-3 outline-none font-medium"
                     onChange={e => setEmail(e.target.value)}
                 />
-                <div className="flex gap-x-5">
+                <div className="flex gap-x-5 w-full">
                     <input 
                         type="text" 
                         placeholder="City" 

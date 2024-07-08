@@ -53,8 +53,8 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
                 mode: "payment",
                 customer_email: email,
                 currency: envVariables.currency,
-                success_url: `${envVariables.domainUrl}/cart?action=success`,
-                cancel_url: `${envVariables.domainUrl}/cart?action=cancelled`,
+                success_url: `${envVariables.domainUrl}/cart?action=success&success_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`,
+                cancel_url: `${envVariables.domainUrl}/cart?action=failed&failure_token=eyJhbhdjPjKJVaJ2OjJtInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_bERttx6d`,
                 metadata: { 
                     orderId: orderDoc._id.toString() 
                 },

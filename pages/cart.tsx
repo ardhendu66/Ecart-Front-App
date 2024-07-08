@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Link from "next/link";
+import Image from "next/image";
 import { loadStripe } from '@stripe/stripe-js'
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import Header from "@/components/Header";
@@ -10,6 +12,8 @@ import Emptycart from "@/components/Cart/Emptycart";
 import Cartproducts from "@/components/Cart/Cartproducts";
 import PaymentSuccess from "@/components/Cart/PaymentSuccess";
 import { moneyComaSeperator } from "@/config/functions";
+import { envVariables } from "@/config/config";
+import imgSrc from "@/public/404.png"
 
 export default function Cart() {
     const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
@@ -24,8 +28,7 @@ export default function Cart() {
     const router = useRouter()
 
     useEffect(() => {
-        document.title = 'Cart'
-        console.log("title");        
+        document.title = 'Cart'       
     }, [])
 
     useEffect(() => {
@@ -35,8 +38,7 @@ export default function Cart() {
                 const res = await axios.post('/api/cart/get-products', {
                     ids: cartProducts 
                 })          
-                setProducts(res.data);
-                console.log("Render cart products");        
+                setProducts(res.data);       
             }
             catch(err) {
                 console.error(err);                
@@ -55,15 +57,48 @@ export default function Cart() {
     }
 
     if(router.query.action === "success") {
-        return <PaymentSuccess />
+        if(
+            router.query.success_token && 
+            router.query.success_token === 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+        ) {
+            return <PaymentSuccess />
+        }
+        else {
+            return (
+                <div className="min-h-screen bg-white">
+                    <Header />
+                    <div className="flex flex-col justify-center items-center w-full pt-3">
+                        <div className="flex justify-evenly text-3xl mb-5">
+                            <span className="text-gray-500 underline">
+                                404 error. Page you requested not found.
+                            </span>
+                            <Link 
+                                href={'/'}
+                                className="text-lg bg-gray-500 text-white px-2 pt-1 pb-2 ml-10 rounded-md"
+                            >← Go Home</Link>
+                        </div>
+                        <Image
+                            src={imgSrc}
+                            width={700}
+                            height={500}
+                            alt="error"
+                            priority
+                            className="rounded-sm"
+                        />
+                    </div>
+                </div>
+            )
+        }
     }
     else if(!cartProducts.length) {
         return (
             <main className="w-screen min-h-screen bg-gray-300">
                 <Header />
-                <div className="flex items-start justify-between gap-1 mt-6">
-                    <div className="flex items-center justify-center w-2/3 p-4">
-                        <div className="p-4 bg-white w-[95%] rounded-md">
+                <div className="flex items-center justify-center gap-1 mt-6">
+                    <div 
+                        className="flex items-center justify-center w-[70%] max-md:w-full p-4"
+                    >
+                        <div className="p-4 bg-white rounded-md w-full">
                             <Emptycart />
                         </div>
                     </div>
@@ -75,9 +110,9 @@ export default function Cart() {
     return(
         <main className="bg-gray-300">
             <Header />
-            <div className="flex items-start justify-between gap-1 mt-6">
-                <div className="flex items-center justify-center w-2/3 p-4">
-                    <div className="p-4 bg-white w-[95%] rounded-md">
+            <div className="flex flex-col items-center justify-center gap-1 mt-6">
+                <div className="flex items-center justify-center w-[70%] max-md:w-full p-4">
+                    <div className="p-4 bg-white w-full rounded-md">
                         <div className="w-full p-8 pt-2">
                             <h2 
                                 className="flex justify-between text-5xl text-left font-semibold mb-10 tracking-tighter"

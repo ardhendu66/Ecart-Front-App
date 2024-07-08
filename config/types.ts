@@ -6,12 +6,25 @@ export interface Product {
     images: string[],
     description: string,
     price: number,
+    discountPercentage: number,
     amount: number,
-    category?: '',
+    __v: number,
+    category?: string,
     categoryProperties: Object,
     createdAt: Date,
     updatedAt: Date,
-    __v: number,
+    seller: string,
+    ratingAndReview?: {
+        customerId?: {
+            _id: string,
+            name: string,
+            email: string,
+            phoneNo: string,
+            __v: number,
+        },
+        rating: number,
+        review?: string
+    }
 }
 
 export interface CartResponseBody {
