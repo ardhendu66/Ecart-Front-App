@@ -31,31 +31,32 @@ export default function ProductInfo({product}: Props) {
                 </span>
             </div>
 
-            <p className="mt-3 text-black">
+            <div className="flex text-2xl font-semibold mr-8 my-3">
+                <span 
+                    className="text-gray-500 text-sm italic font-normal line-through mt-[10px] mr-2"
+                >
+                    ₹{moneyComaSeperator(
+                        Math.floor(product?.price! * (100 + product?.discountPercentage!) / 100)
+                    )}
+                </span>
+                <span>
+                    ₹{moneyComaSeperator(product?.price!)}
+                </span>
+                <span className="ml-3 mt-[8px] text-sm font-semibold text-green-700">
+                    {`${product?.discountPercentage}%`} off
+                </span>
+                <span 
+                    className={`${product?.amount! > 100 && "hidden"} ml-4 mt-2 px-1 text-red-500 border-red-500 border-[1.2px] text-xs flex items-center justify-center rounded-md font-normal h-5`}
+                >
+                    {product?.amount} left
+                </span>
+            </div>
+
+            <p className="mt-4 text-black">
                 {product?.description}
             </p>
 
             <div className="flex flex-col mt-2">
-                <span className="flex text-2xl font-semibold mr-8 my-3">
-                    <span 
-                        className="text-gray-500 text-sm italic font-normal line-through mt-[10px] mr-2"
-                    >
-                        ₹{moneyComaSeperator(
-                            Math.floor(product?.price! * (100 + product?.discountPercentage!) / 100)
-                        )}
-                    </span>
-                    <span>
-                        ₹{moneyComaSeperator(product?.price!)}
-                    </span>
-                    <span className="ml-3 mt-[8px] text-sm font-semibold text-green-700">
-                        {`${product?.discountPercentage}%`} off
-                    </span>
-                    <span 
-                        className={`${product?.amount! > 100 && "hidden"} ml-4 mt-2 px-1 text-red-500 border-red-500 border-[1.2px] text-xs flex items-center justify-center rounded-md font-normal h-5`}
-                    >
-                        {product?.amount} left
-                    </span>
-                </span>
                 <button 
                     className="md:hidden bg-transparent border-orange-300 border-[1.6px] bg-yellow-500 text-white py-2 px-4 rounded-md flex items-center justify-center mb-1 hover:scale-110 hover:transition-all w-[90%]"
                     onClick={() => addProductToCart(product?._id as string)}
@@ -67,10 +68,12 @@ export default function ProductInfo({product}: Props) {
                         Add TO CART
                     </span>
                 </button>
-                <span className="flex items-center">
-                    <span className="text-gray-500 text-sm mr-2">Seller -</span>
-                    <span className="text-blue-700 text-sm">
-                    {product?.seller}
+                <span className="flex items-center font-semibold border border-gray-400 rounded-md px-4 py-1 w-1/3 max-sm:w-full mt-2">
+                    <span className="text-gray-400 text-sm mr-2">
+                        Seller -
+                    </span>
+                    <span className="text-blue-500 text-sm">
+                        {product?.seller}
                     </span>
                 </span>
                 <div className="mt-2">
