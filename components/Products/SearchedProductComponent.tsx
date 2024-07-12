@@ -61,7 +61,7 @@ export default function SearchedProducts({products, addProductToCart}: Props) {
                                 </span>
                             </div>
                             <button 
-                                className="bg-transparent border-white border-[1.5px]  bg-slate-600 text-white  px-4 py-2 rounded-md p-1 flex items-center justify-center mb-1 w-full mt-2 hover:bg-slate-500"
+                                className="border-white border-[1.5px] bg-slate-600 text-white  px-4 py-2 rounded-md p-1 flex items-center justify-center mb-1 w-full mt-2 hover:bg-slate-500"
                                 onClick={() => addProductToCart(product._id)}
                             >
                                 <MdShoppingCart 

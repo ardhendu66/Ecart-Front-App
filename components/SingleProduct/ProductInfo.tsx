@@ -56,7 +56,7 @@ export default function ProductInfo({product}: Props) {
 
             <div className="flex flex-col mt-2">
                 <button 
-                    className="md:hidden bg-transparent border-orange-300 border-[1.6px] bg-yellow-500 text-white py-2 px-4 rounded-md flex items-center justify-center mb-1 hover:scale-110 hover:transition-all w-[90%]"
+                    className="md:hidden border-white border-[1.6px] bg-slate-600 text-white py-2 px-4 rounded-md flex items-center justify-center mb-1 hover:bg-slate-500 w-[90%]"
                     onClick={() => addProductToCart(product?._id as string)}
                 >
                     <MdShoppingCart 
