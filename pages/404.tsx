@@ -13,14 +13,16 @@ export default function Custom404() {
         <div className="min-h-screen bg-white">
             <Header />
             <div className="flex flex-col justify-center items-center w-full pt-3">
-                <div className="flex justify-evenly text-3xl mb-5">
-                    <span className="text-gray-500 underline">
-                        404 error. Page you requested not found.
-                    </span>
+                <div className="flex items-center justify-center mt-3">
+                    <div className="text-3xl text-gray-500">
+                        Oops! Page Not Found.
+                    </div>
                     <Link 
                         href={'/'}
-                        className="text-lg bg-gray-500 text-white px-2 pt-1 pb-2 ml-10 rounded-md"
-                    >← Go Home</Link>
+                        className="text-lg text-gray-500 px-2 pt-1 pb-2 ml-10 rounded-md border-gray-500 border-[1.4px] font-[500] bg-transparent"
+                    >
+                        ← Go Home
+                    </Link>
                 </div>
                 <Image
                     src={imgSrc}

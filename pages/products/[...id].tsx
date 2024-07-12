@@ -7,6 +7,8 @@ import { ClipLoader } from "react-spinners";
 import { loaderColor } from "@/config/config";
 import ImageSlider from "@/components/SingleProduct/ImageSlider";
 import ProductInfo from "@/components/SingleProduct/ProductInfo";
+import { IoIosArrowRoundDown } from "react-icons/io";
+import RatingsAndReviews from "@/components/SingleProduct/Rating&Reviews";
 
 export default function SingleProductPage() {
     const [product, setProduct] = useState<Product | null>(null);
@@ -52,15 +54,24 @@ export default function SingleProductPage() {
                     />
                 </div>
                     :
-                <div className="flex items-start max-md:flex-col p-10 max-sm:p-4">
-                    <ImageSlider
-                        product={product}
-                        slideIndex={slideIndex}
-                        setSlideIndex={setSlideIndex}
-                    />
-                    <div className="ml-8 max-md:flex max-md:justify-center max-md:flex-col">
-                        <div className="text-2xl font-semibold">{product?.name}</div>
-                        <ProductInfo product={product} />
+                <div className="flex flex-col">
+                    <div className="flex items-start max-md:flex-col p-10 max-sm:p-4">
+                        <ImageSlider
+                            product={product}
+                            slideIndex={slideIndex}
+                            setSlideIndex={setSlideIndex}
+                        />
+                        <div className="ml-8 max-md:flex max-md:justify-center max-md:flex-col">
+                            <div className="text-2xl font-semibold">{product?.name}</div>
+                            <ProductInfo product={product} />
+                        </div>
+                    </div>
+                    <div className="p-10 w-[75%] max-md:w-full">
+                        <h1 className="flex text-4xl font-bold underline ratings mb-5">
+                            Ratings & Reviews
+                            <IoIosArrowRoundDown className="mt-1 w-8 h-8" />
+                        </h1>
+                        <RatingsAndReviews />
                     </div>
                 </div>
             }

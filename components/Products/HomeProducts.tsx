@@ -4,7 +4,6 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Product } from "@/config/types";
 import { MdShoppingCart } from "react-icons/md";
-import { PiCurrencyInrBold } from "react-icons/pi";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { moneyComaSeperator } from "@/config/functions";
 import { ClipLoader } from "react-spinners";
@@ -68,32 +67,45 @@ export default function NewProducts() {
                             className="w-full h-full rounded-md"
                         />
                     </Link>
-                    <div className="flex flex-col w-full font-medium text-wrap p-3">
+                    <div className="flex flex-col w-full font-medium text-wrap">
                         <div 
-                            className="w-full p-2 text-gray-600 text-lg rounded-md capitalize font-normal"
+                            className="w-full text-gray-600 rounded-md capitalize font-normal mb-2"
                         >
-                            {product.name}
+                        {
+                            product.name.length <= 28
+                                ?
+                            product.name
+                                :
+                            `${product.name.substring(0, 27)}...`
+                        }
                         </div>
-                        <div className="flex justify-between">
-                            <div className="flex items-center justify-center">
-                                <PiCurrencyInrBold 
-                                    className="w-[20px] h-[20px] text-gray-500 -mr-[2px]"
-                                />
+                        <div>
+                            <div className="flex items-center justify-start gap-3">
+                                <span 
+                                    className="italic text-gray-500 text-xs line-through"
+                                >
+                                    ₹{moneyComaSeperator(Math.floor(
+                                        product.price*(100+product.discountPercentage)/100
+                                    ))}
+                                </span>
                                 <span 
                                     className="italic text-gray-900 text-lg font-extrabold"
                                 >
-                                    {moneyComaSeperator(product.price)}
+                                    ₹{moneyComaSeperator(product.price)}
+                                </span>
+                                <span className="text-sm text-green-600">
+                                    {product.discountPercentage}%off
                                 </span>
                             </div>
                             <button 
-                                className="bg-transparent border-yellow-500 border-[1.5px] bg-yellow-500 text-white  px-4 py-2 rounded-md p-1 flex items-center justify-center mb-1 w-1/2 hover:scale-110 hover:transition-all"
+                                className="bg-transparent border-white border-[1.5px]  bg-slate-600 text-white  px-4 py-2 rounded-md p-1 flex items-center justify-center mb-1 w-full mt-2 hover:bg-slate-500"
                                 onClick={() => addProductToCart(product._id)}
                             >
                                 <MdShoppingCart 
                                     className="w-6 h-6 mr-2"
                                 />
                                 <span className="uppercase">
-                                    Add
+                                    Add To Cart
                                 </span>
                             </button>
                         </div>

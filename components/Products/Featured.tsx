@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import TransparentButton from "./Button/TransparentButton";
+import TransparentButton from "../Button/TransparentButton";
 import { MdShoppingCart } from "react-icons/md";
 import { Product } from "@/config/types";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { toast } from "react-toastify";
 
-export default function Banner() {
+export default function FeaturedProduct() {
     const [product, setProduct] = useState<Product | null>(null);
     const { addProductToCart } = useContext(CartContext) as CartContextType;
 
@@ -48,7 +48,7 @@ export default function Banner() {
                         </Link>
                     </TransparentButton>
                     <button type="button"
-                        className="bg-yellow-600 border-0 px-4 py-2 rounded-md flex items-center justify-center ml-3 font-medium"
+                        className="bg-white text-slate-800 px-4 py-2 rounded-md flex items-center justify-center ml-3 font-semibold"
                         onClick={() => addProductToCart(product?._id!)}
                     >
                         <MdShoppingCart className="w-[19px] h-[19px] mr-2" />

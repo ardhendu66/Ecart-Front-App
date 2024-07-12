@@ -4,8 +4,6 @@ import { Product } from "@/config/types";
 import { FaStar } from "react-icons/fa6";
 import { MdShoppingCart } from "react-icons/md";
 import { CartContext, CartContextType } from "@/Context/CartContext";
-import { IoIosArrowRoundDown } from "react-icons/io";
-import RatingsAndReviews from "./Rating&Reviews";
 
 interface Props {
     product: Product | null;
@@ -68,8 +66,9 @@ export default function ProductInfo({product}: Props) {
                         Add TO CART
                     </span>
                 </button>
-                <span className="flex items-center font-semibold border border-gray-400 rounded-md px-4 py-1 w-1/3 max-sm:w-full mt-2">
-                    <span className="text-gray-400 text-sm mr-2">
+                <span className="flex items-center font-semibold mt-2">
+                    <div className="bg-gray-500 w-2 h-2 rounded-full mr-1"></div>
+                    <span className="text-gray-500 text-sm mr-2">
                         Seller -
                     </span>
                     <span className="text-blue-500 text-sm">
@@ -97,13 +96,6 @@ export default function ProductInfo({product}: Props) {
                             ))
                         }
                     </div>
-                </div>
-                <div className="mt-10">
-                    <h1 className="flex text-4xl font-bold underline ratings mb-5">
-                        Ratings & Reviews
-                        <IoIosArrowRoundDown className="mt-1 w-8 h-8" />
-                    </h1>
-                    <RatingsAndReviews />
                 </div>
             </div>
         </>

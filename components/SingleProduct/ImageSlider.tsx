@@ -73,7 +73,7 @@ export default function ImageSlider({product, slideIndex, setSlideIndex}: Props)
             </div>
             <div className="mt-6 w-full flex justify-center">
                 <button 
-                    className="max-md:hidden bg-transparent border-orange-300 border-[1.6px] bg-yellow-500 text-white py-3 px-4 rounded-md flex items-center justify-center mb-1 hover:scale-110 hover:transition-all w-[83%]"
+                    className="max-md:hidden bg-transparent border-white border-[1.6px] bg-slate-600 text-white py-3 px-4 rounded-md flex items-center justify-center mb-1 w-[88%] hover:bg-slate-500"
                     onClick={() => addProductToCart(product?._id as string)}
                 >
                     <MdShoppingCart 
