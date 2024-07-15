@@ -32,7 +32,9 @@ export default function PaymentSuccess() {
 
     return (
         <main className="w-screen min-h-screen bg-gray-300">
-            <Header />
+            <div className="sticky top-0 z-10">
+                <Header />
+            </div>
             <div className="flex items-start justify-between gap-1 mt-6">
                 <div className="flex items-center justify-center w-full p-4">
                     <div className="p-4 bg-white w-[70%] max-md:w-full rounded-md">

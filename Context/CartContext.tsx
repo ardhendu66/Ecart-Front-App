@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/router";
 import { checkFrequency } from "@/config/functions";
+import { toast } from "react-toastify";
 
 export interface CartContextType {
     cartProducts: string[],
@@ -38,6 +39,7 @@ export default function CartProvider({children}: any) {
 
     const addProductToCart = (productId: string) => {
         setCartProducts(prev => [...prev, productId as string]);
+        toast.success("Product added to Cart", { position: "top-center" });
     }
 
     const removeProductFromCart = (productId: string) => {

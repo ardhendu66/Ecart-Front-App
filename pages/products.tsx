@@ -56,7 +56,9 @@ export default function Products() {
 
     return (
         <div>
-            <Header />
+            <div className="sticky top-0 z-30">
+                <Header />
+            </div>
             <div>
                 <div className="flex items-center justify-start mt-6 mb-3">
                         <div className="text-4xl font-normal ml-10 mr-20">
@@ -80,9 +82,7 @@ export default function Products() {
                             </button>
                         </form>
                 </div>
-                <div 
-                    className="w-full grid lg:grid-cols-4 md:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 my-10"
-                >
+                <div className="w-full mt-10">
                 {
                     isloadingProducts
                         ?
@@ -95,7 +95,7 @@ export default function Products() {
                         :
                     products.length > 0
                         ?
-                    <SearchedProducts
+                    <ProductsList
                         products={products}
                         addProductToCart={addProductToCart}
                     />

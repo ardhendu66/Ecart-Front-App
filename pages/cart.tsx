@@ -66,7 +66,9 @@ export default function Cart() {
         else {
             return (
                 <div className="min-h-screen bg-white">
-                    <Header />
+                    <div className="sticky top-0 z-10">
+                        <Header />
+                    </div>
                     <div className="flex flex-col justify-center items-center w-full pt-3">
                         <div className="flex justify-evenly text-3xl mb-5">
                             <span className="text-gray-500 underline">
@@ -93,7 +95,9 @@ export default function Cart() {
     else if(!cartProducts.length) {
         return (
             <main className="w-screen min-h-screen bg-gray-300">
-                <Header />
+                <div className="sticky top-0 z-10">
+                    <Header />
+                </div>
                 <div className="flex items-center justify-center gap-1 mt-6">
                     <div 
                         className="flex items-center justify-center w-[70%] max-md:w-full p-4"
@@ -109,7 +113,9 @@ export default function Cart() {
 
     return(
         <main className="bg-gray-300">
-            <Header />
+            <div className="sticky top-0 z-10">
+                <Header />
+            </div>
             <div className="flex flex-col items-center justify-center gap-1 mt-6">
                 <div className="flex items-center justify-center w-[70%] max-md:w-full p-4">
                     <div className="p-4 bg-white w-full rounded-md">

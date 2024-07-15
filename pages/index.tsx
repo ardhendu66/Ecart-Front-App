@@ -1,14 +1,15 @@
-import { useEffect } from "react";
 import Header from "@/components/Header";
 import NewProducts from "@/components/Products/HomeProducts";
-import FeaturedProduct from "@/components/Products/Featured";
+import Categories from "@/components/Categories/Categories";
 
 export default function Home() {
   return (
-    <div className="">
-      <Header />
-      <FeaturedProduct />
-      <div className="text-4xl font-normal ml-10 mt-3 -mb-4">
+    <div>
+      <div className="sticky top-0 z-10">
+        <Header />
+      </div>
+      <Categories />
+      <div className="text-4xl font-normal ml-10 mt-10 mb-5">
         New Arrivals
       </div>
       <NewProducts />

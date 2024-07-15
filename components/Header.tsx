@@ -11,46 +11,40 @@ export default function Header() {
     return (
         <>
             <header 
-                className={`grid grid-cols-7 bg-slate-800 text-white max-md:hidden`}
+                className={`grid grid-cols-7 bg-white text-black font-semibold max-md:hidden shadow-md py-2`}
             >
                 <div className="col-span-2 text-3xl text-center m-2">
                     <Link 
                         href={'/'} 
                         className="w-1/2">
-                        Ecommerce
+                        Ecomstore
                     </Link>
                 </div>
-                <nav className="col-span-4 flex justify-center">
+                <nav className="col-span-4 flex justify-center text-gray-500">
                     <Link 
                         href={'/'} 
-                        className="text-gray-300 p-2 lg:m-2 md:mx-1 md:my-2"
+                        className="p-2 lg:m-2 md:mx-1 md:my-2"
                     >
                         Home
                     </Link>
                     <Link 
                         href={'/products'} 
-                        className="text-gray-300 p-2 lg:m-2 md:mx-1 md:my-2"
+                        className="p-2 lg:m-2 md:mx-1 md:my-2"
                     >
                         Products
                     </Link>
                     <Link 
-                        href={'/categories'} 
-                        className="text-gray-300 p-2 lg:m-2 md:mx-1 md:my-2"
-                    >
-                        Categories
-                    </Link>
-                    <Link 
                         href={'/account'} 
-                        className="text-gray-300 p-2 lg:m-2 md:mx-1 md:my-2"
+                        className="p-2 lg:m-2 md:mx-1 md:my-2"
                     >
                         Account
                     </Link>
                     <Link 
                         href={'/cart'} 
-                        className="flex justify-start text-gray-300 p-2 lg:m-2 md:mx-1 md:my-2"
+                        className="flex justify-start text-gray-300 p-2"
                     >
                         <IoMdCart 
-                            className="w-[50px] h-[36px] text-yellow-500"
+                            className={`w-[50px] h-[36px] ${!cartProducts.length ? "text-slate-500" : "text-red-600"}`}
                         />
                         <span 
                             className={`${!cartProducts.length && "hidden"} flex items-center justify-center w-7 h-7 bg-sky-600 text-white rounded-full -ml-4 -mt-2`}
@@ -59,9 +53,9 @@ export default function Header() {
                         </span>
                     </Link>
                 </nav>
-                <span className="col-span-1 flex justify-between">
+                <span className="col-span-1 flex items-center justify-between">
                     <button 
-                        className="bg-blue-700 text-white font-semibold m-1 lg:px-6 md:px-3 text-lg rounded-[4px] h-[44px] mt-2"
+                        className="font-semibold border-2 border-gray-600 lg:px-6 md:px-3 text-lg rounded-[4px] h-[44px]"
                     >
                         Log in
                     </button>
@@ -75,27 +69,24 @@ export default function Header() {
             </header>
 
             <header 
-                className={`flex ${!collapseNavbar ? "flex-col" : "justify-around max-sm:justify-start"} bg-slate-800 text-white md:hidden transition-all`}
+                className={`flex ${!collapseNavbar ? "flex-col" : "justify-around max-sm:justify-start"} bg-white text-black font-semibold md:hidden transition-all`}
             >
                 <div className="text-3xl text-center m-2">
                     <Link href={'/'} className="w-1/2 max-sm:w-1/3">
-                        Ecommerce
+                        Ecomm_Giant
                     </Link>
                 </div>
                 <nav className={`flex flex-col items-center ${collapseNavbar && "hidden"}`}>
-                    <Link href={'/'} className="text-gray-300 p-2 m-2">
+                    <Link href={'/'} className="p-2 m-2">
                         Home
                     </Link>
-                    <Link href={'/products'} className="text-gray-300 p-2 m-2">
+                    <Link href={'/products'} className="p-2 m-2">
                         Products
                     </Link>
-                    <Link href={'/categories'} className="text-gray-300 p-2 m-2">
-                        Categories
-                    </Link>
-                    <Link href={'/account'} className="text-gray-300 p-2 m-2">
+                    <Link href={'/account'} className="p-2 m-2">
                         Account
                     </Link>
-                    <Link href={'/cart'} className="flex justify-start text-gray-300 p-2 m-2">
+                    <Link href={'/cart'} className="flex justify-start p-2 m-2">
                         <IoMdCart 
                             className="w-[50px] h-[36px] text-yellow-500"
                         />

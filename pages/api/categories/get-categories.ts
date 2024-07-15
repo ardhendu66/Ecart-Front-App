@@ -7,13 +7,13 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
     if(request.method === "GET") {
         try {
             const categories = await CategoryModel.find();
-            const array: any[] = [];
-            categories.map(c => {
-                if(!c.parent) {
-                    array.push(c);
-                }
-            })
-            return res.status(200).json(array);
+            if(categories) {
+                return res.status(200).json({
+                    categories, 
+                    message: "Categories found successfully"
+                });
+            }
+            return res.status(205).json({message: "Categories not found"});
         }
         catch(err: any) {
             return res.status(500).json({message: err.message});           

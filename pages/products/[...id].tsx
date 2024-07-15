@@ -43,7 +43,9 @@ export default function SingleProductPage() {
 
     return (
         <div className="bg-gray-300 min-h-screen">
-            <Header />
+            <div className="sticky top-0 z-30">
+                <Header />
+            </div>
             {
                 isLoadingProduct
                     ?

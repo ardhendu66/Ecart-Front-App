@@ -13,3 +13,37 @@ body, * {
 .ratings {
     font-family: "Josefin Slab", serif;
 }
+
+.slick-slide > div {
+    margin: 0 10px;
+}
+
+.slick-arrow.slick-next, .slick-arrow.slick-prev {
+    background-color: white;
+    color: black;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    opacity: 0.8;
+    z-index: 10;
+    padding: 10px;
+}
+
+.slick-arrow.slick-next:hover, .slick-arrow.slick-prev:hover {
+    background-color: white;
+    color: black;
+    opacity: 10;
+}
+
+.slick-prev::before,.slick-next::before {
+   display: none; 
+}
+
+.arrows {
+    height: 28px;
+    width: 28px;
+    margin: 1px;
+}

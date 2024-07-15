@@ -1,21 +1,38 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Link from "next/link";
-import { Product } from "@/config/types";
+import { Product, CategoryClass } from "@/config/types";
 import { moneyComaSeperator } from "@/config/functions";
 import { MdShoppingCart } from "react-icons/md";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 interface Props {
     products: Product[],
     addProductToCart: (p: string) => void,
 }
 
-export default function ProductsList({products, addProductToCart}: Props) {
+export default function SliderCarousel({products, addProductToCart}: Props) {
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 600,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        className:"slides",
+        prevArrow: <IoIosArrowBack to="prev" />,
+        nextArrow: <IoIosArrowForward to="next"/>,
+    }
+
     return (
-        <div className="grid grid-cols-4 gap-6 px-4">
+        <Slider {...settings} className="flex items-center justify-start mx-10">
         {
             products?.map((product: Product) => (
                 <div  
                     key={product._id} 
-                    className="cols-span-1 bg-gray-300 flex flex-col items-center justify-center gap-3 shadow-md rounded-[4px] overflow-hidden border border-gray-300 pb-1"
+                    className="cols-span-1 bg-gray-300 flex flex-col items-center justify-center shadow-md rounded-[4px] overflow-hidden border border-gray-300 pb-1"
                 >
                     <Link href={`/products/${product._id}`} 
                         className="w-full"
@@ -64,6 +81,6 @@ export default function ProductsList({products, addProductToCart}: Props) {
                 </div>
             ))
         }
-        </div>
+        </Slider>
     )
 }

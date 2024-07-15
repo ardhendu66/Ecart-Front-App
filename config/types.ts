@@ -1,5 +1,23 @@
 import { Dispatch, SetStateAction } from "react";
 
+export interface SubCategoryExtended {
+    _id: string,
+    name: string,
+    properties: Object,
+}
+export interface SubCategoryClass {
+    name: string,
+    properties: Object,
+}
+export interface CategoryClass {
+    _id: string,
+    name: string,
+    subCategory: SubCategoryClass[],
+    createdAt: Date,
+    updatedAt: Date,
+    __v: number
+}
+
 export interface Product {
     _id: string,
     name: string,
@@ -9,7 +27,8 @@ export interface Product {
     discountPercentage: number,
     amount: number,
     __v: number,
-    category?: string,
+    category: CategoryClass,
+    subCategory?: string,
     categoryProperties: Object,
     createdAt: Date,
     updatedAt: Date,
