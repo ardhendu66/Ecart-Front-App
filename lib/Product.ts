@@ -1,15 +1,15 @@
 import { Schema, Document, model, models, Types } from "mongoose";
 
 interface RatingsAndReviewsClass extends Document {
-    customerId?: Types.ObjectId,
+    userId?: Types.ObjectId,
     rating: number,
     review?: string,
 }
 
 const ratingReviewSchema: Schema<RatingsAndReviewsClass> = new Schema<RatingsAndReviewsClass>({
-    customerId: {
+    userId: {
         type: Types.ObjectId,
-        ref: "Customer"
+        ref: "User"
     },
     rating: {
         type: Number,

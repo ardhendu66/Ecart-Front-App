@@ -7,6 +7,7 @@ interface EnvironemntVariables {
     currency: string;
     successToken: string;
     failedToken: string;
+    nextAuthSecret: string;
 }
 
 export const envVariables: EnvironemntVariables = {
@@ -18,6 +19,7 @@ export const envVariables: EnvironemntVariables = {
     currency: process.env.CURRENCY as string,
     successToken: process.env.SUCCESS_ORDER_TOKEN as string,
     failedToken: process.env.FAILED_ORDER_TOKEN as string,
+    nextAuthSecret: process.env.NEXT_AUTH_SECRET_KEY as string,
 }
 
 export const loaderColor = '#1b6ea5';

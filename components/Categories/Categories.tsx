@@ -20,9 +20,7 @@ export default function CategoriesComponent() {
                 const res = await axios.get('/api/categories/get-categories');
                 if(res.status === 200) {
                     setCategories(res.data.categories);
-                    toast.success(res.data.message, { position: "top-center" });
                 }
-                toast.success(res.data.message, { position: "top-center" });
             }
             catch(err: any) {
                 console.error(err.message);
@@ -75,7 +73,7 @@ export default function CategoriesComponent() {
                 <img 
                     src={bannerArray[slideIndex].img} 
                     alt="" 
-                    className="w-full h-[290px]"
+                    className="w-full h-[290px] rounded-md"
                 />
                 <div className="sticky flex justify-center -mt-6">
                     {

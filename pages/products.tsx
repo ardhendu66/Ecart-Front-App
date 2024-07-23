@@ -4,9 +4,9 @@ import Header from "@/components/Header";
 import { Product } from "@/config/types";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { toast } from "react-toastify";
-import SearchedProducts from "@/components/Products/SearchedProductComponent";
 import ProductsList from "@/components/Products/ProductComponent";
 import { ClipLoader } from "react-spinners";
+import Layout from "@/components/Layout";
 
 export default function Products() {
     const [productArray, setProductArray] = useState<Product[]>([]);
@@ -16,8 +16,8 @@ export default function Products() {
     const { addProductToCart } = useContext(CartContext) as CartContextType;
 
     useEffect(() => {
-        document.title = 'Products'
-        console.log("title");        
+        document.title = 'Products'      
+        localStorage.setItem("path", "/products");
     }, [])
 
     useEffect(() => {
@@ -55,7 +55,7 @@ export default function Products() {
     }
 
     return (
-        <div>
+        <Layout>
             <div className="sticky top-0 z-30">
                 <Header />
             </div>
@@ -113,6 +113,6 @@ export default function Products() {
                 }
                 </div>
             </div>
-        </div>
+        </Layout>
     )
 }

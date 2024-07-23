@@ -1,9 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import Link from "next/link";
-import Image from "next/image";
-import { loadStripe } from '@stripe/stripe-js'
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import Header from "@/components/Header";
 import { Product } from "@/config/types";
@@ -12,8 +9,7 @@ import Emptycart from "@/components/Cart/Emptycart";
 import Cartproducts from "@/components/Cart/Cartproducts";
 import PaymentSuccess from "@/components/Cart/PaymentSuccess";
 import { moneyComaSeperator } from "@/config/functions";
-import { envVariables } from "@/config/config";
-import imgSrc from "@/public/404.png"
+import CustomError404 from "@/components/Error/404";
 
 export default function Cart() {
     const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
@@ -26,11 +22,12 @@ export default function Cart() {
     const [streetAddress, setStreetAddress] = useState("");
     const [loadingCartProducts, setLoadingCartProducts] = useState(false);
     const router = useRouter()
-
+     
     useEffect(() => {
-        document.title = 'Cart'       
+        document.title = 'Cart';  
+        localStorage.setItem("path", "/cart");
     }, [])
-
+    
     useEffect(() => {
         async function fetchProducts() {
             try {
@@ -64,32 +61,7 @@ export default function Cart() {
             return <PaymentSuccess />
         }
         else {
-            return (
-                <div className="min-h-screen bg-white">
-                    <div className="sticky top-0 z-10">
-                        <Header />
-                    </div>
-                    <div className="flex flex-col justify-center items-center w-full pt-3">
-                        <div className="flex justify-evenly text-3xl mb-5">
-                            <span className="text-gray-500 underline">
-                                404 error. Page you requested not found.
-                            </span>
-                            <Link 
-                                href={'/'}
-                                className="text-lg bg-gray-500 text-white px-2 pt-1 pb-2 ml-10 rounded-md"
-                            >← Go Home</Link>
-                        </div>
-                        <Image
-                            src={imgSrc}
-                            width={700}
-                            height={500}
-                            alt="error"
-                            priority
-                            className="rounded-sm"
-                        />
-                    </div>
-                </div>
-            )
+            return <CustomError404 />
         }
     }
     else if(!cartProducts.length) {
