@@ -89,7 +89,7 @@ export default function SingleCategories() {
             </div>
             <div className="relative flex justify-between my-6">
                 <div 
-                    className="sticky left-3 w-[17%] h-[566px] pl-3 overflow-y-scroll overflow-x-hidden bg-white text-sm py-4 shadow-md"
+                    className="sticky left-3 w-[17%] h-[566px] pl-3 overflow-y-scroll bg-white text-sm py-4 shadow-md rounded"
                 >
                     <div className="text-slate-500 text-lg uppercase font-medium">
                         sort by
@@ -147,7 +147,7 @@ export default function SingleCategories() {
                     <div className="text-xl font-semibold mb-4 ml-3">
                         {category === "Smartphones" ? "Mobiles" : category} : {categorizedProducts.length}
                     </div>
-                    <div className="grid grid-cols-3 gap-6 sticky right-4 w-[99%] h-full overflow-y-scroll overflow-x-hidden p-3">
+                    <div className="grid grid-cols-3 gap-6 sticky right-4 w-[99%] h-full overflow-y-scroll p-3">
                     {
                         fetchingProducts 
                             ?
@@ -160,7 +160,7 @@ export default function SingleCategories() {
                         categorizedProducts?.map(c => (
                             <div 
                                 key={c._id}  
-                                className="bg-gray-300 flex flex-col justify-between col-span-1 max-h-[370px] shadow-md pb-3 border-gray-300 border rounded"
+                                className="bg-gray-300 flex flex-col justify-between col-span-1 max-h-[370px] shadow-md pb-3 border border-gray-300 rounded"
                             >
                                 <Link href={`/products/${c._id}`} className="bg-gray-300 max-h-56">
                                     <img 

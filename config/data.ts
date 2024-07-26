@@ -1,3 +1,12 @@
+import watch from "@/public/watch.png";
+import frige from "@/public/f1.png";
+import processor from "@/public/intel1.png";
+import headphone from "@/public/headphone.png";
+import shoe from "@/public/shoe1.png";
+import cloth from "@/public/clothes2.png";
+import keyboard from "@/public/keyboard.png";
+import mouse from "@/public/mouse.png";
+
 export const data = [
     {
         userId: 1,
@@ -26,19 +35,50 @@ export const data = [
     },
 ]
 
-export const bannerArray = [{
+export const bannerArray = [
+    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720881251/banner3_sk4krj.jpg",
+    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720875176/Banner2_f8yo5t.jpg",
+    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720877220/banner2_nn0yn3.png",
+]
+
+export const categoriesImageSupplier = [{
     id: 1,
-    img: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720881251/banner3_sk4krj.jpg"
+    category: "Smartphones",
+    image_url: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1722013517/Apple1_v2pnxk.png" 
 }, {
     id: 2,
-    img: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720875176/Banner2_f8yo5t.jpg"
+    category: "Laptops",
+    image_url: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1722013803/mac1_k91zgb.png"
 }, {
     id: 3,
-    img: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720877220/banner2_nn0yn3.png"
+    category: "Headphones",
+    image_url: headphone.src,
+}, {
+    id: 4,
+    category: "Shoe",
+    image_url: shoe.src,
+}, {
+    id: 5,
+    category: "Mouse",
+    image_url: mouse.src,
+}, {
+    id: 6,
+    category: "Keyboard",
+    image_url: keyboard.src,
+}, {
+    id: 7,
+    category: "Cloths",
+    image_url: cloth.src,
+}, {
+    id: 8,
+    category: "Processor",
+    image_url: processor.src,
+}, {
+    id: 9,
+    category: "Refrigerator",
+    image_url: frige.src,
+}, {
+    id: 10,
+    category: "Watches",
+    image_url: watch.src,
 }]
-
-export const categoriesImageSupplier = [
-    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720990031/file_djuycz.png",
-    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1717869277/mac-pro_oimbit.png",
-    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720989588/laptop_rkdiu7.png",
-]

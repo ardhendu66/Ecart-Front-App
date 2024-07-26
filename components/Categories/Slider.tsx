@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import Link from "next/link";
-import { Product, CategoryClass } from "@/config/types";
+import { Product } from "@/config/types";
 import { moneyComaSeperator } from "@/config/functions";
 import { MdShoppingCart } from "react-icons/md";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -9,23 +7,23 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+const settings = {
+    dots: true,
+    infinite: false,
+    speed: 600,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    className:"slides",
+    prevArrow: <IoIosArrowBack to="prev" />,
+    nextArrow: <IoIosArrowForward to="next"/>,
+}
+
 interface Props {
     products: Product[],
     addProductToCart: (p: string) => void,
 }
 
 export default function SliderCarousel({products, addProductToCart}: Props) {
-    const settings = {
-        dots: true,
-        infinite: false,
-        speed: 600,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        className:"slides",
-        prevArrow: <IoIosArrowBack to="prev" />,
-        nextArrow: <IoIosArrowForward to="next"/>,
-    }
-
     return (
         <Slider {...settings} className="flex items-center justify-start mx-10">
         {
