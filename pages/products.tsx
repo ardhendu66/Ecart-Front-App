@@ -6,7 +6,7 @@ import { CartContext, CartContextType } from "@/Context/CartContext";
 import { toast } from "react-toastify";
 import ProductsList from "@/components/Products/ProductComponent";
 import { ClipLoader } from "react-spinners";
-import Layout from "@/components/Layout";
+import Footer from "@/components/Footer";
 
 export default function Products() {
     const [productArray, setProductArray] = useState<Product[]>([]);
@@ -55,11 +55,11 @@ export default function Products() {
     }
 
     return (
-        <Layout>
+        <div>
             <div className="sticky top-0 z-30">
                 <Header />
             </div>
-            <div>
+            <div className="mb-6">
                 <div className="flex items-center justify-start mt-6 mb-3">
                         <div className="text-4xl font-normal ml-10 mr-20">
                             All Products
@@ -113,6 +113,7 @@ export default function Products() {
                 }
                 </div>
             </div>
-        </Layout>
+            <Footer/>
+        </div>
     )
 }

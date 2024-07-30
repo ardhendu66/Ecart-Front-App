@@ -1,3 +1,5 @@
+import mobile from "@/public/file.png";
+import laptop from "@/public/laptop.png";
 import watch from "@/public/watch.png";
 import frige from "@/public/f1.png";
 import processor from "@/public/intel1.png";
@@ -6,6 +8,8 @@ import shoe from "@/public/shoe1.png";
 import cloth from "@/public/clothes2.png";
 import keyboard from "@/public/keyboard.png";
 import mouse from "@/public/mouse.png";
+import banner1 from "@/public/banner2.png";
+import banner2 from "@/public/banner3.png";
 
 export const data = [
     {
@@ -36,19 +40,17 @@ export const data = [
 ]
 
 export const bannerArray = [
-    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720881251/banner3_sk4krj.jpg",
-    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720875176/Banner2_f8yo5t.jpg",
-    "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1720877220/banner2_nn0yn3.png",
+    banner1.src, banner2.src,
 ]
 
 export const categoriesImageSupplier = [{
     id: 1,
     category: "Smartphones",
-    image_url: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1722013517/Apple1_v2pnxk.png" 
+    image_url: mobile.src,
 }, {
     id: 2,
     category: "Laptops",
-    image_url: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1722013803/mac1_k91zgb.png"
+    image_url: laptop.src,
 }, {
     id: 3,
     category: "Headphones",

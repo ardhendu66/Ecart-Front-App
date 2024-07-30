@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Product } from "@/config/types";
@@ -6,7 +5,7 @@ import { CartContext, CartContextType } from "@/Context/CartContext";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import ProductsList from "./ProductComponent";
-import Slider from "../Categories/Slider";
+import SliderCarousel from "../Categories/Slider";
 
 interface Props {
     products: Product[]
@@ -27,7 +26,7 @@ export default function NewProducts() {
                 )
                 setProductHeadphones(prev => {
                     res.data.products.map(p => {
-                        if(p.category === "669117c8e34df8c2d9ecf3c4") {
+                        if(p.category._id === "669117c8e34df8c2d9ecf3c4") {
                             prev.push(p);
                         }
                     })
@@ -35,14 +34,14 @@ export default function NewProducts() {
                 })
                 setProductMobiles(prev => {
                     res.data.products.map(p => {
-                        if(p.category === "668f8af839f662de715bb4f6") {
+                        if(p.category._id === "668f8af839f662de715bb4f6") {
                             prev.push(p);
                         }
                     })
                     return prev;
                 })
             }
-            catch(err) {
+            catch(err: any) {
                 toast.info('Not able to fetch Products', { position: "top-center" })
                 console.error(err.message);              
             }
@@ -57,7 +56,7 @@ export default function NewProducts() {
 
 
     return (
-        <>
+        <div className="mb-10">
         {
             isloadingProducts
                 ?
@@ -76,7 +75,7 @@ export default function NewProducts() {
                     {
                         productHeadphones?.length > 0
                             ?
-                        <Slider 
+                        <SliderCarousel
                             products={productHeadphones} 
                             addProductToCart={addProductToCart} 
                         />
@@ -93,7 +92,7 @@ export default function NewProducts() {
                     {
                         productMobiles?.length > 0
                             ?
-                        <Slider 
+                        <SliderCarousel 
                             products={productMobiles} 
                             addProductToCart={addProductToCart} 
                         />
@@ -105,6 +104,6 @@ export default function NewProducts() {
                 </div>
             </div>
         }
-        </>
+        </div>
     )
 }

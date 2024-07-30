@@ -43,26 +43,32 @@ export default function CategoriesComponent() {
         <div className="mx-2 mt-4">
             <div className="flex px-2 mb-6 overflow-y-scroll">
             {
-                categories.map((c, index) => (
-                    <Link 
-                        key={index} 
+                categories.map((c, index) => {
+                    const category_Image = categoriesImageSupplier.find(
+                        i => i.category === c.name
+                    );
+
+                    return <Link key={index} 
                         href={`/products/categories/${c._id}?category=${c.name}`} 
+                        target="_blank"
                         className="flex flex-col items-center justify-center mx-3.5"
                     >
-                        <div className="w-[88px] h-[88px] flex items-center justify-center bg-slate-300 rounded-full">
+                        <div 
+                            className={`w-[88px] h-[88px] flex items-center justify-center bg-slate-300 rounded-full ${["Laptops"].some(f => f === c.name) ? "p-5" : c.name === "Refrigerator" ? "p-8" : c.name === "Headphones" ? "p-6" : c.name === "Processor" && "p-4"}`}
+                        >
                             <img
-                                src={categoriesImageSupplier[index].image_url}
+                                src={category_Image?.image_url}
                                 width={64}
                                 height={64}
                                 alt="error"
-                                className={`object-contain w-16 h-16 hover:scale-125 hover:transition-all hover:duration-300 ${c.name === "Cloths" && "rounded-full"}`}
+                                className={`object-contain w-16 h-16 hover:scale-125 hover:transition-all hover:duration-300 ${c.name === "Cloths" ? "rounded-full" : c.name === "Shoe" && "scale-125 hover:scale-150 mb-3"}`}
                             />
                         </div>
                         <div className="text-sm font-semibold">
                             {c.name === "Smartphones" ? "Mobiles" : c.name}
                         </div>
                     </Link>
-                ))
+                })
             }
             </div>
             <div className="w-full px-2">

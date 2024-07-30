@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -39,32 +40,32 @@ export default function RegisterPage() {
         ) { 
             return;
         }
-        try {
+
+        axios.post("/api/auth/user/register", { name, email: emailId, password, phoneNo })
+        .then(res => {
             setIsSigningUp(true);
-            const res = await axios.post("/api/auth/user/signup", {
-                name, email: emailId, password, phoneNo
-            });
-            if(res.status === 201) {
+            if(res.status === 200 || res.status === 201) 
                 toast.success(res.data.message, { position: "top-center" });
-            }
-        }
-        catch(e: any) {
-            console.error(e.message);
-        }
-        finally {
-            setIsSigningUp(false);
-        }
+            else
+                toast.info(res.data.message, { position: "top-center" });
+        })
+        .catch((err: AxiosError) => {
+            console.error(err);
+            // @ts-ignore
+            toast.error(err.response?.data.message, { position: "top-center" });         
+        })
+        .finally(() => setIsSigningUp(false));
     }
 
     return (
         <div>
             <div className="sticky top-0 z-10">
-                <Header />
+                <Header/>
             </div>
             <div className="flex items-center justify-center my-6">
                 <div className="flex flex-col items-center justify-center max-md:w-[97%] w-[35%] py-5 px-7 bg-white shadow-lg rounded-md border-t-[5px] border-gray-400 pb-6 border-b-[1.5px]">
                     <h1 className="text-2xl font-semibold mb-6">
-                        Login with Email Id
+                        Create your Account
                     </h1>
                     <input 
                         type="text" 
@@ -152,6 +153,7 @@ export default function RegisterPage() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     )
 }

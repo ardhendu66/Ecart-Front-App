@@ -8,14 +8,14 @@ interface UserProducts extends Document {
 }
 
 const userProductSchema: Schema<UserProducts> = new Schema<UserProducts>({
-    ordered: {
-        type: [Types.ObjectId],
+    ordered: [{
+        type: Types.ObjectId,
         ref: "Product"
-    },
-    cancelled: {
-        type: [Types.ObjectId],
+    }],
+    cancelled: [{
+        type: Types.ObjectId,
         ref: "Product"
-    }
+    }]
 }, {
     _id: false
 })
@@ -31,7 +31,7 @@ interface UserClass extends Document {
     forgotPasswordToken?: string,
     verifyTokenExpiry?: Date,
     forgotPasswordTokenExpiry?: Date,
-    address?: [Types.ObjectId],
+    address?: Types.ObjectId[],
     products?: UserProducts,
 }
 
@@ -89,7 +89,7 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
         type: String,
         required: [true, "Image is required"],
         trim: true,
-        default: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1717239604/pexels-pixabay-220429_bngcul.jpg"
+        default: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1722334201/pexels-blitzboy-1040880_mljgok.jpg",
     },
     emailVerified: {
         type: Boolean,
@@ -110,10 +110,10 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
         type: Date,
         default: new Date(new Date().setMinutes(new Date().getMinutes() + 30)),
     },
-    address: {
-        type: Array(Types.ObjectId),
+    address: [{
+        type: Types.ObjectId,
         ref: "Address"
-    },
+    }],
     products: {
         type: userProductSchema,
     }

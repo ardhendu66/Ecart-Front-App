@@ -36,10 +36,10 @@ export default function SliderCarousel({products, addProductToCart}: Props) {
                         className="w-full"
                     >
                         <img 
-                            src={'https://res.cloudinary.com/next-ecom-cloud/image/upload/v1717869277/mac-pro_oimbit.png'}
+                            src={product.images[0]}
                             alt="error"
-                            className="w-full h-[200px] hover:scale-110 hover:transition-all
-                            duration-300"
+                            className={`w-full h-[200px] hover:scale-110 hover:transition-all
+                            duration-300 ${!product.subCategory?.includes("Apple") && "py-7 px-20"}`}
                         />
                     </Link>
                     <div className="bg-white flex flex-col w-full font-medium text-wrap py-4">

@@ -11,7 +11,7 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
                 const products = await Product.find({
                     category: new mongoose.Types.ObjectId(`${request.query.id}`)
                 })
-                // .populate('category')
+                .populate('category')
                 if(products) {
                     return res.status(200).json({products: products}); 
                 }
@@ -21,7 +21,7 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
             const products = await Product.find(
                 {}, null, {sort: {updatedAt: -1}}
             )
-            // .populate('category');
+            .populate('category');
             if(products) {
                 return res.status(200).json({products: products}); 
             }

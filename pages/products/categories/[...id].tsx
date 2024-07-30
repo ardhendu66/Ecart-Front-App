@@ -164,7 +164,7 @@ export default function SingleCategories() {
                             >
                                 <Link href={`/products/${c._id}`} className="bg-gray-300 max-h-56">
                                     <img 
-                                        src={"https://res.cloudinary.com/next-ecom-cloud/image/upload/v1717869277/mac-pro_oimbit.png"} 
+                                        src={c.images[1]} 
                                         alt="error"
                                         className="w-full h-full hover:scale-110 hover:transition-all hover:duration-300" 
                                     />

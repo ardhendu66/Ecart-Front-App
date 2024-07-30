@@ -52,3 +52,17 @@ body, * {
     width: 28px;
     margin: 1px;
 }
+
+.dropdown {
+    position: absolute;
+    top: 4rem;
+    right: 3rem;
+    max-width: 200px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 26px;
+    padding-right: 26px;
+    border-radius: 8px;
+    background-color: white;
+    z-index: 50;
+}

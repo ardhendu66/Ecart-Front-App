@@ -17,7 +17,15 @@ export default function LoginPage() {
     const { status } = useSession();
 
     useEffect(() => {
-        if (status === "authenticated") router.push("/");
+        if (
+            status === "authenticated" && 
+            (
+                router.pathname.startsWith("/auth/login") ||
+                router.pathname.startsWith("/auth/register")
+            )
+        ) {
+            router.push("/");
+        }
     }, [status, router, router.pathname])
 
     useEffect(() => {
@@ -29,14 +37,14 @@ export default function LoginPage() {
         if(!emailId || !password || emailId === "" || password === "") return;
         try {
             setIsSigningIn(true);
-            const res = await signIn('credentials', {
+            const res = await signIn('Credentials', {
                 email: emailId, password,
-                redirect: true,
-                callbackUrl: `/${router?.query.url}`
+                redirect: false,
             });
             if(res?.ok) {
+                console.error('Sign-in error:', res.error);
                 toast.success("Logged in successfully", { position: "top-center" });
-                router.push(`/${router?.query.url}`);
+                router.push(`/`);
             }
             else if(res?.error) {
                 toast.error("Wrong Email or Password", { position: "top-center" });

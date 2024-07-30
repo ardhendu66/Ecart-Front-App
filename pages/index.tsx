@@ -1,8 +1,8 @@
-import Header from "@/components/Header";
+import { useEffect } from "react";
 import NewProducts from "@/components/Products/HomeProducts";
 import Categories from "@/components/Categories/Categories";
-import Layout from "@/components/Layout";
-import { useEffect } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   useEffect(() => {
@@ -19,6 +19,7 @@ export default function Home() {
         New Arrivals
       </div>
       <NewProducts />
+      <Footer />
     </div>
   )
 }

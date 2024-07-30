@@ -9,8 +9,8 @@ import { envVariables } from "@/config/config";
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
-            id: 'credentials',
-            name: 'credentials',
+            id: 'Credentials',
+            name: 'Credentials',
             credentials: {
                 email: {
                     label: "Email",
@@ -33,10 +33,6 @@ export const authOptions: NextAuthOptions = {
                     });
                     if(!user) {
                         console.log('No User found with this email-id');                        
-                        return null;
-                    }
-                    if(!user.emailVerified) {
-                        console.log(`Please verify your email`);                        
                         return null;
                     }
                     const isPasswordCorrect = await bcrypt.compare(
