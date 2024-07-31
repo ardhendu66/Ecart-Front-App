@@ -18,7 +18,7 @@ export default function ResponsiveHeaderWhileNoSession(
                 Ecomm_Giant
             </Link>
         </div>
-        <nav className={`flex flex-col items-center ${collapseNavbar && "hidden"}`}>
+        <nav className={`flex flex-col items-center ${collapseNavbar && "hidden"} text-xl font-normal`}>
             <Link href={'/'} className="p-2 m-2">
                 Home
             </Link>
@@ -32,6 +32,7 @@ export default function ResponsiveHeaderWhileNoSession(
                 <span className={`${!cartProducts.length && "hidden"} flex items-center justify-center w-7 h-7 bg-sky-600 text-white rounded-full -ml-4 -mt-2`}>
                     {cartProducts.length}
                 </span>
+                <span className="text-slate-500 mt-1">Cart</span>
             </Link>
         </nav>
         <div className="text-center mb-2">

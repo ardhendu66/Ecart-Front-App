@@ -20,7 +20,7 @@ export default function NormalHeaderWhileNoSession(
                 Ecomstore
             </Link>
         </div>
-        <nav className="col-span-4 flex justify-center text-gray-500">
+        <nav className="col-span-4 flex justify-center text-gray-500 text-xl font-normal">
             <Link 
                 href={'/'} 
                 className="p-2 lg:m-2 md:mx-1 md:my-2"
@@ -45,6 +45,7 @@ export default function NormalHeaderWhileNoSession(
                 >
                     {cartProducts.length}
                 </span>
+                <span className="text-slate-500 mt-1">Cart</span>
             </Link>
         </nav>
         <span className="col-span-1 flex items-center justify-between">

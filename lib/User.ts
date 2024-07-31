@@ -1,6 +1,6 @@
 import { Schema, model, models, Document, Types } from "mongoose";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
 interface UserProducts extends Document {
     ordered?: Types.ObjectId[],
@@ -57,8 +57,10 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
         type: String,
         required: [true, "Password is required!"],
         validate: {
-            validator: (value: string) => passwordRegex.test(value),
-            message: ({value}) => `Password should contain minimum eight characters with one letter, one number and one special character`
+            validator(value: string) {
+                passwordRegex.test(value)
+            },
+            message: ({value}) => `Password validation failed`
         },
         trim: true,
     },
@@ -81,7 +83,7 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
                 return true;
             },
             message({value}) {
-                return `${value} as phoneNo is not valid`
+                return `Phone_Number must consist 10 digits and doesn't start with any digit less than 6`
             }
         },
     },
@@ -89,7 +91,7 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
         type: String,
         required: [true, "Image is required"],
         trim: true,
-        default: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1722334201/pexels-blitzboy-1040880_mljgok.jpg",
+        default: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1722359725/profile_gspnec.jpg",
     },
     emailVerified: {
         type: Boolean,

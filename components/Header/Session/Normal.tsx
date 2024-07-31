@@ -18,7 +18,7 @@ export default function NormalHeaderWhileSession(
                 Ecomstore
             </Link>
         </div>
-        <nav className="col-span-4 flex justify-center text-gray-500">
+        <nav className="col-span-4 flex justify-center text-gray-500 text-xl font-normal">
             <Link 
                 href={'/'} 
                 className="p-2 lg:m-2 md:mx-1 md:my-2"
@@ -33,7 +33,7 @@ export default function NormalHeaderWhileSession(
             </Link>
             <Link 
                 href={'/cart'} 
-                className="flex justify-start text-gray-300 p-2"
+                className="flex justify-start text-gray-300 p-2 mt-1"
             >
                 <IoMdCart 
                     className={`w-[50px] h-[36px] ${!cartProducts.length ? "text-slate-500" : "text-red-600"}`}
@@ -43,6 +43,7 @@ export default function NormalHeaderWhileSession(
                 >
                     {cartProducts.length}
                 </span>
+                <span className="text-slate-500 mt-1">Cart</span>
             </Link>
         </nav>
         <span className="col-span-1 flex items-center justify-between">

@@ -9,6 +9,13 @@ export default function ProtectedLayout({children}: any) {
     const { data: session, status } = useSession();
     const router = useRouter();
 
+    useEffect(() => {
+        if(status === "unauthenticated") {
+            router.push("/");
+            console.log("render");            
+        }
+    }, [status])
+
     if(!session) {
         return (
             <div className="">

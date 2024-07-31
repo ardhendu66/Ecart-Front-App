@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 export default function LoginPage() {
     const [emailId, setEmailId] = useState("");
@@ -14,7 +15,7 @@ export default function LoginPage() {
     const [isSigningIn, setIsSigningIn] = useState(false); 
     const [areDetailsFilledUp, setAreDetailsFilledUp] = useState(false); 
     const router = useRouter();
-    const { status } = useSession();
+    const { data: session, status } = useSession();
 
     useEffect(() => {
         if (
@@ -33,27 +34,35 @@ export default function LoginPage() {
             setAreDetailsFilledUp(true);
     }, [emailId, password])
 
-    const signInWithCredentials = async () => {
-        if(!emailId || !password || emailId === "" || password === "") return;
-        try {
-            setIsSigningIn(true);
-            const res = await signIn('Credentials', {
-                email: emailId, password,
-                redirect: false,
-            });
+    const signInWithCredentials = () => {
+        if(!emailId || !password || emailId === "" || password === "") 
+            return;
+        setIsSigningIn(true);
+        signIn('Credentials', {
+            email: emailId, password,
+            redirect: false,
+        }).then(res => {
             if(res?.ok) {
-                console.error('Sign-in error:', res.error);
                 toast.success("Logged in successfully", { position: "top-center" });
-                router.push(`/`);
+                router.push(`/profile/${session?.user._id}/?user=${session?.user.name?.replaceAll(" ", "-")}`);
+                return;
             }
             else if(res?.error) {
-                toast.error("Wrong Email or Password", { position: "top-center" });
+                console.error(res.error);
+                if(res.error === "Database Connection error") 
+                    toast.error("Check your Internet Connection", { position: "top-center" });
+                else 
+                    toast.error(res?.error, { position: "top-center" });
             }
-        }
-        catch(e: any) {
-            console.error(e.message);
-            toast.error("Invalid Email or Password", { position: "top-center" });
-        }
+        })
+        .catch(err => {
+            console.error(err.message);
+            if(err.message === "Database Connection error") 
+                toast.error("Check your Internet Connection", { position: "top-center" });
+            else 
+                toast.error("Invalid Email or Password", { position: "top-center" });
+        })
+        .finally(() => setIsSigningIn(false))
     }
 
     return (
@@ -99,10 +108,14 @@ export default function LoginPage() {
                     <button
                         type="button"
                         disabled={!areDetailsFilledUp}
-                        className={`w-full bg-gray-500 py-2 text-white rounded-md text-2xl font-semibold mb-2 ${!areDetailsFilledUp && "cursor-not-allowed"}`}
+                        className={`flex items-center justify-center w-full py-2 text-white rounded-md text-2xl font-semibold mb-2 ${!areDetailsFilledUp && "cursor-not-allowed"} ${isSigningIn ? "bg-gray-400" : "bg-gray-500"}`}
                         onClick={signInWithCredentials}
                     >
-                        Log in
+                    {
+                        isSigningIn ? 
+                        <ClipLoader color="white" size={30} className="" />
+                        : <span>Log in</span>
+                    }
                     </button>
                     <div className="flex justify-end text-sm w-full mr-4">
                         <span className="[word-spacing:-1.5px]">

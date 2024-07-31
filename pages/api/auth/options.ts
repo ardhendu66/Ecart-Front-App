@@ -24,28 +24,32 @@ export const authOptions: NextAuthOptions = {
                 }
             },
             async authorize(credentials): Promise<any> {
-                if(!credentials || !credentials.email || !credentials.password) return null;
+                if(!credentials || !credentials.email || !credentials.password) {
+                    // return { error: "Please fill all the details carefully" };
+                    throw new Error("Please fill all the details carefully");
+                };
 
                 await ConnectionWithMongoose();
                 try {
                     const user = await UserModel.findOne({
                         email: credentials.email
                     });
-                    if(!user) {
-                        console.log('No User found with this email-id');                        
-                        return null;
+                    if(!user) {                        
+                        // return { error: "Please give a correct Email-id" };
+                        throw new Error("Account with this email-id not found");
                     }
                     const isPasswordCorrect = await bcrypt.compare(
                         credentials.password, user.password
                     );
                     if(!isPasswordCorrect) {
-                        console.log(`Incorrect password`);
-                        return null;
+                        // return { error: "Incorrect password" };
+                        throw new Error("Incorrect password given");
                     }
                     return user;
                 }
                 catch(err: any) {
                     console.error(err.message);
+                    throw new Error(err.message);
                 }
             }
         })

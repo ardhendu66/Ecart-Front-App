@@ -5,9 +5,10 @@ import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { toast } from "react-toastify";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { MdErrorOutline } from "react-icons/md";
 
 export default function RegisterPage() {
     const [name, setName] = useState("");
@@ -19,6 +20,7 @@ export default function RegisterPage() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);  
     const [isSigningUp, setIsSigningUp] = useState(false); 
     const [areDetailsFilledUp, setAreDetailsFilledUp] = useState(false); 
+    const [ErrorMessage, setErrorMessage] = useState(""); 
     const router = useRouter();
     const { status } = useSession();
 
@@ -41,18 +43,34 @@ export default function RegisterPage() {
             return;
         }
 
+        if(password !== confirmPassword) {
+            toast.error(
+                "Password & Confirm Password mismatch", 
+                { position: "top-center" }
+            );
+            return;
+        }
         axios.post("/api/auth/user/register", { name, email: emailId, password, phoneNo })
         .then(res => {
             setIsSigningUp(true);
             if(res.status === 200 || res.status === 201) 
-                toast.success(res.data.message, { position: "top-center" });
+                toast.success(res.data.message, { position: "top-center" }),
+                setTimeout(() => {
+                    router.push("/auth/login");
+                }, 500)
             else
                 toast.info(res.data.message, { position: "top-center" });
         })
         .catch((err: AxiosError) => {
             console.error(err);
-            // @ts-ignore
-            toast.error(err.response?.data.message, { position: "top-center" });         
+            if(err.response?.status === 405) {
+                // @ts-ignore
+                setErrorMessage(err.response?.data.message);
+            }
+            else {
+                // @ts-ignore
+                toast.error(err.response?.data.message, { position: "top-center" });         
+            }
         })
         .finally(() => setIsSigningUp(false));
     }
@@ -62,7 +80,22 @@ export default function RegisterPage() {
             <div className="sticky top-0 z-10">
                 <Header/>
             </div>
-            <div className="flex items-center justify-center my-6">
+            <div className="flex flex-col items-center justify-center my-6">
+                <div 
+                    className={`flex flex-col items-center justify-center ${ErrorMessage === "" && "hidden"} bg-red-600 text-white px-5 rounded mb-3 max-md:w-[97%] w-[25%] py-3`}
+                >
+                    {
+                        ErrorMessage && 
+                        <div className="flex mb-3 text-xs">
+                            <MdErrorOutline className="w-12 h-12 mr-2 -mt-[10px]" />
+                            {ErrorMessage}
+                        </div>
+                    }
+                    <div 
+                        className="w-14 bg-white py-1 text-black rounded cursor-pointer text-center font-bold"
+                        onClick={() => setErrorMessage(prev => "")}
+                    > Ok </div>
+                </div>
                 <div className="flex flex-col items-center justify-center max-md:w-[97%] w-[35%] py-5 px-7 bg-white shadow-lg rounded-md border-t-[5px] border-gray-400 pb-6 border-b-[1.5px]">
                     <h1 className="text-2xl font-semibold mb-6">
                         Create your Account

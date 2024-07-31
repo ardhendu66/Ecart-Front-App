@@ -5,14 +5,14 @@ export const ConnectionWithMongoose = async () => {
     try {
         const response = await mongoose.connect(envVariables.mongodbUrl)
         if(response) {
-            console.log('Database connected 😊')            
+            console.log('Database connected 😊');         
         }
         else {
-            console.log('Database connection error 😕')
-            console.log(response)               
+            throw new Error("Database Connection error");
         }
     }
     catch(err: any) {
         console.error(err.message);
+        throw new Error("Database Connection error");
     }
 }

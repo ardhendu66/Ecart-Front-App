@@ -2,7 +2,7 @@
 
 export default function Footer() {
     return (
-        <div className="flex justify-around bg-gray-600 text-white text-lg p-4">
+        <div className="flex justify-around bg-gray-800 text-white text-lg py-6">
             <div>
                 Copyright reserved
             </div>
