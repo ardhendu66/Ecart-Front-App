@@ -7,13 +7,7 @@ import ResponsiveHeaderWhileNoSession from "./Header/NoSession/Responsive";
 
 export default function Header() {
     const [collapseNavbar, setCollapseNavbar] = useState(true);
-    const [urlPath, setUrlPath] = useState("")
     const { data: session } = useSession();
-
-    useEffect(() => {
-        const url = localStorage.getItem("path");
-        setUrlPath(prev => url as string);
-    }, [])
 
     if(session) {
         return <div>
@@ -41,7 +35,6 @@ export default function Header() {
                 className={`grid grid-cols-7 bg-white text-black font-semibold max-md:hidden shadow-md py-2`}
             >
                 <NormalHeaderWhileNoSession 
-                    urlPath={urlPath}
                     setCollapseNavbar={setCollapseNavbar}
                 />
             </header>
