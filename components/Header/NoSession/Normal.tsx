@@ -1,15 +1,12 @@
 import { useContext, Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import { CartContextType, CartContext } from "@/Context/CartContext";
-import ProfileDropdown from "@/components/profile/Dropdown";
 import { IoMdCart } from "react-icons/io";
 import { FaBars } from "react-icons/fa6";
 
-export default function NormalHeaderWhileNoSession(
-    { urlPath, setCollapseNavbar }: {
-        urlPath: string, setCollapseNavbar: Dispatch<SetStateAction<boolean>>
-    }
-) {
+export default function NormalHeaderWhileNoSession({ 
+    setCollapseNavbar } : { setCollapseNavbar: Dispatch<SetStateAction<boolean>> 
+}) {
     const { cartProducts } = useContext(CartContext) as CartContextType;
 
     return <>
@@ -50,7 +47,7 @@ export default function NormalHeaderWhileNoSession(
         </nav>
         <span className="col-span-1 flex items-center justify-between">
             <Link
-                href={`/auth/login?url=${urlPath}`}
+                href={`/auth/login`}
                 className="flex items-center justify-center font-semibold border-[1.6px] border-gray-500 lg:px-6 md:px-3 text-lg rounded-[4px] h-[44px] hover:bg-gray-200"
             >
                 Log in

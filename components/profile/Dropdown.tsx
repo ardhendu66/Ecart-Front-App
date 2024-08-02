@@ -12,17 +12,20 @@ export default function ProfileDropdown() {
     return (
         <div>
             <div
-                className="w-[50px] h-[50px] rounded-full border-[1.3px] border-gray-400 text-xs font-normal cursor-pointer"
-                onClick={() => setShowDropdown(prev => !prev)}
+                className="flex flex-col items-center justify-center text-xs font-normal"
+                onMouseOver={() => setShowDropdown(true)}
             >
                 <img 
                     src={session?.user?.image!}
                     alt="error"
-                    className="w-full h-full rounded-full"
+                    className="w-[50px] h-[50px] rounded-full border-[1.3px] border-gray-400 cursor-pointer"
                 />
+                <p>{session?.user.name}</p>
             </div>
             <div 
                 className={`flex flex-col text-lg font-normal dropdown ${!showDropdown && "hidden"} border border-gray-400`}
+                onMouseOver={() => setShowDropdown(true)}
+                onMouseOut={() => setShowDropdown(false)}
             >
                 <ul className="flex flex-col gap-y-2 text-gray-500 text-[16px]">
                     <li className="cursor-pointer">

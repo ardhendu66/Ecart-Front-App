@@ -11,7 +11,7 @@ html {
 body, * {
     margin: 0;
     padding: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     scrollbar-width: none;
 }
 
@@ -55,7 +55,7 @@ body, * {
 
 .dropdown {
     position: absolute;
-    top: 4rem;
+    top: 3rem;
     right: 3rem;
     max-width: 200px;
     padding-top: 16px;

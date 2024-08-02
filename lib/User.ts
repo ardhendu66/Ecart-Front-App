@@ -2,6 +2,59 @@ import { Schema, model, models, Document, Types } from "mongoose";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
+interface AddressClass extends Document {
+    name: string,
+    pincode: string,
+    address: string,
+    locality: string,
+    city_district_town: string,
+    houseNo?: string,
+    landmark: string,
+    state: string,
+    country: string,
+}
+
+const addressSchema: Schema<AddressClass> = new Schema<AddressClass>({
+    name: {
+        type: String,
+        required: [true, "Name is required!"],
+        trim: true,
+    },
+    pincode: {
+        type: String,
+        required: true,
+    },
+    locality: {
+        type: String,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,
+    },
+    houseNo: {
+        type: String,
+    },
+    city_district_town: {
+        type: String,
+        required: true,
+    },
+    landmark: {
+        type: String,
+        required: true,
+    },
+    state: {
+        type: String,
+        required: true,
+    },
+    country: {
+        type: String,
+        required: true,
+        enum: ['India'],
+        default: "India"
+    },
+})
+
 interface UserProducts extends Document {
     ordered?: Types.ObjectId[],
     cancelled?: Types.ObjectId[]
@@ -31,7 +84,7 @@ interface UserClass extends Document {
     forgotPasswordToken?: string,
     verifyTokenExpiry?: Date,
     forgotPasswordTokenExpiry?: Date,
-    address?: Types.ObjectId[],
+    address?: AddressClass,
     products?: UserProducts,
 }
 
@@ -112,10 +165,9 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
         type: Date,
         default: new Date(new Date().setMinutes(new Date().getMinutes() + 30)),
     },
-    address: [{
-        type: Types.ObjectId,
-        ref: "Address"
-    }],
+    address: {
+        type: addressSchema,
+    },
     products: {
         type: userProductSchema,
     }

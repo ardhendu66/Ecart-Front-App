@@ -25,7 +25,7 @@ export default function LoginPage() {
                 router.pathname.startsWith("/auth/register")
             )
         ) {
-            router.push("/");
+            router.push("/profile");
         }
     }, [status, router, router.pathname])
 
@@ -44,7 +44,7 @@ export default function LoginPage() {
         }).then(res => {
             if(res?.ok) {
                 toast.success("Logged in successfully", { position: "top-center" });
-                router.push(`/profile/${session?.user._id}/?user=${session?.user.name?.replaceAll(" ", "-")}`);
+                router.push(`/profile`);
                 return;
             }
             else if(res?.error) {
