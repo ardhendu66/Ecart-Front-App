@@ -61,26 +61,26 @@ export default function Products() {
             </div>
             <div className="mb-6">
                 <div className="flex items-center justify-start mt-6 mb-3">
-                        <div className="text-4xl font-normal ml-10 mr-20">
-                            All Products
-                        </div>
-                        <form 
-                            className="flex w-1/2"
-                            onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleOnSearch(e)}
+                    <div className="text-4xl font-normal ml-10 mr-20">
+                        All Products
+                    </div>
+                    <form 
+                        className="flex w-1/2"
+                        onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleOnSearch(e)}
+                    >
+                        <input 
+                            type="text"
+                            placeholder="Search products by name"
+                            className="w-[70%] px-4 py-2 rounded-md mr-1 border-gray-400 border-[1.4px] outline-none"
+                            onChange={e => setSearchInput(e.target.value)}
+                        />
+                        <button 
+                            type="submit"
+                            className="bg-gray-500 text-white px-5 rounded-md hover:bg-gray-400"
                         >
-                            <input 
-                                type="text"
-                                placeholder="Search products by name"
-                                className="w-[70%] px-4 py-2 rounded-md mr-1 border-gray-400 border-[1.4px] outline-none"
-                                onChange={e => setSearchInput(e.target.value)}
-                            />
-                            <button 
-                                type="submit"
-                                className="bg-gray-500 text-white px-5 rounded-md hover:bg-gray-400"
-                            >
-                                Search
-                            </button>
-                        </form>
+                            Search
+                        </button>
+                    </form>
                 </div>
                 <div className="w-full mt-10">
                 {

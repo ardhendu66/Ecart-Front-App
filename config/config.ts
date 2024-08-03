@@ -8,6 +8,9 @@ interface EnvironemntVariables {
     successToken: string;
     failedToken: string;
     nextAuthSecret: string;
+    cloudName: string;
+    cloudApiKey: string;
+    cloudApiSecret: string;
 }
 
 export const envVariables: EnvironemntVariables = {
@@ -20,6 +23,9 @@ export const envVariables: EnvironemntVariables = {
     successToken: process.env.SUCCESS_ORDER_TOKEN as string,
     failedToken: process.env.FAILED_ORDER_TOKEN as string,
     nextAuthSecret: process.env.NEXT_AUTH_SECRET_KEY as string,
+    cloudName: process.env.CLOUDINARY_UPLOAD_CLOUD as string,
+    cloudApiKey: process.env.CLOUDINARY_API_KEY as string,
+    cloudApiSecret: process.env.CLOUDINARY_API_SECRET as string,
 }
 
 export const loaderColor = '#1b6ea5';

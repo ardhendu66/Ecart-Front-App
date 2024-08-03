@@ -26,7 +26,7 @@ export default function NewProducts() {
                 )
                 setProductHeadphones(prev => {
                     res.data.products.map(p => {
-                        if(p.category._id === "669117c8e34df8c2d9ecf3c4") {
+                        if(p.category.name === "Headphones") {
                             prev.push(p);
                         }
                     })
@@ -34,7 +34,7 @@ export default function NewProducts() {
                 })
                 setProductMobiles(prev => {
                     res.data.products.map(p => {
-                        if(p.category._id === "668f8af839f662de715bb4f6") {
+                        if(p.category.name === "Smartphones") {
                             prev.push(p);
                         }
                     })

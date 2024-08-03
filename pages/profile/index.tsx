@@ -114,11 +114,12 @@ export default function UserProfile() {
                 <Header />
             </div>
             <div 
-                className="flex flex-row-reverse max-lg:items-center max-lg:justify-center max-lg:flex-col mt-8 px-10 max-sm:px-4 gap-x-5 mb-10"
+                className="relative flex flex-row-reverse max-lg:items-center max-lg:justify-center max-lg:flex-col mt-4 px-10 max-sm:px-4 gap-x-5 mb-5"
             >
 
                 <BasicDetailsContainer 
                     fetchDetailsOfUser={fetchDetailsOfUser} 
+                    fetchUserDetails={fetchUserDetails}
                 />
 
                 <AddressDetailsContainer
