@@ -1,27 +1,15 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { useSession } from "next-auth/react";
+import axios, { AxiosError } from "axios";
+import { BasicDetailsDisabledOrNot, ProfileBasicDetails } from "@/config/Props";
+import { toast } from "react-toastify";
 
 interface Props {
     label: string,
-    inputValues: {
-        name: string;
-        email: string;
-        phoneNo: string;
-    },
-    setInputValues: Dispatch<SetStateAction<{
-        name: string;
-        email: string;
-        phoneNo: string;
-    }>> ,
-    disabled: {
-        name: boolean,
-        email: boolean,
-        phoneNo: boolean;
-    },
-    setDisabled: Dispatch<SetStateAction<{
-        name: boolean;
-        email: boolean;
-        phoneNo: boolean;
-    }>>,
+    inputValues: ProfileBasicDetails,
+    setInputValues: Dispatch<SetStateAction<ProfileBasicDetails>>,
+    disabled: BasicDetailsDisabledOrNot,
+    setDisabled: Dispatch<SetStateAction<BasicDetailsDisabledOrNot>>,
     field: "name" | "email" | "phoneNo",
 }
 
@@ -29,7 +17,8 @@ export default function Field({
     label, inputValues, setInputValues, disabled, setDisabled, field
 }: Props) 
 {
-    
+    const { data: session } = useSession();
+
     const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
         if(disabled[field]) {
             setInputValues(prev => {
@@ -39,6 +28,30 @@ export default function Field({
                 }
             })
         }
+    }
+
+    const updateDetails = (
+        field: "name" | "email" | "phoneNo", 
+        inputValues: ProfileBasicDetails,
+    ) => {
+        axios.put('/api/user/update-details', {
+            id: session?.user._id, [field]: inputValues[field], field
+        })
+        .then(res => {
+            if(res.status === 202) {
+                toast.success(res.data.message, { position: "top-center" });
+                setDisabled(prev => ({
+                    ...prev,
+                    [field]: false,
+                }))
+            }
+            else
+                toast.error(res.data.message, { position: "top-center" });
+        })
+        .catch((err: AxiosError) => 
+            //@ts-ignore
+            toast.error(err.response?.data.message || err.message, { position: "top-center" })
+        );
     }
 
     return (
@@ -64,6 +77,7 @@ export default function Field({
                 />
                 <button type="button"
                     className={`${!disabled[field] && "hidden"} bg-blue-600 px-6 py-2 rounded text-white font-semibold`}
+                    onClick={() => updateDetails(field, inputValues)}
                 > 
                     SAVE
                 </button>

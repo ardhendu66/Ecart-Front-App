@@ -46,3 +46,11 @@ export interface BasicDetailsDisabledOrNot {
     email: boolean,
     phoneNo: boolean,
 }
+
+export interface LoggedInUserDetail {
+    name: string,
+    email: string,
+    phoneNo: string,
+    emailVerified: boolean,
+    image: string,
+}
