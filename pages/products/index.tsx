@@ -33,9 +33,7 @@ export default function Products() {
                 console.error(err);              
             }
             finally {
-                setTimeout(() => {
-                    setIsLoadingProducts(false);
-                }, 1000)
+                setIsLoadingProducts(false);
             }
         }
         fetchProductArray();
@@ -59,7 +57,7 @@ export default function Products() {
             <div className="sticky top-0 z-30">
                 <Header />
             </div>
-            <div className="mb-6">
+            <div className="mb-6 min-h-[500px]">
                 <div className="flex items-center justify-start mt-6 mb-3">
                     <div className="text-4xl font-normal ml-10 mr-20">
                         All Products

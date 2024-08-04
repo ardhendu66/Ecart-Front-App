@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners"
@@ -16,46 +16,34 @@ export default function Cartorder({
     const router = useRouter();
     const { action } = router.query;
 
-    useEffect(() => {
-        const getResponse = async () => {
-            const res = await axios.get('/api/cart/webhook');
-            console.log(res.data.event);  
-            console.log("render");              
-        }
-        getResponse();
-    }, [urlInfo])
-
 
     const processOrderInformation = async (e: any) => {
         e.preventDefault();
         if(
             name === "" || phoneNumber === "" || email === "" || city === "" || pinCode === "" || streetAddress === "" || subTotal < 1
         ) {
-            toast.info("Please fill all information", { position: "top-center" })
+            toast.error("Please fill all information", { position: "top-center" });
             return;
         }
-        
-        try {
-            setIsPaymentProcessing(true);
-            const res = await axios.post('/api/cart/checkout', {
-                name, phoneNumber, email, city, pinCode, streetAddress, 
-                products: cartProducts
-            })
+
+        setIsPaymentProcessing(true);
+        axios.post('/api/cart/checkout', {
+            name, phoneNo: phoneNumber, email, city_district_town: city, pinCode, address: streetAddress, products: cartProducts
+        })
+        .then(res => {
             if(res.status === 200) {
                 setUrlInfo(res.data.url)
                 console.log("Payment_Res: ", res.data);
-                setTimeout(() => {
-                    router.push(res.data.url);
-                }, 300)
+                router.push(res.data.url);
             }         
-        }
-        catch(err: any) {
+        })
+        .catch((err: AxiosError) => {
             console.error({
                 message: err.message,
                 paymentMsg: "Payment process failed!"
             });
             toast.error("Payment process failed!", { position: "top-center" })
-        }
+        })
     }
 
     return (

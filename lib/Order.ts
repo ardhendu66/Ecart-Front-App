@@ -1,41 +1,45 @@
-import { Schema, Document, models, model } from "mongoose";
+import { Schema, Document, models, model, Types } from "mongoose";
 
 interface Order extends Document {
-    items: Object,
     name: string,
-    phoneNumber: string,
+    phoneNo: string,
     email: string,
-    city: string,
+    city_district_town: string,
     pinCode: string,
-    streetAddress: string,
+    address: string,
     paid: boolean,
+    userId?: Types.ObjectId,
+    products?: Types.ObjectId[],
 }
 
 const orderSchema: Schema<Order> = new Schema<Order>({
-    items: {
-        type: Object,
-    },
     name: {
         type: String,
     },
-    phoneNumber: {
+    phoneNo: {
         type: String,
     },
     email: {
         type: String,
     },
-    city: {
+    city_district_town: {
         type: String,
     },
     pinCode: {
         type: String,
     },
-    streetAddress: {
+    address: {
         type: String,
     },
     paid: {
         type: Boolean,
-    }
+    },
+    userId: {
+        type: Types.ObjectId,
+    },
+    products: [{
+        type: Types.ObjectId,
+    }],
 }, {
     timestamps: true,
 })

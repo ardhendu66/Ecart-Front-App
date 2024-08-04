@@ -5,17 +5,31 @@ import { ConnectionWithMongoose } from "@/lib/mongoose";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         await ConnectionWithMongoose();
-        if (req.method === "GET" && req.query.id) {
-            const { id } = req.query;
-
-            const user = await UserModel.findById(id)
-            .select("name email phoneNo image emailVerified");
-
-            if(!user) {
-                return res.status(400).json({message: "User don't exist"});
+        if (req.method === "GET") {
+            if(req.query.id) {
+                const { id } = req.query;
+    
+                const user = await UserModel.findById(id)
+                .select("name email phoneNo image emailVerified");
+    
+                if(!user) {
+                    return res.status(400).json({message: "User don't exist"});
+                }
+    
+                return res.status(200).json(user);
             }
-
-            return res.status(200).json(user);
+            else if(req.query.userId) {
+                const { userId } = req.query;
+    
+                const user = await UserModel.findById(userId)
+                .select("-password -verifyToken -verifyTokenExpiry -forgotPasswordToken -forgotPasswordTokenExpiry -__v");
+    
+                if(!user) {
+                    return res.status(400).json({message: "User don't exist"});
+                }
+    
+                return res.status(200).json(user);
+            }
         }
 
         return res.status(400).json({message: `User don't exist`});

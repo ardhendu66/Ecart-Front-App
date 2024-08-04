@@ -5,32 +5,24 @@ import { loaderColor } from "@/config/config"
 import { CartContext, CartContextType } from "@/Context/CartContext"
 import { moneyComaSeperator } from "@/config/functions"
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
-import { ClipLoader } from "react-spinners"
 
 interface Props {
     products: Product[],
-    loading: boolean,
 }
 
-const Cartproducts = ({products, loading}: Props) => {
+const Cartproducts = ({products}: Props) => {
     const { 
         cartProducts, addProductToCart, removeProductFromCart, removeCertainProduct 
     } = useContext(CartContext) as CartContextType;
 
     return (
-        <div className={`mt-3 ${loading && "text-center"}`}>
+        <div className="mt-3 text-center">
         {
-            loading 
-                ?
-            <ClipLoader
-                size={70}
-                color={loaderColor}
-            />
-                :
             products.length > 0
                 ?
             products?.map(product => (
-                <div key={product._id}
+                <div 
+                    key={product._id}
                     className="flex mb-5 bg-gray-100 border-y-[1.3px] p-4 h-[230px] rounded-sm" 
                 >
                     <div className="w-1/3 text-center h-full rounded-xl">

@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useState, useContext } from "react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetails";
+import { CartContext, CartContextType } from "@/Context/CartContext";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineSettings } from "react-icons/md";
 import { RiFolderDownloadFill } from "react-icons/ri";
 
 export default function ProfileDropdown() {
-    const { data: session } = useSession();
     const [showDropdown, setShowDropdown] = useState(false);
+    const { userDetails } = useContext(UserDetailsContext) as UserDetailsContextType;
+    const { clearCartProducts } = useContext(CartContext) as CartContextType;
 
     return (
         <div>
@@ -16,11 +19,11 @@ export default function ProfileDropdown() {
                 onMouseOver={() => setShowDropdown(true)}
             >
                 <img 
-                    src={session?.user?.image!}
+                    src={userDetails?.image}
                     alt="error"
                     className="w-[50px] h-[50px] rounded-full border-[1.3px] border-gray-400 cursor-pointer"
                 />
-                <p>{session?.user.name}</p>
+                <p>{userDetails?.name}</p>
             </div>
             <div 
                 className={`flex flex-col text-lg font-normal dropdown ${!showDropdown && "hidden"} border border-gray-400`}
@@ -51,7 +54,7 @@ export default function ProfileDropdown() {
                     </li>
                     <li 
                         className="flex items-center justify-center cursor-pointer bg-gray-600 text-white rounded px-3 py-2 w-full"
-                       onClick={() => signOut({callbackUrl: "/"})}
+                        onClick={() => (signOut({callbackUrl: "/"}), clearCartProducts())}
                     >
                         <svg 
                             xmlns="http://www.w3.org/2000/svg" 

@@ -46,9 +46,7 @@ export default function NewProducts() {
                 console.error(err.message);              
             }
             finally {
-                setTimeout(() => {
-                    setIsLoadingProducts(false);
-                }, 1000)
+                setIsLoadingProducts(false);
             }
         }
         fetchProductArray();
@@ -56,7 +54,7 @@ export default function NewProducts() {
 
 
     return (
-        <div className="mb-10">
+        <div className="mb-10 min-h-[500px]">
         {
             isloadingProducts
                 ?

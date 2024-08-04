@@ -11,6 +11,8 @@ interface EnvironemntVariables {
     cloudName: string;
     cloudApiKey: string;
     cloudApiSecret: string;
+    jwtSecret: string;
+    jwtExpiresIn: string;
 }
 
 export const envVariables: EnvironemntVariables = {
@@ -26,6 +28,8 @@ export const envVariables: EnvironemntVariables = {
     cloudName: process.env.CLOUDINARY_UPLOAD_CLOUD as string,
     cloudApiKey: process.env.CLOUDINARY_API_KEY as string,
     cloudApiSecret: process.env.CLOUDINARY_API_SECRET as string,
+    jwtSecret: process.env.JWT_SECRET_KEY as string,
+    jwtExpiresIn: process.env.JWT_EXPIRES_IN as string,
 }
 
 export const loaderColor = '#1b6ea5';

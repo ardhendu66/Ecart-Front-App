@@ -47,12 +47,13 @@ export interface Product {
 }
 
 export interface CartResponseBody {
+    userId: string,
     name: string,
-    phoneNumber: string,
+    phoneNo: string,
     email: string,
-    city: string,
+    city_district_town: string,
     pinCode: string,
-    streetAddress: string,
+    address: string,
     products: string[],
 }
 

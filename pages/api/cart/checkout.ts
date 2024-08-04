@@ -1,20 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Product from "@/lib/Product";
 import { ConnectionWithMongoose } from "@/lib/mongoose";
-import Order from "@/lib/Order";
 import { envVariables } from "@/config/config";
-import { CartResponseBody } from "@/config/types";
 import { Stripe } from "stripe";
 import { countObject } from "@/config/functions";
+import jwt from "jsonwebtoken";
 const stripe = new Stripe(envVariables.stripeSecrectKey);
 
 export default async function handler(request: NextApiRequest, res: NextApiResponse) {
     await ConnectionWithMongoose();
     if(request.method === "POST") {
         try {
-            const { 
-                name, phoneNumber, email, city, pinCode, streetAddress, products
-            }: CartResponseBody = request.body;
+            const { userId, email, products } = request.body;
             const uniqueIds = Array.from(new Set(products));
             const idsWithFrequency: Object = countObject(products);
             const productInfos = await Product.find({_id: { $in: uniqueIds }});
@@ -44,26 +41,32 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
                 })
             })
 
-            const orderDoc = await Order.create({
-                items: orderedItems, name, phoneNumber, email, city, pinCode, streetAddress, paid: false,
-            })
-
+            const successToken = jwt.sign(
+                { userId, success: true }, 
+                envVariables.jwtSecret, 
+                { expiresIn: envVariables.jwtExpiresIn }
+            );
+            const failedToken = jwt.sign(
+                { userId, success: false },
+                envVariables.jwtSecret,
+                { expiresIn: envVariables.jwtExpiresIn }
+            );
             const session = await stripe.checkout.sessions.create({
                 line_items: items,
                 mode: "payment",
                 customer_email: email,
                 currency: envVariables.currency,
-                success_url: `${envVariables.domainUrl}/cart?action=success&success_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`,
-                cancel_url: `${envVariables.domainUrl}/cart?action=failed&failure_token=eyJhbhdjPjKJVaJ2OjJtInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_bERttx6d`,
+                success_url: `${envVariables.domainUrl}/cart?token=${successToken}`,
+                cancel_url: `${envVariables.domainUrl}/cart?token=${failedToken}`,
                 metadata: { 
-                    orderId: orderDoc._id.toString() 
+                    _id: products[0]
                 },
             })
 
-            return res.status(200).json({ url: session.url! })
+            return res.status(200).json({ url: session.url! });
         }
         catch(err: any) {
-            return res.status(200).json(err.message);
+            return res.status(500).json(err.message);
         }
     }
 }

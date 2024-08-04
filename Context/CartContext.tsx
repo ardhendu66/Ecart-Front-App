@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, Dispatch, SetStateAction } from "react";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { checkFrequency } from "@/config/functions";
 import { toast } from "react-toastify";
 
@@ -18,6 +18,7 @@ export default function CartProvider({children}: any) {
     const ls = typeof window !== "undefined" ? window.localStorage : null;
     const [cartProducts, setCartProducts] = useState<string[]>([]);
     const [clearCart, setClearCart] = useState(false);
+    const { data: session } = useSession();
 
     useEffect(() => {
         if (cartProducts?.length > 0) {
@@ -38,6 +39,10 @@ export default function CartProvider({children}: any) {
     }, []);
 
     const addProductToCart = (productId: string) => {
+        if(!session) {
+            toast.error("Please Log in to add products to cart", { position: "top-center" });
+            return;
+        }
         setCartProducts(prev => [...prev, productId as string]);
         toast.success("Product added to Cart", { position: "top-center" });
     }

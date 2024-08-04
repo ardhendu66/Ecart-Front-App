@@ -3,6 +3,8 @@ import axios, { AxiosError } from "axios";
 import { ChangeEvent, useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { toast } from "react-toastify";
+import { PuffLoader, PulseLoader } from "react-spinners";
+import { loaderColor } from "@/config/config";
 
 export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDetails } : { 
     fetchDetailsOfUser: LoggedInUserDetail,
@@ -10,14 +12,22 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
 }) {
     
     const [blobImageForUpload, setblobImageForUpload] = useState<string>();
+    const [isUploadingProfileImage, setIsUploadingProfileImage] = useState(false);
 
     const handleOnUpload = (event: ChangeEvent<HTMLInputElement>) => {
+        setIsUploadingProfileImage(true);
+
         if(event.target.files === null) {
             return;
         }
-        setblobImageForUpload(URL.createObjectURL(event.target.files[0]));
+
+        if(event.target.files) {
+            setblobImageForUpload(URL.createObjectURL(event.target.files[0]));
+        }
+
         const formData = new FormData();
         formData.append('upload_image', event.target.files[0]);
+
         axios.post("/api/upload", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -45,10 +55,11 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
             //@ts-ignore
             toast.error(err.response?.data.message || err.response?.data || err.message, { position: "top-center" });            
         })
+        .finally(() => setIsUploadingProfileImage(false));
     }
 
     return (
-        <div className="sticky overflow-y-scroll w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 bg-white p-10 shadow-sm lg:h-[480px]">
+        <div className={`lg:sticky lg:overflow-y-scroll w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 bg-white p-10 shadow-sm ${!isUploadingProfileImage ? "h-[380px]" : "lg:h-[460px]"}`}>
             <div className="flex items-center justify-start gap-x-5">
                 <img 
                     src={fetchDetailsOfUser.image!} 
@@ -97,33 +108,41 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
                 </div>
             </div>
             <div className="flex flex-col mt-10 text-gray-500">
-                <label className="text-xl text-black underline mb-[6px]">
+                <label className="text-lg text-blue-600 underline mb-[6px]">
                     Change Profile Picture
                 </label>
-                <div>
                 {
                     blobImageForUpload !== undefined 
                         ?
-                    <img  
-                        src={blobImageForUpload} 
-                        alt="error"
-                        className={` w-40 h-32 rounded`}  
-                    />
-                        : null
+                    <div className={`flex gap-x-6 items-end ${isUploadingProfileImage ? "visible" : "hidden"}`}>
+                        <div className="relative">
+                            <img  
+                                src={blobImageForUpload} 
+                                alt="error"
+                                className={` w-40 h-32 rounded`}  
+                            />
+                            <PulseLoader 
+                                color={"white"}
+                                size={30}
+                                className="absolute top-12 left-8" 
+                            />
+                        </div>
+                        <div className="flex flex-col items-center justify-center gap-y-1">
+                            <PuffLoader
+                                color={loaderColor}
+                                size={60}
+                            />
+                            <div className="text-lg font-semibold">Uploading</div>
+                        </div>
+                    </div>
+                        : 
+                    null
                 }
-                </div>
                 <input 
                     type="file"
                     className="mt-2 mb-4 flex items-center justify-center"
                     onChange={(e) => handleOnUpload(e)}
                 />
-                {/* <button 
-                    type="button"
-                    className="w-full bg-blue-600 text-white text-[15px] py-2 rounded font-semibold"
-                    onClick={() => {}}
-                >
-                    SAVE
-                </button> */}
             </div>
         </div>
     )
