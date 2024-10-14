@@ -13,18 +13,19 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
         signature as string,
         envVariables.stripeWebhookSecret
     )
+    console.log("event_object", event);
     switch(event?.type) {
         case 'payment_intent.succeeded': {
             const paymentIntentSucceeded = event.data.object;
             console.log("Payment_Intent: ", paymentIntentSucceeded);
-            if(request.method === "GET") {
+            if(request.method === "POST") {
                 return res.status(200).json({event: paymentIntentSucceeded});
             }
             break;
         }
         default: {
             console.log(`Unhandled event type ${event?.type}`);
-            if(request.method === "GET") {
+            if(request.method === "POST") {
                 return res.status(200).json({event: event.type});
             }
             break;
