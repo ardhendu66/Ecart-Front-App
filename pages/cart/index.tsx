@@ -2,11 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios, { AxiosError } from "axios";
 import Cartproducts from "@/components/Cart/Cartproducts";
-import Cartorder from "@/components/Cart/Cartorder";
 import Emptycart from "@/components/Cart/Emptycart";
 import Header from "@/components/Header";
 import Layout from "@/components/Layout";
-import CustomError404 from "@/components/Error/404";
 import Footer from "@/components/Footer";
 import { moneyComaSeperator } from "@/config/functions";
 import { Product } from "@/config/types";
@@ -46,45 +44,54 @@ export default function Cart() {
     }, [cartProducts])
 
     useEffect(() => {
-        if(router.query.token) {
+        let count = 0;
+        if(count === 0) {
             setPaymentProcessing(true);
-            axios.post("/api/cart/verify-token", {
-                token: router.query.token
+            axios.post("/api/cart/verify-token", { 
+                userId: userDetails?._id, token: router?.query.token
             })
             .then(res => {
                 if(res.status === 200 && res.data.success === true) {
                     setPaymentProcessing(false);
                     setPaymentSuccess(true);
-                    axios.post('/api/cart/get-order', {})
-                    .then(resp => {
-
-                        setTimeout(() => {
-                            router.push("/cart/payment-success");
-                        }, 3000);
-                    })
+                    setTimeout(() => {
+                        router.push("/cart/payment-success");
+                    }, 6000);
                 }
             })
             .catch((err: AxiosError) => {
-                console.error(
-                    //@ts-ignore
-                    err.response?.data.message || err.response?.data || err.message
-                );
-                // router.push("/cart/payment-failed");                
+                console.error(err.response?.data || err.message);
+                //@ts-ignore
+                axios.delete(`/api/cart/delete-order?orderId=${err.response?.data.orderId}`)
+                .then(resp => {
+                    if(resp.status === 200) {
+                        setTimeout(() => {
+                            router.push("/cart/payment-failed");
+                        }, 3000)
+                    }
+                    else {
+                        console.error(resp.data);                        
+                    }
+                })
+                .catch((err: AxiosError) => console.error(err))
             })
+            count = count + 1;
         }
     }, [router.query])
+
+    var subTotalPrice = 0;
+    for(const productId of cartProducts) {
+        const price = products.find(p => p._id === productId)?.price || 0;
+        subTotalPrice += price;
+    }
 
     const handleOnPaymentProcessing = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setPaymentProcessing(true);
         axios.post('/api/cart/checkout', {
-            name: userDetails.name, 
-            phoneNo: userDetails.phoneNo, 
-            email: userDetails.email, 
-            city_district_town: userDetails.address?.city_district_town, 
-            address: userDetails.address?.address, 
-            pinCode: userDetails.address?.pincode, 
-            products: cartProducts
+            userId: userDetails._id, 
+            email: userDetails.email,
+            products: cartProducts, subTotal: subTotalPrice
         })
         .then(res => {
             if(res.status === 200) {
@@ -101,19 +108,13 @@ export default function Cart() {
         })
     }
 
-    var subTotalPrice = 0;
-    for(const productId of cartProducts) {
-        const price = products.find(p => p._id === productId)?.price || 0;
-        subTotalPrice += price;
-    }
-
-    if(router.query.token) {
+    if(router?.query.token) {
         return (
             <Layout>
                 <div className="sticky top-0 z-10">
                     <Header />
                 </div>
-                <div className="h-[500px] flex flex-col items-center pt-12 gap-y-8">
+                <div className="h-[700px] flex flex-col items-center pt-12 gap-y-8">
                     <MoonLoader
                         color={loaderColor}
                         size={150}
@@ -135,22 +136,7 @@ export default function Cart() {
     }
     
     if(!cartProducts.length) {
-        return (
-            <main className="w-screen min-h-screen bg-gray-300">
-                <div className="sticky top-0 z-10">
-                    <Header />
-                </div>
-                <div className="flex items-center justify-center gap-1 mt-6">
-                    <div 
-                        className="flex items-center justify-center w-[70%] max-md:w-full p-4"
-                    >
-                        <div className="p-4 bg-white rounded-md w-full">
-                            <Emptycart />
-                        </div>
-                    </div>
-                </div>
-            </main>
-        )
+        return <Emptycart/>
     }
 
     return(

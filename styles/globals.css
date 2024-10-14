@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 html {
-  scrollbar-width: none;
+  /* scrollbar-width: none; */
 }
 
 body,
@@ -13,6 +13,10 @@ body,
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  /* scrollbar-width: none; */
+}
+
+.scroll-visible {
   scrollbar-width: none;
 }
 
@@ -57,16 +61,16 @@ body,
 /* Profile dropdown style */
 .dropdown {
   position: absolute;
-  top: 3rem;
-  right: 3rem;
-  max-width: 200px;
+  top: 4rem;
+  right: 2rem;
+  width: 200px;
   padding-top: 16px;
   padding-bottom: 16px;
   padding-left: 26px;
   padding-right: 26px;
   border-radius: 8px;
   background-color: white;
-  z-index: 50;
+  z-index: 100;
 }
 
 

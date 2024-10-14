@@ -5,13 +5,16 @@ import { envVariables } from "@/config/config";
 import { Stripe } from "stripe";
 import { countObject } from "@/config/functions";
 import jwt from "jsonwebtoken";
+import OrderModel from "@/lib/Order";
 const stripe = new Stripe(envVariables.stripeSecrectKey);
 
 export default async function handler(request: NextApiRequest, res: NextApiResponse) {
     await ConnectionWithMongoose();
-    if(request.method === "POST") {
-        try {
-            const { userId, email, products } = request.body;
+    try {
+        if(request.method === "POST") {
+            const { userId, email, products, subTotal } = request.body;
+            console.log(request.body);
+            
             const uniqueIds = Array.from(new Set(products));
             const idsWithFrequency: Object = countObject(products);
             const productInfos = await Product.find({_id: { $in: uniqueIds }});
@@ -41,13 +44,16 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
                 })
             })
 
+            const order = await OrderModel.create({
+                userId, products, failed: false, amount_paid: subTotal
+            })
             const successToken = jwt.sign(
-                { userId, success: true }, 
+                { userId, orderId: order._id, success: true },
                 envVariables.jwtSecret, 
                 { expiresIn: envVariables.jwtExpiresIn }
             );
             const failedToken = jwt.sign(
-                { userId, success: false },
+                { userId, orderId: order._id, success: false },
                 envVariables.jwtSecret,
                 { expiresIn: envVariables.jwtExpiresIn }
             );
@@ -63,10 +69,12 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
                 },
             })
 
-            return res.status(200).json({ url: session.url! });
+            return res.status(200).json({ url: session.url!, orderId: order._id });
         }
-        catch(err: any) {
-            return res.status(500).json(err.message);
-        }
+
+        return res.status(405).json({message: "Method not allowed"});
+    }
+    catch(err: any) {
+        return res.status(500).json(err.message);
     }
 }

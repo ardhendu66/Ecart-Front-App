@@ -59,7 +59,7 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
     }
 
     return (
-        <div className={`lg:sticky lg:overflow-y-scroll w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 bg-white p-10 shadow-sm ${!isUploadingProfileImage ? "h-[380px]" : "lg:h-[460px]"}`}>
+        <div className={`w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 bg-white p-10 shadow-sm ${!isUploadingProfileImage ? "h-[380px]" : "lg:h-[460px]"}`}>
             <div className="flex items-center justify-start gap-x-5">
                 <img 
                     src={fetchDetailsOfUser.image!} 
@@ -75,7 +75,7 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
             </div>
             <div className="mt-8 text-sm flex tracking-tighter text-gray-500 mb-4">
                 <div className="font-semibold uppercase mr-1">
-                    Email_Id : 
+                    Email : 
                 </div>
                 <div>{fetchDetailsOfUser.email}</div>
                 <button 
@@ -93,7 +93,7 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
             </div>
             <div className="text-sm flex tracking-tighter text-gray-500">
                 <div className="font-semibold uppercase mr-1">
-                    Mobile_No : 
+                    Mobile : 
                 </div>
                 <div>{fetchDetailsOfUser.phoneNo}</div>
                 <div

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import NormalHeaderWhileSession from "./Header/Session/Normal";
-import ResponsiveHeaderWhileSession from "./Header/Session/Responsive";
-import NormalHeaderWhileNoSession from "./Header/NoSession/Normal";
-import ResponsiveHeaderWhileNoSession from "./Header/NoSession/Responsive";
+import NormalHeaderWithSession from "./Header/Session/Normal";
+import ResponsiveHeaderWithSession from "./Header/Session/Responsive";
+import NormalHeaderWithNoSession from "./Header/NoSession/Normal";
+import ResponsiveHeaderWithNoSession from "./Header/NoSession/Responsive";
 
 export default function Header() {
     const [collapseNavbar, setCollapseNavbar] = useState(true);
@@ -11,17 +11,13 @@ export default function Header() {
 
     if(session) {
         return <div>
-            <header 
-                className={`grid grid-cols-7 bg-white text-black font-semibold max-md:hidden shadow-md py-2`}
-            >
-                <NormalHeaderWhileSession 
+            <header className={`grid grid-cols-8 bg-sky-700 text-white font-semibold max-md:hidden shadow-xl pt-2 pb-3`}>
+                <NormalHeaderWithSession 
                     setCollapseNavbar={setCollapseNavbar} 
                 />
             </header>
-            <header 
-                className={`flex ${!collapseNavbar ? "flex-col" : "justify-around max-sm:justify-start"} bg-white text-black font-semibold md:hidden transition-all`}
-            >
-                <ResponsiveHeaderWhileSession
+            <header className="text-white bg-sky-700 font-semibold md:hidden transition-all shadow-xl py-2">
+                <ResponsiveHeaderWithSession
                     collapseNavbar={collapseNavbar}
                     setCollapseNavbar={setCollapseNavbar}
                 />
@@ -31,18 +27,14 @@ export default function Header() {
 
     return (
         <>
-            <header 
-                className={`grid grid-cols-7 bg-white text-black font-semibold max-md:hidden shadow-md py-2`}
-            >
-                <NormalHeaderWhileNoSession 
+            <header className={`grid grid-cols-8 bg-sky-700 text-white font-semibold max-md:hidden shadow-xl pt-2 pb-5`}>
+                <NormalHeaderWithNoSession 
                     setCollapseNavbar={setCollapseNavbar}
                 />
             </header>
 
-            <header 
-                className={`flex ${!collapseNavbar ? "flex-col" : "justify-around max-sm:justify-start"} bg-white text-black font-semibold md:hidden transition-all`}
-            >
-                <ResponsiveHeaderWhileNoSession
+            <header className="text-white bg-sky-700 font-semibold md:hidden transition-all shadow-xl">
+                <ResponsiveHeaderWithNoSession
                     collapseNavbar={collapseNavbar}
                     setCollapseNavbar={setCollapseNavbar}
                 />

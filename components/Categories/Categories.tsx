@@ -41,7 +41,7 @@ export default function CategoriesComponent() {
 
     return (
         <div className="mx-2 mt-4">
-            <div className="flex px-2 mb-6 overflow-y-scroll">
+            <div className="flex justify-evenly px-2 mb-6 overflow-x-scroll">
             {
                 categories.map((c, index) => {
                     const category_Image = categoriesImageSupplier.find(

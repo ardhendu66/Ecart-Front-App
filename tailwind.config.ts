@@ -16,7 +16,7 @@ const config: Config = {
       colors: {
         textGray: "#888a8c"
       },
-    },
+    }
   },
   plugins: [],
 }

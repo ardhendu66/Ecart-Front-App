@@ -36,7 +36,7 @@ export default function CartPaymentSuccessfull() {
             <div className="sticky top-0 z-10">
                 <Header />
             </div>
-            <main className="w-screen min-h-[500px]">
+            <main className="w-screen min-h-[700px]">
                 <div className="flex items-start justify-between gap-1">
                     <div className="flex items-center justify-center w-full p-4">
                         <div className="p-4 bg-white w-[60%] max-md:w-full">

@@ -1,49 +1,35 @@
 import { Schema, Document, models, model, Types } from "mongoose";
 
 interface Order extends Document {
-    name: string,
-    phoneNo: string,
-    email: string,
-    city_district_town: string,
-    pinCode: string,
-    address: string,
-    paid: boolean,
     userId?: Types.ObjectId,
     products?: Types.ObjectId[],
+    failed: boolean,
+    amount_paid: number,
 }
 
 const orderSchema: Schema<Order> = new Schema<Order>({
-    name: {
-        type: String,
-    },
-    phoneNo: {
-        type: String,
-    },
-    email: {
-        type: String,
-    },
-    city_district_town: {
-        type: String,
-    },
-    pinCode: {
-        type: String,
-    },
-    address: {
-        type: String,
-    },
-    paid: {
-        type: Boolean,
-    },
     userId: {
         type: Types.ObjectId,
+        ref: "User",
+        required: true,
     },
     products: [{
         type: Types.ObjectId,
+        ref: "Product",
+        required: true,
     }],
+    failed: {
+        type: Boolean,
+        required: true,
+    },
+    amount_paid: {
+        type: Number,
+        required: true,
+    }
 }, {
     timestamps: true,
 })
 
-const Order = models?.Order || model('Order', orderSchema);
+const OrderModel = models?.Order || model('Order', orderSchema);
 
-export default Order;
+export default OrderModel;

@@ -6,6 +6,7 @@ import { CartContext, CartContextType } from "@/Context/CartContext";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineSettings } from "react-icons/md";
 import { RiFolderDownloadFill } from "react-icons/ri";
+import { CiBellOn } from "react-icons/ci";
 
 export default function ProfileDropdown() {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -16,7 +17,7 @@ export default function ProfileDropdown() {
         <div>
             <div
                 className="flex flex-col items-center justify-center text-xs font-normal"
-                onMouseOver={() => setShowDropdown(true)}
+                onClick={() => setShowDropdown(true)}
             >
                 <img 
                     src={userDetails?.image}
@@ -36,24 +37,30 @@ export default function ProfileDropdown() {
                             href={`/profile`}
                             className="flex"
                         >
-                            <CgProfile className="w-5 h-5 mt-1 mr-2" />
+                            <CgProfile className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
                             <span>My Profile</span>
                         </Link>
                     </li>
                     <li className="cursor-pointer">
                         <Link href={`/profile/orders`} className="flex">
-                            <RiFolderDownloadFill className="w-5 h-5 mt-1 mr-2" />
-                            <span>Orders</span>
+                        <RiFolderDownloadFill className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
+                        <span>Orders</span>
                         </Link>
                     </li>
-                    <li className="cursor-pointer mb-4">
+                    <li className="cursor-pointer">
                         <Link href={`/profile/settings`} className="flex">
-                            <MdOutlineSettings className="w-5 h-5 mt-1 mr-2" />
+                            <MdOutlineSettings className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
                             <span>Settings</span>
                         </Link>
                     </li>
+                    <li className="cursor-pointer mb-4">
+                        <div className="flex">
+                            <CiBellOn className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
+                            <span>Notifications</span>
+                        </div>
+                    </li>
                     <li 
-                        className="flex items-center justify-center cursor-pointer bg-gray-600 text-white rounded px-3 py-2 w-full"
+                        className="flex items-center justify-center cursor-pointer bg-yellow-600 text-white rounded px-3 py-2 w-full"
                         onClick={() => (signOut({callbackUrl: "/"}), clearCartProducts())}
                     >
                         <svg 

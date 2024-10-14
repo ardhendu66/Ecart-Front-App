@@ -32,7 +32,7 @@ export default function AddressDetailsContainer({
     fetchAddress 
 }: Props) {
     return (
-        <div className="lg:sticky lg:overflow-y-scroll flex flex-col gap-y-6 w-2/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full lg:h-[500px]">
+        <div className="flex flex-col gap-y-6 w-2/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full">
             <div 
                 className="flex flex-col bg-white p-10 max-sm:p-4 shadow-sm"
             >

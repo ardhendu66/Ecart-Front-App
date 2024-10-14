@@ -1,4 +1,4 @@
-import { useContext, Dispatch, SetStateAction } from "react";
+import { useState, useContext, Dispatch, SetStateAction } from "react";
 import Link from "next/link";
 import { CartContextType, CartContext } from "@/Context/CartContext";
 import ProfileDropdown from "@/components/profile/Dropdown";
@@ -9,41 +9,41 @@ export default function NormalHeaderWhileSession(
     {setCollapseNavbar}: {setCollapseNavbar: Dispatch<SetStateAction<boolean>>}
 ) {
     const { cartProducts } = useContext(CartContext) as CartContextType;
+    const [searchInput, setSearchInput] = useState("");
 
     return <>
         <div className="col-span-2 text-3xl text-center m-2">
-            <Link 
-                href={'/'} 
-                className="w-1/2">
+            <Link href={'/'} className="w-1/2">
                 Ecomstore
             </Link>
         </div>
-        <nav className="col-span-4 flex justify-center text-gray-500 text-xl font-normal">
-            <Link 
-                href={'/'} 
-                className="p-2 lg:m-2 md:mx-1 md:my-2"
+        <div className="flex col-span-4 mt-2">
+            <input 
+                type="text"
+                placeholder="Search products by name"
+                className="w-[80%] px-4 text-black rounded-md mr-1 border-gray-400 border-[1.4px] outline-none font-normal h-10"
+                onChange={e => setSearchInput(e.target.value)}
+            />
+            <button 
+                type="button"
+                className="bg-gray-400 h-10 font-normal text-white px-5 rounded-md shadow-md hover:bg-gray-500"
+                onClick={e => {}}
             >
-                Home
-            </Link>
-            <Link 
-                href={'/products'} 
-                className="p-2 lg:m-2 md:mx-1 md:my-2"
-            >
-                Products
-            </Link>
+                Search
+            </button>
+        </div>
+        <nav className="col-span-1 flex text-white text-xl font-normal">
             <Link 
                 href={'/cart'} 
                 className="flex justify-start text-gray-300 p-2 mt-1"
             >
-                <IoMdCart 
-                    className={`w-[50px] h-[36px] ${!cartProducts.length ? "text-slate-500" : "text-red-600"}`}
-                />
+                <IoMdCart className="w-[50px] h-[36px] text-white" />
                 <span 
-                    className={`${!cartProducts.length && "hidden"} flex items-center justify-center w-7 h-7 bg-sky-600 text-white rounded-full -ml-4 -mt-2`}
+                    className={`${!cartProducts.length && "hidden"} flex items-center justify-center w-7 h-7 bg-yellow-600 text-white rounded-full -ml-4 -mt-2`}
                 >
                     {cartProducts.length}
                 </span>
-                <span className="text-slate-500 mt-1">Cart</span>
+                <span className="text-white mt-1">Cart</span>
             </Link>
         </nav>
         <span className="col-span-1 flex items-center justify-between">

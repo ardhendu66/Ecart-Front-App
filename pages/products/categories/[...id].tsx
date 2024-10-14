@@ -7,6 +7,7 @@ import { Product, CategoryClass } from "@/config/types";
 import ProductCardInfo from "@/components/Products/ProductCardInfo";
 import { ClipLoader } from "react-spinners";
 import { loaderColor } from "@/config/config";
+import Footer from "@/components/Footer";
 
 interface IncomingDataTypes {
     products: Product[];
@@ -87,9 +88,9 @@ export default function SingleCategories() {
             <div className="sticky top-0 z-30">
                 <Header />
             </div>
-            <div className="relative flex justify-between my-6">
+            <div className="relative flex justify-between mt-6 mb-20">
                 <div 
-                    className="sticky left-3 w-[17%] h-[566px] pl-3 overflow-y-scroll bg-white text-sm py-4 shadow-md rounded"
+                    className="sticky left-3 w-[17%] h-[566px] pl-3 overflow-y-scroll bg-white text-sm py-4 shadow-md rounded scroll-visible"
                 >
                     <div className="text-slate-500 text-lg uppercase font-medium">
                         sort by
@@ -180,6 +181,7 @@ export default function SingleCategories() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }
