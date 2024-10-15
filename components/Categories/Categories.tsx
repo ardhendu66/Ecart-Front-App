@@ -40,8 +40,8 @@ export default function CategoriesComponent() {
     },[])
 
     return (
-        <div className="mx-2 mt-4">
-            <div className="flex justify-evenly px-2 mb-6 overflow-x-scroll">
+        <div className="mx-2 mt-8">
+            <div className="flex justify-evenly px-2 mb-6 overflow-x-scroll hide-scrollbar">
             {
                 categories.map((c, index) => {
                     const category_Image = categoriesImageSupplier.find(
@@ -79,7 +79,7 @@ export default function CategoriesComponent() {
                             <img 
                                 src={b}
                                 alt="error"
-                                className="w-full h-[290px] rounded"
+                                className="w-full h-[200px] rounded"
                             />
                         </div>
                     ))
