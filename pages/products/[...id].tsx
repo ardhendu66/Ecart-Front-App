@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Header from "@/components/Header";
 import { useEffect, useState } from "react";
 import { Product } from "@/config/types";
@@ -22,22 +22,17 @@ export default function SingleProductPage() {
         if(!id) {
             return;
         }
-        const fetchProduct = async () => {
-            try {
-                setIsLoadingProduct(true);
-                const res = await axios.get(`/api/product/get-product?id=${id}`);
-                if(res) {
-                    setProduct(res.data.product);
-                }
-            }
-            catch(err: any) {
-                console.error(err.message);                
-            }
-            finally {
-                setTimeout(() => {
-                    setIsLoadingProduct(false);
-                }, 1000)
-            }
+        const fetchProduct = () => {
+            setIsLoadingProduct(true);
+            axios.get(`/api/product/get-product?id=${id}`)
+            .then(res => setProduct(res.data.product))
+            .catch((err: AxiosError) => console.log({
+                message: err.message,
+                name: err.name,
+                response: err.response?.data,
+                statusCode: err.status || err.response?.status,
+            }))
+            .finally(() => setIsLoadingProduct(false));
         }
         fetchProduct();
     }, [id])
@@ -57,26 +52,29 @@ export default function SingleProductPage() {
                     />
                 </div>
                     :
-                <div className="relative flex justify-between">
-                    <div className="sticky left-0 w-1/2 flex items-start max-md:flex-col px-5 max-sm:p-4 mt-5">
-                        <ImageSlider
-                            product={product}
-                            slideIndex={slideIndex}
-                            setSlideIndex={setSlideIndex}
-                        />
-                    </div>
-                    <div className="sticky right-0 overflow-y-scroll w-[70%] h-[600px] pl-14 pr-6 max-md:w-full hide-scrollbar">
-                        <div className="ml-8 max-md:flex max-md:justify-center max-md:flex-col">
-                            <div className="text-2xl font-semibold">{product?.name}</div>
-                            <ProductInfo product={product} />
+                (
+                    <div className="relative flex justify-between">
+                        <div 
+                            className="sticky left-0 w-1/2 flex items-start max-md:flex-col px-5 max-sm:p-4 mt-5"
+                        >
+                            <ImageSlider
+                                product={product}
+                                slideIndex={slideIndex}
+                                setSlideIndex={setSlideIndex}
+                            />
                         </div>
-                        <h1 className="flex text-4xl font-bold underline ratings my-5">
-                            Ratings & Reviews
-                            <IoIosArrowRoundDown className="mt-1 w-8 h-8" />
-                        </h1>
-                        <RatingsAndReviews />
+                        <div 
+                            className="sticky right-0 overflow-y-scroll w-[70%] h-[600px] pl-14 pr-6 max-md:w-full hide-scrollbar"
+                        >
+                            <ProductInfo product={product} />
+                            <h1 className="flex text-4xl font-bold underline ratings my-5">
+                                Ratings & Reviews
+                                <IoIosArrowRoundDown className="mt-1 w-8 h-8" />
+                            </h1>
+                            <RatingsAndReviews />
+                        </div>
                     </div>
-                </div>
+                )
             }
             <Footer />
         </div>

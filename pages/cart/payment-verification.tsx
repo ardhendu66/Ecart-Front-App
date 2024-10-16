@@ -1,42 +1,60 @@
-import { useContext, useEffect } from "react"
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import { CartContext, CartContextType } from "@/Context/CartContext";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import Layout from "@/components/Layout";
+import Footer from "@/components/Footer";
+import { loaderColor } from "@/config/config";
+import { FadeLoader, MoonLoader } from "react-spinners";
 import { HiCheckBadge } from "react-icons/hi2";
-import { toast } from "react-toastify";
 
-export default function CartPaymentSuccessfull() {
-    const { cartProducts } = useContext(CartContext) as CartContextType;
+export default function PaymentVerification() {
+    const [paymentVerifying, setPaymentVerifying] = useState(false);
+    const router = useRouter();
+    const orderId = router?.query?.orderId;
+    const userId = router?.query?.userId;
+
+    console.log(orderId, userId);    
 
     useEffect(() => {
-        const adjustQuantityOfProducts = async () => {
-            console.log("render products");
-            axios.post('/api/product/adjust-quantity', { ids: cartProducts })
-            .then(res => {               
-                if(res.status === 200) {
-                    toast.success(res.data.message, { position: "top-center" });
-                }
-                else if(res.status === 202) {
-                    toast.info(res.data.message, { position: "top-center" });
-                }
-            })
-            .catch(err => {
-                toast.error(err.message, { position: "top-center" });
-                console.error(err);                
-            })
-        }
-        // adjustQuantityOfProducts();
+        setPaymentVerifying(true);
+        setTimeout(() => setPaymentVerifying(false), 5000)
     }, [])
+
+    if(paymentVerifying) {
+        return (
+            <Layout>
+                <div className="sticky top-0 z-10">
+                    <Header />
+                </div>
+                <div className="h-[430px] flex flex-col items-center pt-12 gap-y-8">
+                    <MoonLoader
+                        color={loaderColor}
+                        size={150}
+                        speedMultiplier={0.6}
+                    />
+                    <div className="flex gap-x-5 items-end justify-center ml-5">
+                        <span className="text-2xl mb-1">Payment verifying</span>
+                        <FadeLoader 
+                            color={loaderColor}
+                        />
+                    </div>
+                    <p>
+                        Please don't close this window or reload this page while your payment is being verified...
+                    </p>
+                </div>
+                <Footer />
+            </Layout>
+        )
+    }
+
 
     return (
         <Layout>
             <div className="sticky top-0 z-10">
                 <Header />
             </div>
-            <main className="w-screen min-h-[700px]">
+            <main className="w-screen min-h-[400px]">
                 <div className="flex items-start justify-between gap-1">
                     <div className="flex items-center justify-center w-full p-4">
                         <div className="p-4 bg-white w-[60%] max-md:w-full">

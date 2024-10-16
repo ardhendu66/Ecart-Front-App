@@ -13,7 +13,8 @@ export default function ProductInfo({product}: Props) {
     const { addProductToCart } = useContext(CartContext) as CartContextType;
 
     return (
-        <>
+        <div className="ml-8 max-md:flex max-md:justify-center max-md:flex-col">
+            <div className="text-2xl font-semibold">{product?.name}</div>
             <div className="flex mt-3">
                 <span className="flex bg-green-700 text-white px-2 py-[1px] w-14 text-sm mr-2 rounded-[4px]">
                     4.3
@@ -44,27 +45,24 @@ export default function ProductInfo({product}: Props) {
                     {`${product?.discountPercentage}%`} off
                 </span>
                 <span 
-                    className={`${product?.amount! > 100 && "hidden"} ml-4 mt-2 px-1 text-red-500 border-red-500 border-[1.2px] text-xs flex items-center justify-center rounded-md font-normal h-5`}
+                    className={`${product?.amount! > 10 && "hidden"} ml-4 mt-2 px-1 text-red-500 border-red-500 border-[1.2px] text-xs flex items-center justify-center rounded-md font-normal h-5`}
                 >
                     {product?.amount} left
                 </span>
             </div>
 
-            <p className="mt-4 text-black">
+            <p className="mt-4 text-gray-500 text-sm">
                 {product?.description}
             </p>
 
             <div className="flex flex-col mt-2">
                 <button 
-                    className="md:hidden border-white border-[1.6px] bg-slate-600 text-white py-2 px-4 rounded-md flex items-center justify-center mb-1 hover:bg-slate-500 w-[90%]"
+                    type="button"
+                    className="md:hidden bg-yellow-600 text-white py-2 px-4 rounded-md flex items-center justify-center mb-1 hover:bg-yellow-500 w-[90%] shadow-sm hover:shadow-lg"
                     onClick={() => addProductToCart(product?._id as string)}
                 >
-                    <MdShoppingCart 
-                        className="w-6 h-6 mr-2"
-                    />
-                    <span className="uppercase">
-                        Add TO CART
-                    </span>
+                    <MdShoppingCart className="w-6 h-6 mr-2" />
+                    <span className="uppercase">Add TO YOUR CART</span>
                 </button>
                 <span className="flex items-center font-semibold mt-2">
                     <div className="bg-gray-500 w-2 h-2 rounded-full mr-1"></div>
@@ -98,6 +96,6 @@ export default function ProductInfo({product}: Props) {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

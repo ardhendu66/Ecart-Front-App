@@ -28,7 +28,7 @@ const Cartproducts = ({products}: Props) => {
                     <div className="w-1/3 text-center h-full rounded-xl">
                         <div className="h-full rounded-xl">
                             <Image 
-                                src={product.images[1]}
+                                src={product.images[0]}
                                 alt="error"
                                 width={100}
                                 height={100}
@@ -63,7 +63,7 @@ const Cartproducts = ({products}: Props) => {
                                 onClick={() => addProductToCart(product._id)}
                             />
                             <div 
-                                className={`flex items-center justify-center px-1 h-[20px] border-[1.3px] border-red-500 text-red-500 text-xs rounded-[4px] mt-1 ml-2 ${product.amount - cartProducts.filter(id => id === product._id).length >= 100 && "hidden"} `}
+                                className={`flex items-center justify-center px-1 h-[20px] border-[1.3px] border-red-500 text-red-500 text-xs rounded-[4px] mt-1 ml-2 ${product.amount - cartProducts.filter(id => id === product._id).length > 10 && "hidden"} `}
                             >
                             {
                                 product.amount - cartProducts.filter(id => id === product._id).length < 100 && `${product.amount - cartProducts.filter(id => id === product._id).length} left`

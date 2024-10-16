@@ -4,12 +4,12 @@ import { MdCheckCircle } from "react-icons/md";
 
 export default function RatingsAndReviews() {
     return (
-        <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-y-[1px] gap-x-2">
+        <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-x-[1px]">
         {
             data.map((item, index) => (
                 <div 
                     key={index} 
-                    className="col-span-1 bg-gray-200 border border-gray-400 p-2 mb-1 rounded-md"
+                    className="col-span-1 bg-gray-200 border border-gray-400 p-2 mb-1 rounded-sm"
                 >
                     <div className="flex justify-between">
                         <div 

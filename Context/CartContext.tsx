@@ -1,7 +1,8 @@
-import { createContext, useState, useEffect, Dispatch, SetStateAction } from "react";
+import { createContext, useState, useEffect, Dispatch, SetStateAction, useContext } from "react";
 import { useSession } from "next-auth/react";
 import { checkFrequency } from "@/config/functions";
 import { toast } from "react-toastify";
+import { ProductsDetailsContext, ProductsDetailsContextType } from "./ProductContext";
 
 export interface CartContextType {
     cartProducts: string[],
@@ -19,6 +20,7 @@ export default function CartProvider({children}: any) {
     const [cartProducts, setCartProducts] = useState<string[]>([]);
     const [clearCart, setClearCart] = useState(false);
     const { data: session } = useSession();
+    const { productsDetails } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
 
     useEffect(() => {
         if (cartProducts?.length > 0) {
@@ -43,8 +45,32 @@ export default function CartProvider({children}: any) {
             toast.error("Please Log in to add products to cart", { position: "top-center" });
             return;
         }
-        setCartProducts(prev => [...prev, productId as string]);
-        toast.success("Product added to Cart", { position: "top-center" });
+        let totalPrice = 0;
+        for (const id of cartProducts) {
+            const productPrice = productsDetails.find(p => p._id === id)?.price || 0;
+            totalPrice += productPrice;
+        }
+        const newProductPrice = productsDetails.find(p => p._id === productId)?.price || 0;
+        if (totalPrice + newProductPrice > 400000) {
+            toast.error(
+                `Maximum Cart price of ₹400,000 exceeded. Cannot add product with price ₹${newProductPrice}.`, 
+                { position: "top-center" }
+            );
+            return;
+        }
+        if(cartProducts.length >= 7) {
+            toast.error(
+                "Maximum 7 products can be added to Cart at a time", 
+                { position: "top-center" }
+            );
+            return;
+        }
+        setCartProducts(prev => {
+            if(!prev.find(p => p === productId)) {
+                toast.success("Product added to Cart", { position: "top-center" });
+            }
+            return [...prev, productId as string]
+        });
     }
 
     const removeProductFromCart = (productId: string) => {

@@ -10,9 +10,9 @@ import { moneyComaSeperator } from "@/config/functions";
 import { Product } from "@/config/types";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetails";
-import { ClipLoader, FadeLoader, MoonLoader } from "react-spinners";
-import { loaderColor } from "@/config/config";
+import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { FaCartShopping } from "react-icons/fa6";
 
 export default function Cart() {
     const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
@@ -20,7 +20,6 @@ export default function Cart() {
         userDetails, setUserDetails 
     } = useContext(UserDetailsContext) as UserDetailsContextType;
     const [products, setProducts] = useState<Product[]>([]);
-    const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [paymentProcessing, setPaymentProcessing] = useState(false);
     const router = useRouter();
      
@@ -29,55 +28,23 @@ export default function Cart() {
     }, [])
     
     useEffect(() => {
-        async function fetchProducts() {
-            try {
-                const res = await axios.post('/api/cart/get-products', {
-                    ids: cartProducts 
-                })          
-                setProducts(res.data);       
-            }
-            catch(err) {
-                console.error(err);                
-            }
+        const fetchProducts = () => {
+            axios.post('/api/cart/get-products', {
+                ids: cartProducts 
+            })
+            .then(res => setProducts(res.data))
+            .catch((err: AxiosError) => {
+                console.error({
+                    message: err.message,
+                    name: err.name,
+                    response: err.response?.data,
+                    statusCode: err.response?.status || err.status
+                })
+                console.error(err.toJSON());
+            })
         }
         fetchProducts();
     }, [cartProducts])
-
-    useEffect(() => {
-        let count = 0;
-        if(count === 0) {
-            setPaymentProcessing(true);
-            axios.post("/api/cart/verify-token", { 
-                userId: userDetails?._id, token: router?.query.token
-            })
-            .then(res => {
-                if(res.status === 200 && res.data.success === true) {
-                    setPaymentProcessing(false);
-                    setPaymentSuccess(true);
-                    setTimeout(() => {
-                        router.push("/cart/payment-success");
-                    }, 6000);
-                }
-            })
-            .catch((err: AxiosError) => {
-                console.error(err.response?.data || err.message);
-                //@ts-ignore
-                axios.delete(`/api/cart/delete-order?orderId=${err.response?.data.orderId}`)
-                .then(resp => {
-                    if(resp.status === 200) {
-                        setTimeout(() => {
-                            router.push("/cart/payment-failed");
-                        }, 3000)
-                    }
-                    else {
-                        console.error(resp.data);                        
-                    }
-                })
-                .catch((err: AxiosError) => console.error(err))
-            })
-            count = count + 1;
-        }
-    }, [router.query])
 
     var subTotalPrice = 0;
     for(const productId of cartProducts) {
@@ -89,9 +56,10 @@ export default function Cart() {
         e.preventDefault();
         setPaymentProcessing(true);
         axios.post('/api/cart/checkout', {
-            userId: userDetails._id, 
+            userId: userDetails._id,
             email: userDetails.email,
-            products: cartProducts, subTotal: subTotalPrice
+            products: cartProducts,
+            subTotal: subTotalPrice,
         })
         .then(res => {
             if(res.status === 200) {
@@ -102,37 +70,10 @@ export default function Cart() {
         .catch((err: AxiosError) => {
             console.error({
                 message: err.message,
-                paymentMsg: "Payment process failed!"
+                paymentMsg: "Initial payment request failed!"
             });
-            toast.error("Payment processing failed!", { position: "top-center" })
+            toast.error("Initial payment request failed!", { position: "top-center" });
         })
-    }
-
-    if(router?.query.token) {
-        return (
-            <Layout>
-                <div className="sticky top-0 z-10">
-                    <Header />
-                </div>
-                <div className="h-[700px] flex flex-col items-center pt-12 gap-y-8">
-                    <MoonLoader
-                        color={loaderColor}
-                        size={150}
-                        speedMultiplier={0.6}
-                    />
-                    <div className="flex gap-x-5 items-end justify-center ml-5">
-                        <span className="text-2xl mb-1">Payment verifying</span>
-                        <FadeLoader 
-                            color={loaderColor}
-                        />
-                    </div>
-                    <p>
-                        Please don't close this window or reload this page while your payment is being verified...
-                    </p>
-                </div>
-                <Footer />
-            </Layout>
-        )
     }
     
     if(!cartProducts.length) {
@@ -151,7 +92,10 @@ export default function Cart() {
                             <h2 
                                 className="flex justify-between text-5xl text-left font-semibold mb-10 tracking-tighter"
                             >
-                                My Shopping Cart
+                                <span className="flex gap-x-3">
+                                    My
+                                    <FaCartShopping className="w-14 h-14 text-yellow-600" />
+                                </span>
                                 <button
                                     className="text-red-600 text-xl font-semibold border-red-600 border-[1.5px] px-5 p-2 rounded-md shadow-sm tracking-wide"
                                     onClick={() => clearCartProducts()}
@@ -211,11 +155,15 @@ export default function Cart() {
 
                 <button
                     type="button"
-                    className={`flex items-center justify-center bg-blue-600 text-white text-xl w-[70%] max-md:w-full rounded shadow font-semibold mb-8 ${paymentProcessing ? "p-0" : "p-3"}`}
+                    className={`flex items-center justify-center bg-blue-600 text-white text-2xl w-[70%] max-md:w-full rounded shadow font-semibold mb-8 py-3`}
                     onClick={(e) => handleOnPaymentProcessing(e)}
                 >
                 {
-                    paymentProcessing ? <ClipLoader color="white" size={40} speedMultiplier={0.7} /> : "Continue to Payment"
+                    paymentProcessing
+                        ? 
+                    <ClipLoader color="white" size={40} speedMultiplier={0.7} /> 
+                        : 
+                    "Continue to Payment"
                 }
                 </button>
             </div>

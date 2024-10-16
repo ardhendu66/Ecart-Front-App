@@ -4,7 +4,6 @@ import { ConnectionWithMongoose } from "@/lib/mongoose";
 import { envVariables } from "@/config/config";
 import { Stripe } from "stripe";
 import { countObject } from "@/config/functions";
-import jwt from "jsonwebtoken";
 import OrderModel from "@/lib/Order";
 const stripe = new Stripe(envVariables.stripeSecrectKey);
 
@@ -13,7 +12,6 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
     try {
         if(request.method === "POST") {
             const { userId, email, products, subTotal } = request.body;
-            console.log(request.body);
             
             const uniqueIds = Array.from(new Set(products));
             const idsWithFrequency: Object = countObject(products);
@@ -47,24 +45,14 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
             const order = await OrderModel.create({
                 userId, products, failed: false, amount_paid: subTotal
             })
-            const successToken = jwt.sign(
-                { userId, orderId: order._id, success: true },
-                envVariables.jwtSecret, 
-                { expiresIn: envVariables.jwtExpiresIn }
-            );
-            const failedToken = jwt.sign(
-                { userId, orderId: order._id, success: false },
-                envVariables.jwtSecret,
-                { expiresIn: envVariables.jwtExpiresIn }
-            );
             const session = await stripe.checkout.sessions.create({
                 line_items: items,
                 mode: "payment",
                 customer_email: email,
                 currency: envVariables.currency,
-                success_url: `${envVariables.domainUrl}/cart?token=${successToken}`,
-                cancel_url: `${envVariables.domainUrl}/cart?token=${failedToken}`,
-                metadata: { 
+                success_url: `${envVariables.domainUrl}/cart/payment-verification?orderId=${order._id}&userId=${userId}`,
+                cancel_url: `${envVariables.domainUrl}/cart/payment-failed?orderId=${order._id}&userId=${userId}`,
+                metadata: {
                     _id: products[0]
                 },
             })

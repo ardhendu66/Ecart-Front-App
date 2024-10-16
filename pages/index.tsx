@@ -1,12 +1,20 @@
 import { useContext } from "react";
+import axios, { AxiosError } from "axios";
 import Header from "@/components/Header";
 import Categories from "@/components/Categories/Categories";
 import AllProducts, { SearchInputBar, FilteredByCategory } from "@/components/Products/HomeProductsComponent";
 import Footer from "@/components/Footer";
 import { ProductsDetailsContext, ProductsDetailsContextType } from "@/Context/ProductContext";
+import { AiOutlineReload } from "react-icons/ai";
 
 export default function Index() {
-  const { productsDetails } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
+  const { productsDetails, setProductsDetails } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
+  
+  const refetchProducts = () => {
+    axios.get('/api/product/get-products')
+    .then(res => setProductsDetails(res.data.products))
+    .catch((err: AxiosError) => console.error(err.toJSON()));
+  }
 
   return (
     <div>
@@ -23,6 +31,14 @@ export default function Index() {
             {productsDetails.length}
           </div>
         </div>
+        <button
+          type="button"
+          className="flex gap-2 border-gray-400 border rounded px-3 bg-white py-1"
+          onClick={refetchProducts}
+        >
+          <AiOutlineReload className="w-5 h-5" />
+          <div>Refresh</div>
+        </button>
         <div className="flex items-center justify-center gap-2">
           <FilteredByCategory />
         </div>

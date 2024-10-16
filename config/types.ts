@@ -72,3 +72,14 @@ export interface CartOrderProps {
     setStreetAddress: Dispatch<SetStateAction<string>>,
     subTotal: number,
 }
+
+export interface Order {
+    _id: string,
+    userId: string,
+    products: string[],
+    failed: boolean,
+    amount_paid: number,
+    createdAt: Date,
+    updatedAt: Date,
+    __v: number
+}
