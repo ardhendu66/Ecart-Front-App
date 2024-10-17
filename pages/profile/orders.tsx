@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { ClipLoader } from "react-spinners";
 import { loaderColor } from "@/config/config";
 import { moneyComaSeperator } from "@/config/functions";
+import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetails";
 
 interface ProductFrequencyProps {
     product: Product,
@@ -21,15 +22,16 @@ export default function Orders() {
     const { productsDetails } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
     const [orders, setOrders] = useState<Order[]>([]);
     const [isLoadingOrders, setISLoadingOrders] = useState<boolean>(false);
+    const { userDetails } = useContext(UserDetailsContext) as UserDetailsContextType;
     const router = useRouter();
 
     useEffect(() => {
         setISLoadingOrders(true);
-        axios.get('/api/orders/get-orders')
-        .then(res => setOrders(res.data.orders))
-        .catch((err: AxiosError) => console.error(err.toJSON()))
-        .finally(() => setISLoadingOrders(false));
-    }, [])
+        axios.get(`/api/orders/get-orders?userId=${userDetails._id}`)
+            .then(res => setOrders(res.data.orders))
+            .catch((err: AxiosError) => console.error(err.toJSON()))
+            .finally(() => setISLoadingOrders(false));
+    }, [userDetails])
 
     return (
         <ProtectedLayout>

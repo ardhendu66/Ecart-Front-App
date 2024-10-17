@@ -7,7 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await ConnectionWithMongoose();
     if (req.method === "GET") {
         try {
-            const orders = await OrderModel.find({});
+            const { userId } = req.query;
+            const orders = await OrderModel.findOne({userId});
             return res.status(200).json({message: "Orders found", orders});
         }
         catch(err) {
