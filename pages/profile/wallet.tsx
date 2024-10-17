@@ -37,7 +37,7 @@ export default function Wallet() {
 
     const activateWallet = () => {
         setIsActivatingWallet(true);
-        axios.post('/api/wallet/create-wallet')
+        axios.post(`/api/wallet/create-wallet?userId=${userDetails._id}`)
             .then(res => {
                 setTimeout(() => {
                     toast.success("Wallet has been activated", { position: "top-center" });

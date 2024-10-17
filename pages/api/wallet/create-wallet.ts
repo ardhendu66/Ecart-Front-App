@@ -7,11 +7,12 @@ export default async function(req: NextApiRequest, res: NextApiResponse) {
     await ConnectionWithMongoose();
     if(req.method === "POST") {
         try {
+            const { userId } = req.query;
             const wallet = new WalletModel({
                 balance: 10, 
                 debit_credit: [{amount: 10, type: "credit"}],
                 isActive: true,
-                userId: "66aa1d4e9e2355b77260513f"
+                userId
             });
             await wallet.save();
             return res.status(201).json({message: "Wallet created successfully"});
