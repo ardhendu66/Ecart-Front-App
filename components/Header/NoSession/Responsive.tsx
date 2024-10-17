@@ -13,19 +13,25 @@ export default function ResponsiveHeaderWhileNoSession(
     const { cartProducts } = useContext(CartContext) as CartContextType;
 
     return (
-        <div className={`flex items-center ${!collapseNavbar ? "flex-col" : "justify-between max-sm:gap-x-[2px]"} sm:gap-x-2 sm:gap-y-[2px]`}>
-            <div className={`mt-2 ml-1 ${!collapseNavbar && "absolute top-2 left-2"} border-[0.6px] border-white rounded p-1 w-12 h-12`}>
+        <div 
+            className={`flex items-center ${!collapseNavbar ? "flex-col" : "justify-between max-sm:gap-x-[2px]"} sm:gap-x-2 sm:gap-y-[2px]`}
+        >
+            <div 
+                className={`mt-2 ml-1 ${!collapseNavbar && "absolute top-2 left-2"} border-[0.6px] border-white rounded p-1 w-12 h-12`}
+            >
                 <FaBars 
                     className="w-10 h-10 hover:cursor-pointer"
                     onClick={() => setCollapseNavbar(prev => !prev)}
                 />
             </div>
             <div className={`text-3xl text-center ml-2 ${!collapseNavbar && "mt-3"}`}>
-                <Link href={'/'}>
+                <Link href={'/'} className="text-4xl">
                     Ecomstore
                 </Link>
             </div>
-            <div className={`flex items-center justify-center mt-1 ${!collapseNavbar && "w-full"}`}>
+            <div 
+                className={`flex items-center justify-center mt-1 ${!collapseNavbar && "w-full"}`}
+            >
                 <Link 
                     href={`/auth/login`}
                     className={`text-center m-1 py-2 px-6 text-lg font-semibold rounded-[4px] text-gray-600 bg-yellow-500 hover:bg-yellow-400 shadow-md w-32 h-10`}

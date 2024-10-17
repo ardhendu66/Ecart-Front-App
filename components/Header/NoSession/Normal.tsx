@@ -51,7 +51,7 @@ export default function NormalHeaderWhileNoSession({ setCollapseNavbar } : Heade
     return (
         <>
             <div className="col-span-2 text-3xl text-center m-2">
-                <Link href={'/'} className="">
+                <Link href={'/'} className="text-4xl">
                     Ecomstore
                 </Link>
             </div>

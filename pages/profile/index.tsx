@@ -96,15 +96,17 @@ export default function UserProfile() {
             state: addressDetails.state, 
         })
         .then(res => {
-            if(res.status === 201)
-                toast.success(res.data.message, { position: "top-center" }),
-                fetchAddress(), setShowAddressComponent(false);
+            if(res.status === 201) {
+                toast.success(res.data.message, { position: "top-center" });
+                fetchAddress();
+                setShowAddressComponent(false);
+            }
             else 
                 toast.error(res.data.message, { position: "top-center" });
         })
         .catch((err: AxiosError) => {
             //@ts-ignore
-            toast.error(err.response?.data);
+            toast.error(err.response?.data, { position: "top-center" });
         })
     }
 

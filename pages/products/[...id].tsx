@@ -38,7 +38,7 @@ export default function SingleProductPage() {
     }, [id])
 
     return (
-        <div className="bg-gray-300 min-h-screen">
+        <div className="bg-gray-200 min-h-screen">
             <div className="sticky top-0 z-30">
                 <Header />
             </div>

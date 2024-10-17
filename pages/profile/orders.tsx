@@ -64,7 +64,7 @@ export default function Orders() {
                             <div 
                                 key={index} className="rounded-md p-3 my-4 bg-white w-[80%] px-10 py-5"
                             >
-                                <div className="text-center text-white bg-gray-400 p-2 rounded w-80 mb-3">
+                                <div className="text-center text-white bg-gray-400 p-2 rounded w-80 mb-3 text-lg">
                                     ORDERID_{order._id}
                                 </div>
                                 {
@@ -79,7 +79,7 @@ export default function Orders() {
                                                 className="w-28 h-28 rounded bg-gray-300"
                                             />
                                             <div className="flex flex-col w-[29%] gap-y-3">
-                                                <div className="">
+                                                <div className="text-lg">
                                                     {p.product.name}
                                                 </div>
                                                 <div className="text-gray-400 text-sm">
@@ -105,15 +105,11 @@ export default function Orders() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="text-xs">
-                                                    You item has been ordered successfully
+                                                <div className="text-sm">
+                                                    You item has been ordered successfully.
                                                 </div>
-                                                <div className="flex mt-3 text-sm">
-                                                    <span className="underline">
-                                                        Want to cancel your order
-                                                    </span>
-                                                    &nbsp;
-                                                    <span>?</span>
+                                                <div className="flex mt-3 text-lg">
+                                                    Want to cancel your order ?
                                                 </div>
                                                 <button
                                                     type="button"

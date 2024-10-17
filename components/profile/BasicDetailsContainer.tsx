@@ -59,7 +59,9 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
     }
 
     return (
-        <div className={`w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 bg-white p-10 shadow-sm ${!isUploadingProfileImage ? "h-[380px]" : "lg:h-[460px]"}`}>
+        <div 
+            className={`w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 bg-white p-10 shadow-sm ${!isUploadingProfileImage ? "h-[430px]" : "lg:h-[560px]"}`}
+        >
             <div className="flex items-center justify-start gap-x-5">
                 <img 
                     src={fetchDetailsOfUser.image!} 
@@ -67,54 +69,60 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
                     className="w-16 h-16 rounded-full border-gray-300 border"
                 />
                 <span className="flex flex-col">
-                    <span>Hello, </span>
+                    <span>Welcome, </span>
                     <span className="font-bold">
                         {fetchDetailsOfUser.name}
                     </span>
                 </span>
             </div>
-            <div className="mt-8 text-sm flex tracking-tighter text-gray-500 mb-4">
-                <div className="font-semibold uppercase mr-1">
-                    Email : 
+            <div className="uppercase mt-5">
+                Email : 
+            </div>
+            <div className="mb-1 text-sm flex items-center tracking-tighter text-gray-500">
+                <div className="font-semibold text-blue-900 bg-gray-200 px-2 py-1">
+                    {fetchDetailsOfUser.email}
                 </div>
-                <div>{fetchDetailsOfUser.email}</div>
                 <button 
                     type="button"
-                    className={`bg-blue-600 w-20 py-1 text-white text-[16px] ml-2 -mt-2 rounded-sm tracking-wide ${fetchDetailsOfUser.emailVerified && "hidden"}`}
+                    className={`bg-blue-600 px-2 py-1 text-white ml-2 rounded-sm tracking-wide ${fetchDetailsOfUser.emailVerified && "hidden"}`}
                 >
                     Verify
                 </button>
                 <div 
-                    className={`flex items-center justify-center text-green-500 py-1 w-20 font-semibold border-gray-300 border-[1.3px] text-center ml-2 -mt-2 tracking-wide ${!fetchDetailsOfUser.emailVerified && "hidden"}`}
+                    className={`flex items-center justify-center text-green-500 py-1 px-2 font-semibold border-gray-300 border-[0.7px] text-center ml-2 tracking-wide ${!fetchDetailsOfUser.emailVerified && "hidden"} rounded`}
                 >
                     Verified
-                    <TiTick className="w-4 h-4 -mt-[1px]" />
+                    <TiTick className="w-4 h-4" />
                 </div>
             </div>
-            <div className="text-sm flex tracking-tighter text-gray-500">
-                <div className="font-semibold uppercase mr-1">
-                    Mobile : 
+            <div className="uppercase">
+                Mobile : 
+            </div>
+            <div className="flex items-center tracking-tighter text-gray-500">
+                <div className="font-semibold text-blue-900 bg-gray-200 px-2 py-1">
+                    {fetchDetailsOfUser.phoneNo}
                 </div>
-                <div>{fetchDetailsOfUser.phoneNo}</div>
                 <div
-                    className={`text-red-500 border-red-500 border-[1.3px] w-28 py-1 text-[14.6px] ml-2 -mt-1 rounded-sm tracking-wide text-center`}
+                    className={`text-red-500 border-red-500 border-[0.7px] w-28 py-1 text-[14.6px] ml-2 rounded-sm tracking-wide text-center`}
                 >
                     Not Verified
                 </div>
                 <div 
-                    className={`text-green-500 py-1 w-20 font-semibold border-gray-300 border-[1.3px] text-center ml-2 -mt-2 tracking-wide hidden`}
+                    className={`text-green-500 py-1 w-20 font-semibold border-gray-300 border text-center ml-2 tracking-wide hidden`}
                 >
                     Verified
                 </div>
             </div>
-            <div className="flex flex-col mt-10 text-gray-500">
-                <label className="text-lg text-blue-600 underline mb-[6px]">
+            <div className="flex flex-col mt-7 text-gray-500">
+                <label className="text-xl font-bold text-sky-600 ratings">
                     Change Profile Picture
                 </label>
                 {
                     blobImageForUpload !== undefined 
                         ?
-                    <div className={`flex gap-x-6 items-end ${isUploadingProfileImage ? "visible" : "hidden"}`}>
+                    <div 
+                        className={`flex gap-x-6 items-end ${isUploadingProfileImage ? "visible" : "hidden"}`}
+                    >
                         <div className="relative">
                             <img  
                                 src={blobImageForUpload} 
@@ -132,7 +140,9 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
                                 color={loaderColor}
                                 size={60}
                             />
-                            <div className="text-lg font-semibold">Uploading</div>
+                            <div className="text-lg font-semibold">
+                                Uploading
+                            </div>
                         </div>
                     </div>
                         : 

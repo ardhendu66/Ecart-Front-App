@@ -7,6 +7,8 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineSettings } from "react-icons/md";
 import { RiFolderDownloadFill } from "react-icons/ri";
 import { CiBellOn } from "react-icons/ci";
+import { LuWallet } from "react-icons/lu";
+import { LiaClipboardListSolid } from "react-icons/lia";
 
 export default function ProfileDropdown() {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -33,31 +35,36 @@ export default function ProfileDropdown() {
             >
                 <ul className="flex flex-col gap-y-2 text-gray-500 text-[16px]">
                     <li className="cursor-pointer">
-                        <Link 
-                            href={`/profile`}
-                            className="flex"
-                        >
+                        <Link href={`/profile`} className="flex">
                             <CgProfile className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
                             <span>My Profile</span>
                         </Link>
                     </li>
                     <li className="cursor-pointer">
                         <Link href={`/profile/orders`} className="flex">
-                        <RiFolderDownloadFill className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
-                        <span>Orders</span>
+                            <LiaClipboardListSolid 
+                                className="w-5 h-5 mt-1 mr-2 text-yellow-600" 
+                            />
+                            <span>Orders</span>
                         </Link>
                     </li>
                     <li className="cursor-pointer">
-                        <Link href={`/profile/settings`} className="flex">
-                            <MdOutlineSettings className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
-                            <span>Settings</span>
-                        </Link>
-                    </li>
-                    <li className="cursor-pointer mb-4">
                         <div className="flex">
                             <CiBellOn className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
                             <span>Notifications</span>
                         </div>
+                    </li>
+                    <li className="cursor-pointer">
+                        <Link href={`/profile/wallet`} className="flex">
+                            <LuWallet className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
+                            <span>Wallet</span>
+                        </Link>
+                    </li>
+                    <li className="cursor-pointer mb-4">
+                        <Link href={`/profile/settings`} className="flex">
+                            <MdOutlineSettings className="w-5 h-5 mt-1 mr-2 text-yellow-600" />
+                            <span>Settings</span>
+                        </Link>
                     </li>
                     <li 
                         className="flex items-center justify-center cursor-pointer bg-yellow-600 text-white rounded px-3 py-2 w-full"

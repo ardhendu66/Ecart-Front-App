@@ -83,3 +83,20 @@ export interface Order {
     updatedAt: Date,
     __v: number
 }
+
+export interface WalletClass {
+    _id: string,
+    balance: number,
+    debit_credit: DebitCredit[],
+    isActive: boolean,
+    userId?: string,
+    createdAt: Date,
+    updatedAt: Date,
+    __v: number,
+}
+interface DebitCredit {
+    amount: number,
+    type: string,
+    createdAt: Date,
+    updatedAt: Date,
+}

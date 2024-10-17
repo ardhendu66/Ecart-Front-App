@@ -11,10 +11,10 @@ export default function Footer() {
     return (
         <div className="flex flex-col bg-gray-800 text-gray-400 text-sm py-6 mt-20">
             <div className="flex mb-3 max-md:flex-col">
-                <div className="flex justify-around w-1/2 max-md:w-full">
+                <div className="flex justify-around w-1/2 max-md:w-full text-lg">
                     <div>
                         ABOUT
-                        <div className="mt-2 text-white font-semibold">
+                        <div className="mt-2 text-white">
                             <div className="hover:underline hover:cursor-pointer">Contact us</div>
                             <div className="hover:underline hover:cursor-pointer">About us</div>
                             <div className="hover:underline hover:cursor-pointer">Careers</div>
@@ -26,7 +26,7 @@ export default function Footer() {
                     </div>
                     <div>
                         HELP
-                        <div className="mt-2 text-white font-semibold">
+                        <div className="mt-2 text-white">
                             <div className="hover:underline hover:cursor-pointer">Payments</div>
                             <div className="hover:underline hover:cursor-pointer">Shipping</div>
                             <div className="flex flex-col hover:underline hover:cursor-pointer">
@@ -39,7 +39,7 @@ export default function Footer() {
                     </div>
                     <div>
                         CONSUMER POLICY
-                        <div className="mt-2 text-white font-semibold">
+                        <div className="mt-2 text-white">
                             <div className="flex flex-col hover:underline hover:cursor-pointer">
                                 <span>Cancellation &</span>
                                 <span>Returns</span>
@@ -59,7 +59,7 @@ export default function Footer() {
                 <div className="md:hidden my-2 mx-4 border-gray-400 border-t"></div>
                 <div className="flex justify-around w-1/2 pl-5 pr-5 max-md:w-full">
                     <div>
-                        Mail Us:
+                        <div className="text-lg">Mail Us:</div>
                         <div className="mt-2 text-white mb-4">
                             <div>Ecomstore India Private Limited,</div>
                             <div>Buildings Alyassa, Begonia &</div>
@@ -68,7 +68,7 @@ export default function Footer() {
                             <div>Bengaluru, 560103,</div>
                             <div>Karnataka, India</div>
                         </div>
-                        Social:
+                        <div className="text-lg">Social:</div>
                         <div className="mt-1 flex text-white gap-x-4">
                             <Link href={'https://facebook.com'}>
                                 <CiFacebook className="w-6 h-6" />
@@ -85,7 +85,7 @@ export default function Footer() {
                         </div>
                     </div>
                     <div>
-                        Registered Office Address:
+                        <div className="text-lg">Registered Office Address:</div>
                         <div className="mt-2 text-white mb-4">
                             <div>Ecomstore India Private Limited,</div>
                             <div>Buildings Alyassa, Begonia &</div>
@@ -94,10 +94,10 @@ export default function Footer() {
                             <div>Bengaluru, 560103,</div>
                             <div>Karnataka, India</div>
                             <div>
-                                CIN: <span className="text-blue-700 font-semibold">U51109KA2012PTC066107</span>
+                                CIN: <span className="text-blue-700">U51109KA2012PTC066107</span>
                             </div>
                             <div>
-                                Telephone: <span className="text-blue-700 font-semibold">044-45614700</span>
+                                Telephone: <span className="text-blue-700">044-45614700</span>
                             </div>
                         </div>
                     </div>
