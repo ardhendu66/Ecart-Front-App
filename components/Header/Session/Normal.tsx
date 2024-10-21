@@ -17,8 +17,7 @@ export default function NormalHeaderWhileSession(
     const [allProductsDetails, setAllProductsDetails] = useState<Product[] | null>(null);
     const [searchButtonClicked, setSearchButtonClicked] = useState(false);
 
-    useEffect(() => {
-        console.log("search input");  
+    useEffect(() => { 
         if(searchButtonClicked == true) {
             setIsLoadingProducts(true);
             axios.get('/api/product/get-products')

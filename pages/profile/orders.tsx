@@ -26,12 +26,16 @@ export default function Orders() {
     const router = useRouter();
 
     useEffect(() => {
-        setISLoadingOrders(true);
-        axios.get(`/api/orders/get-orders?userId=${userDetails._id}`)
-            .then(res => setOrders(res.data.orders))
-            .catch((err: AxiosError) => console.error(err.toJSON()))
-            .finally(() => setISLoadingOrders(false));
-    }, [userDetails])
+        if(userDetails?._id) {
+            setISLoadingOrders(true);
+            axios.get(`/api/orders/get-orders?userId=${userDetails._id}`)
+                .then(res => {                    
+                    setOrders(res.data.orders);
+                })
+                .catch((err: AxiosError) => console.error(err.toJSON()))
+                .finally(() => setISLoadingOrders(false));
+        }
+    }, [userDetails])    
 
     return (
         <ProtectedLayout>
@@ -50,7 +54,7 @@ export default function Orders() {
                         <ClipLoader color={loaderColor} size={80} />
                     </div>
                         :
-                    orders && orders?.map((order, index) => {
+                    orders ? orders?.map((order, index) => {
                         const productsFrequency = countObject(
                             order.products
                         );
@@ -64,40 +68,43 @@ export default function Orders() {
 
                         return (
                             <div 
-                                key={index} className="rounded-md p-3 my-4 bg-white w-[80%] px-10 py-5"
+                                key={index} className="rounded-md p-3 mb-4 bg-white w-[80%] max-lg:w-full px-10 py-5"
                             >
-                                <div className="text-center text-white bg-gray-400 p-2 rounded w-80 mb-3 text-lg">
+                                <div className="text-center text-white bg-gray-400 p-2 rounded w-80 mb-1 text-lg">
                                     ORDERID_{order._id}
                                 </div>
                                 {
                                     object.map((p, ind) => (
                                         <div 
                                             key={ind} 
-                                            className={`flex justify-between gap-x-5 border border-gray-300 p-2 rounded my-3`}
+                                            className={`flex max-md:flex-col md:justify-between gap-x-5 border border-gray-300 p-2 rounded my-3`}
                                         >
-                                            <img 
-                                                src={p.product.images[0]} 
-                                                alt="error" 
-                                                className="w-28 h-28 rounded bg-gray-300"
-                                            />
-                                            <div className="flex flex-col w-[29%] gap-y-3">
-                                                <div className="text-lg">
-                                                    {p.product.name}
+                                            <div className="flex justify-between w-[55%]">
+                                                <img 
+                                                    src={p.product.images[0]} 
+                                                    alt="error" 
+                                                    className="w-28 h-28 rounded bg-gray-300"
+                                                />
+                                                <div className="flex flex-col w-[29%] gap-y-3">
+                                                    <div className="text-lg">
+                                                        {p.product.name}
+                                                    </div>
+                                                    {/* <div className="text-gray-400 text-sm">
+                                                        {p.product.description.substring(0, 60)}...
+                                                    </div> */}
                                                 </div>
-                                                <div className="text-gray-400 text-sm">
-                                                    {p.product.description.substring(0, 100)}...
+                                                <div className="flex flex-col gap-y-3">
+                                                    <div className="text-lg">
+                                                        ₹{moneyComaSeperator(p.product.price)}
+                                                    </div>
+                                                    <div className="flex gap-x-1 text-gray-500">
+                                                        Qty - 
+                                                        <span className="border border-gray-300 rounded-sm px-2">{p.count}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="flex flex-col gap-y-3">
-                                                <div className="text-lg">
-                                                    ₹{moneyComaSeperator(p.product.price)}
-                                                </div>
-                                                <div className="flex gap-x-1 text-gray-500">
-                                                    Qty - 
-                                                    <span className="border border-gray-300 rounded-sm px-2">{p.count}</span>
-                                                </div>
-                                            </div>
-                                            <div className="">
+                                            <div className="w-[5%]"></div>
+                                            <div className="w-[40%]">
                                                 <div className="flex gap-x-2 mb-2">
                                                     <div className="mt-[7px] w-[10px] h-[10px] bg-green-600 rounded-full"></div>
                                                     <div className="flex gap-x-3 font-semibold">
@@ -108,7 +115,7 @@ export default function Orders() {
                                                     </div>
                                                 </div>
                                                 <div className="text-sm">
-                                                    You item has been ordered successfully.
+                                                    This item has been ordered successfully.
                                                 </div>
                                                 <div className="flex mt-3 text-lg">
                                                     Want to cancel your order ?
@@ -127,6 +134,7 @@ export default function Orders() {
                             </div>
                         )
                     })
+                    : <div>No Orders found</div>
                 }
                 </div>
             </div>

@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "GET") {
         try {
             const { userId } = req.query;
-            const orders = await OrderModel.findOne({userId});
+            const orders = await OrderModel.find({ userId }).sort({ createdAt: -1 });
             return res.status(200).json({message: "Orders found", orders});
         }
         catch(err) {

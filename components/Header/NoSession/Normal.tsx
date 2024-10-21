@@ -19,7 +19,6 @@ export default function NormalHeaderWhileNoSession({ setCollapseNavbar } : Heade
     const [searchButtonClicked, setSearchButtonClicked] = useState(false);
 
     useEffect(() => {
-        console.log("search input");  
         if(searchButtonClicked == true) {
             setIsLoadingProducts(true);
             axios.get('/api/product/get-products')

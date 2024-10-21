@@ -1,9 +1,9 @@
-import Image from "next/image"
-import { useContext } from "react"
-import { Product } from "@/config/types"
-import { loaderColor } from "@/config/config"
-import { CartContext, CartContextType } from "@/Context/CartContext"
-import { moneyComaSeperator } from "@/config/functions"
+import Image from "next/image";
+import { useContext } from "react";
+import { Product } from "@/config/types";
+import { loaderColor } from "@/config/config";
+import { CartContext, CartContextType } from "@/Context/CartContext";
+import { moneyComaSeperator } from "@/config/functions";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 
 interface Props {
@@ -40,9 +40,6 @@ const Cartproducts = ({products}: Props) => {
                     <div className="ml-5 w-[56%] text-start">
                         <div className="text-lg font-semibold mb-[6px]">
                             {product.name}
-                        </div>
-                        <div className="text-xs font-thin text-gray-500 mb-[6px]">
-                            {product.description.substring(0, 150)}...
                         </div>
                         <div className="text-xs text-gray-400 mb-[6px]">
                             Sold by: {product.seller}
