@@ -7,6 +7,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
+import Footer from "@/components/Footer";
 
 export default function LoginPage() {
     const [emailId, setEmailId] = useState("");
@@ -70,8 +71,10 @@ export default function LoginPage() {
             <div className="sticky top-0 z-10">
                 <Header />
             </div>
-            <div className="flex items-center justify-center mt-14">
-                <div className="flex flex-col items-center justify-center w-1/3 max-md:w-full py-5 px-8 bg-white shadow-lg rounded-md border-t-[5px] border-gray-400 pb-6 border-b-[1.5px]">
+            <div className="flex items-center justify-center mt-14 mb-10">
+                <div 
+                    className="flex flex-col items-center justify-center w-1/2 max-md:w-[80%] max-sm:w-[95%] py-5 px-8 bg-white shadow-lg rounded-md border-t-[5px] border-gray-400 pb-6 border-b-[1.5px]"
+                >
                     <h1 className="text-2xl font-semibold mb-3">
                         Login with Email Id
                     </h1>
@@ -128,6 +131,7 @@ export default function LoginPage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

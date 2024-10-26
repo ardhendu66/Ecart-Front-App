@@ -57,7 +57,7 @@ export default function Footer() {
                 </div>
                 <div className="border-white border-r"></div>
                 <div className="md:hidden my-2 mx-4 border-gray-400 border-t"></div>
-                <div className="flex justify-around w-1/2 pl-5 pr-5 max-md:w-full">
+                <div className="flex justify-around w-1/2 pl-5 pr-5 max-md:w-full" id="footer-sm">
                     <div>
                         <div className="text-lg">Mail Us:</div>
                         <div className="mt-2 text-white mb-4">

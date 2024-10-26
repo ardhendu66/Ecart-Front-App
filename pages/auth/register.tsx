@@ -36,7 +36,7 @@ export default function RegisterPage() {
         }
     }, [name, emailId, password, confirmPassword, phoneNo])
 
-    const registerUser = async () => {
+    const registerUser = () => {
         if(
             name === "" || emailId === "" || password === "" || confirmPassword === "" || phoneNo === "" || !name || !emailId || !password || !confirmPassword || !phoneNo
         ) { 
@@ -96,7 +96,9 @@ export default function RegisterPage() {
                         onClick={() => setErrorMessage(prev => "")}
                     > Ok </div>
                 </div>
-                <div className="flex flex-col items-center justify-center max-md:w-[97%] w-[35%] py-5 px-7 bg-white shadow-lg rounded-md border-t-[5px] border-gray-400 pb-6 border-b-[1.5px]">
+                <div 
+                    className="flex flex-col items-center justify-center max-md:w-[97%] w-[35%] py-5 px-7 bg-white shadow-lg rounded-md border-t-[5px] border-gray-400 pb-6 border-b-[1.5px]"
+                >
                     <h1 className="text-2xl font-semibold mb-6">
                         Create your Account
                     </h1>
@@ -112,7 +114,9 @@ export default function RegisterPage() {
                         className="w-full text-lg text-gray-500 border-gray-400 border-[1.5px] outline-none rounded-md p-2 bg-gray-100 mb-3"
                         onChange={e => setEmailId(e.target.value)}
                     />
-                    <div className="flex items-center justify-center w-full gap-x-1 text-gray-500 border-gray-400 border-[1.5px] outline-none rounded-md p-2 bg-gray-100 mb-3">
+                    <div 
+                        className="flex items-center justify-center w-full gap-x-1 text-gray-500 border-gray-400 border-[1.5px] outline-none rounded-md p-2 bg-gray-100 mb-3"
+                    >
                         <input 
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter password"
@@ -133,7 +137,9 @@ export default function RegisterPage() {
                         }
                         </div>
                     </div>
-                    <div className="flex items-center justify-center w-full gap-x-1 text-gray-500 border-gray-400 border-[1.5px] outline-none rounded-md p-2 bg-gray-100 mb-3">
+                    <div 
+                        className="flex items-center justify-center w-full gap-x-1 text-gray-500 border-gray-400 border-[1.5px] outline-none rounded-md p-2 bg-gray-100 mb-3"
+                    >
                         <input 
                             type={showConfirmPassword ? "text" : "password"}
                             placeholder="Confirm your password"

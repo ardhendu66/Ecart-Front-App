@@ -17,7 +17,7 @@ export default function ResponsiveHeaderWhileSession(
 
     return (
         <div 
-            className={`flex items-center ${!collapseNavbar ? "flex-col" : "justify-between max-sm:gap-x-[2px]"} sm:gap-x-2 sm:gap-y-[2px]`}
+            className={`flex items-center ${!collapseNavbar ? "flex-col" : "justify-between max-sm:gap-x-[2px]"} sm:gap-x-2 sm:gap-y-[2px] mb-4`}
         >
             <div 
                 className={`mt-2 ml-1 ${!collapseNavbar && "absolute top-2 left-2"} border-[0.6px] border-white rounded p-1 w-12 h-12`}
@@ -28,18 +28,18 @@ export default function ResponsiveHeaderWhileSession(
                 />
             </div>
             <div className="text-3xl text-center m-2">
-                <Link href={'/'} className="w-1/2 max-sm:w-1/3 text-4xl">
+                <Link href={'/'} className="w-1/2 max-sm:w-[30%] text-4xl">
                     Ecomstore
                 </Link>
             </div>
-            <nav 
-                className={`flex flex-col items-center text-xl font-normal`}
-            >
+            <nav className={`flex flex-col items-center text-xl font-normal ${collapseNavbar && "hide-nav"}`}>
                 <Link href={'/cart'} className="flex justify-start p-2 m-2">
                     <IoMdCart 
                         className="w-[50px] h-[36px] text-white"
                     />
-                    <span className={`${!cartProducts.length && "hidden"} flex items-center justify-center w-7 h-7 bg-yellow-600 text-white rounded-full -ml-4 -mt-2`}>
+                    <span 
+                        className={`${!cartProducts.length && "hidden"} flex items-center justify-center w-7 h-7 bg-yellow-600 text-white rounded-full -ml-4 -mt-2`}
+                    >
                         {cartProducts.length}
                     </span>
                     <span className="text-white mt-1">

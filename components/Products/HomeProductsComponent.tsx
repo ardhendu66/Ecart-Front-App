@@ -47,8 +47,7 @@ export const SearchInputBar = () => {
     const [allProductsDetails, setAllProductsDetails] = useState<Product[] | null>(null);
     const [searchButtonClicked, setSearchButtonClicked] = useState(false);
 
-    useEffect(() => {
-        console.log("search input");  
+    useEffect(() => {  
         if(searchButtonClicked == true) {
             setIsLoadingProducts(true);
             axios.get('/api/product/get-products')
@@ -107,8 +106,7 @@ export const FilteredByCategory = () => {
     const [allProductsDetails, setAllProductsDetails] = useState<Product[]>([]);
 
     useEffect(() => {
-        const fetchData = () => {
-            console.log(category, "category");     
+        const fetchData = () => {    
             axios.get('/api/product/get-products')
             .then(res => {
                 if(res.status === 200) {
