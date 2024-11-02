@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import axios, { AxiosError } from "axios";
+import { useContext, useEffect } from "react";
 import Header from "@/components/Header";
 import Categories from "@/components/Categories/Categories";
 import AllProducts, { SearchInputBar, FilteredByCategory } from "@/components/Products/HomeProductsComponent";
@@ -8,13 +7,13 @@ import { ProductsDetailsContext, ProductsDetailsContextType } from "@/Context/Pr
 import { AiOutlineReload } from "react-icons/ai";
 
 export default function Index() {
-  const { productsDetails, setProductsDetails } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
-  
-  const refetchProducts = () => {
-    axios.get('/api/product/get-products')
-    .then(res => setProductsDetails(res.data.products))
-    .catch((err: AxiosError) => console.error(err.toJSON()));
-  }
+  const { 
+    productsDetails, setProductsDetails, fetchProducts 
+  } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
+
+  useEffect(() => {
+    fetchProducts();
+  }, [])
 
   return (
     <div>
@@ -34,7 +33,7 @@ export default function Index() {
         <button
           type="button"
           className="flex gap-2 border-gray-400 border rounded px-3 bg-white py-1"
-          onClick={refetchProducts}
+          onClick={fetchProducts}
         >
           <AiOutlineReload className="w-5 h-5" />
           <div>Refresh</div>

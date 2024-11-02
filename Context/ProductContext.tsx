@@ -8,6 +8,7 @@ export interface ProductsDetailsContextType {
     setProductsDetails: Dispatch<SetStateAction<Product[]>>,
     isLoadingProducts: boolean,
     setIsLoadingProducts: Dispatch<SetStateAction<boolean>>,
+    fetchProducts: () => void,
 }
 
 export const ProductsDetailsContext = createContext<ProductsDetailsContextType | Object>({});
@@ -20,6 +21,7 @@ export default function ProductsDetailsProvider({children}: any) {
         setIsLoadingProducts(true);
         axios.get('/api/product/get-products')
         .then(res => {
+            // console.log(res.data.products);            
             setProductsDetails(res.data.products);
         })
         .catch((err: AxiosError) => {
@@ -39,6 +41,7 @@ export default function ProductsDetailsProvider({children}: any) {
             setProductsDetails,
             isLoadingProducts,
             setIsLoadingProducts,
+            fetchProducts,
         }}>
             {children}
         </ProductsDetailsContext.Provider>

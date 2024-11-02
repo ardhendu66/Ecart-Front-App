@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import axios, { AxiosError } from "axios";
 import Header from "@/components/Header";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Product } from "@/config/types";
 import { ClipLoader } from "react-spinners";
 import { loaderColor } from "@/config/config";
@@ -9,12 +9,16 @@ import ImageSlider from "@/components/SingleProduct/ImageSlider";
 import ProductInfo from "@/components/SingleProduct/ProductInfo";
 import { IoIosArrowRoundDown } from "react-icons/io";
 import RatingsAndReviews from "@/components/SingleProduct/Rating&Reviews";
+import ProductsList from "@/components/Products/ProductComponent";
 import Footer from "@/components/Footer";
+import { ProductsDetailsContext, ProductsDetailsContextType } from "@/Context/ProductContext";
+import { CartContext, CartContextType } from "@/Context/CartContext";
 
 export default function SingleProductPage() {
     const [product, setProduct] = useState<Product | null>(null);
     const [isLoadingProduct, setIsLoadingProduct] = useState(false);
-    const [slideIndex, setSlideIndex] = useState(0);
+    const { productsDetails } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
+    const { addProductToCart } = useContext(CartContext) as CartContextType;
     const router = useRouter();
     const { id } = router?.query;
 
@@ -38,7 +42,7 @@ export default function SingleProductPage() {
     }, [id])
 
     return (
-        <div className="bg-gray-200 min-h-screen">
+        <div className="bg-white min-h-screen">
             <div className="sticky top-0 z-30">
                 <Header />
             </div>
@@ -52,29 +56,28 @@ export default function SingleProductPage() {
                     />
                 </div>
                     :
-                (
-                    <div className="relative flex justify-between">
-                        <div 
-                            className="sticky left-0 w-1/2 flex items-start max-md:flex-col px-5 max-sm:p-4 mt-5"
-                        >
-                            <ImageSlider
-                                product={product}
-                                slideIndex={slideIndex}
-                                setSlideIndex={setSlideIndex}
-                            />
+                <div>
+                    <div className="md:relative flex max-md:flex-col justify-between md:pl-4">
+                        <div  className="md:sticky left-0 w-full flex items-start max-md:flex-col mt-5">
+                            <ImageSlider product={product} />
                         </div>
-                        <div 
-                            className="sticky right-0 overflow-y-scroll w-[70%] h-[600px] pl-14 pr-6 max-md:w-full hide-scrollbar"
-                        >
+                        <div  className="md:sticky right-0 md:overflow-y-scroll w-full md:h-[600px] hide-scrollbar mt-3 max-md:mt-6">
                             <ProductInfo product={product} />
-                            <h1 className="flex text-4xl font-bold underline ratings my-5">
-                                Ratings & Reviews
-                                <IoIosArrowRoundDown className="mt-1 w-8 h-8" />
-                            </h1>
-                            <RatingsAndReviews />
                         </div>
                     </div>
-                )
+                    <div className="mt-4">
+                        <div className="border-gray-200 border-t-[1px]"></div>
+                    </div>
+                    <div className="mt-5 mb-4">
+                        <h2 className="text-2xl px-12">Similar products</h2>
+                    </div>
+                    <ProductsList 
+                        products={
+                            productsDetails.filter(p => p.subCategory === product?.subCategory && (Math.abs(30000-product.price) <= p.price && p.price <= Math.abs(30000+product.price))).filter(p => p.name !== product?.name)
+                        }
+                        addProductToCart={addProductToCart}
+                    />
+                </div>
             }
             <Footer />
         </div>

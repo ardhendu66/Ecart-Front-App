@@ -1,19 +1,14 @@
-import { useContext } from "react";
 import { moneyComaSeperator } from "@/config/functions";
 import { Product } from "@/config/types";
 import { FaStar } from "react-icons/fa6";
-import { MdShoppingCart } from "react-icons/md";
-import { CartContext, CartContextType } from "@/Context/CartContext";
 
 interface Props {
     product: Product | null;
 }
 
 export default function ProductInfo({product}: Props) {
-    const { addProductToCart } = useContext(CartContext) as CartContextType;
-
     return (
-        <div className="ml-8 max-md:flex max-md:justify-center max-md:flex-col">
+        <div className="sm:mx-8 max-sm:mx-2 max-md:flex max-md:justify-center max-md:flex-col">
             <div className="text-2xl font-semibold">{product?.name}</div>
             <div className="flex mt-3">
                 <span className="flex bg-green-700 text-white px-2 py-[1px] w-14 text-sm mr-2 rounded-[4px]">
@@ -56,15 +51,7 @@ export default function ProductInfo({product}: Props) {
             </p>
 
             <div className="flex flex-col mt-2">
-                <button 
-                    type="button"
-                    className="md:hidden bg-yellow-600 text-white py-2 px-4 rounded-md flex items-center justify-center mb-1 hover:bg-yellow-500 w-[90%] shadow-sm hover:shadow-lg"
-                    onClick={() => addProductToCart(product?._id as string)}
-                >
-                    <MdShoppingCart className="w-6 h-6 mr-2" />
-                    <span className="uppercase">Add TO YOUR CART</span>
-                </button>
-                <span className="flex items-center font-semibold mt-2">
+                <span className="flex items-center font-semibold">
                     <div className="bg-gray-500 w-2 h-2 rounded-full mr-1"></div>
                     <span className="text-gray-500 text-sm mr-2">
                         Seller -
@@ -73,21 +60,24 @@ export default function ProductInfo({product}: Props) {
                         {product?.seller}
                     </span>
                 </span>
-                <div className="mt-2">
-                    <h2 className="text-xl font-semibold text-gray-500 mb-3">
+                <div className="mt-4">
+                    <h2 className="text-xl font-semibold text-gray-500 mb-1">
                         Product details
                     </h2>
-                    <div className="w-[80%] max-md:w-full border-gray-500 border-[1.2px] rounded-md p-5">
+                    <div className="w-full max-md:w-full border-gray-200 border-[1.2px] rounded-md p-5">
                         {
                             typeof product?.categoryProperties !== "undefined"
                                 &&
                             Object.entries(product?.categoryProperties as Object)
                             .map(([key, value], index) => (
-                                <div key={index} className="w-full flex mb-1">
-                                    <div className="w-2/3 pl-2 py-[2px] text-black">
+                                <div 
+                                    key={index} 
+                                    className={`w-full flex justify-between mb-1 p-[2px] ${index%2 === 1 ? "bg-gray-100" : "bg-gray-200"}`}
+                                >
+                                    <div className="pl-2 max-sm:pl-[2px] py-[2px] text-black">
                                         {key}
                                     </div>
-                                    <div className="flex items-center w-1/3 text-gray-600">
+                                    <div className="text-gray-600 pr-2 max-sm:pr-[2px]">
                                         {value}
                                     </div>
                                 </div>
