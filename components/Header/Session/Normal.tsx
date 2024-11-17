@@ -82,14 +82,8 @@ export default function NormalHeaderWhileSession(
                     <span className="text-white mt-1">Cart</span>
                 </Link>
             </nav>
-            <span className="col-span-1 flex items-center justify-between">
+            <span className="col-span-1 flex items-center justify-center">
                 <ProfileDropdown />
-                <span className="mt-2 mr-2 md:hidden">
-                    <FaBars 
-                        className="w-8 h-8 hover:cursor-pointer"
-                        onClick={() => setCollapseNavbar(prev => !prev)}
-                    />
-                </span>
             </span>
         </>
     )

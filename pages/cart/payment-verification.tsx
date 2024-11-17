@@ -12,9 +12,7 @@ export default function PaymentVerification() {
     const [paymentVerifying, setPaymentVerifying] = useState(false);
     const router = useRouter();
     const orderId = router?.query?.orderId;
-    const userId = router?.query?.userId;
-
-    console.log(orderId, userId);    
+    const userId = router?.query?.userId;   
 
     useEffect(() => {
         setPaymentVerifying(true);

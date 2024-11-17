@@ -111,7 +111,9 @@ export default function Orders() {
                                                     <FaRegDotCircle className="text-green-600 w-4 h-4 mt-[2px]" />
                                                     <div className="flex flex-wrap">
                                                         <div>Ordered on&nbsp;&nbsp;</div>
-                                                        <div>{new Date(p.product.createdAt).toLocaleString()}</div>
+                                                        <div>
+                                                            {new Date(p.product.createdAt).toLocaleString()}
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="mt-4 max-sm:mt-0">

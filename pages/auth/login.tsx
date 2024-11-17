@@ -44,9 +44,10 @@ export default function LoginPage() {
             redirect: false,
         }).then(res => {
             if(res?.ok) {
-                toast.success("Logged in successfully", { position: "top-center" });
-                router.push(`/profile`);
-                return;
+                router.push('/');
+                setTimeout(() => 
+                    toast.success("Logged in successfully", { position: "top-center" })
+                , 1000);
             }
             else if(res?.error) {
                 console.error(res.error);
@@ -75,7 +76,7 @@ export default function LoginPage() {
                 <div 
                     className="flex flex-col items-center justify-center w-1/2 max-md:w-[80%] max-sm:w-[95%] py-5 px-8 bg-white shadow-lg rounded-md border-t-[5px] border-gray-400 pb-6 border-b-[1.5px]"
                 >
-                    <h1 className="text-2xl font-semibold mb-3">
+                    <h1 className="text-2xl font-bold mb-3 text-sky-600">
                         Login with Email Id
                     </h1>
                     <input 
@@ -105,27 +106,30 @@ export default function LoginPage() {
                         }
                         </div>
                     </div>
-                    <div className="w-full flex justify-end text-sm my-2 underline mr-4">
+                    <div className="w-full flex justify-end text-sm my-2 underline mr-4 cursor-pointer hover:text-sky-500">
                         Forgot password?
                     </div>
                     <button
                         type="button"
                         disabled={!areDetailsFilledUp}
-                        className={`flex items-center justify-center w-full py-2 text-white rounded-md text-2xl font-semibold mb-2 ${!areDetailsFilledUp && "cursor-not-allowed"} ${isSigningIn ? "bg-gray-400" : "bg-gray-500"}`}
+                        className={`flex items-center justify-center w-full py-2 text-white rounded-md text-2xl font-semibold mb-2 ${!areDetailsFilledUp && "cursor-not-allowed"} ${isSigningIn ? "bg-sky-500" : "bg-sky-600"}`}
                         onClick={signInWithCredentials}
                     >
                     {
                         isSigningIn ? 
                         <ClipLoader color="white" size={30} className="" />
-                        : <span>Log in</span>
+                        : <span className="text-2xl">Log in</span>
                     }
                     </button>
                     <div className="flex justify-end text-sm w-full mr-4">
-                        <span className="[word-spacing:-1.5px]">
+                        <span className="font-semibold [word-spacing:-1.5px]">
                             Don't have an account? 
                         </span> 
                         &nbsp;
-                        <Link href="/auth/register" className="underline font-semibold">
+                        <Link 
+                            href="/auth/register" 
+                            className="underline hover:text-sky-500"
+                        >
                             Sign up
                         </Link>
                     </div>
