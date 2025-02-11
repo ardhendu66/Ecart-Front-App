@@ -9,14 +9,12 @@ export default function Emptycart() {
             <div className="sticky top-0 z-10">
                 <Header />
             </div>
-            <div className="flex items-center justify-center gap-1 mt-6 h-[700px]">
-                <div 
-                    className="flex items-center justify-center w-[70%] max-md:w-full p-4"
-                >
+            <div className="flex items-center justify-center gap-1 mt-4">
+                <div className="flex items-center justify-center w-[70%] max-md:w-full p-4">
                     <div className="p-4 bg-white rounded-md w-full">
                         <div className="w-full flex flex-col items-center justify-center p-8">
                             <span className="text-5xl font-medium h-20 tracking-wide mb-20">
-                                Empty Cart
+                                Cart is Empty
                             </span>
                             <Link 
                                 href={'/'} 

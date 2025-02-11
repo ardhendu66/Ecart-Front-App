@@ -41,7 +41,7 @@ export default function WalletPaymentForm({ onSuccessfulPayment }: WalletProps) 
                     toast.error(paymentResult.error.message, { position: "top-center" });
                 }
                 else if (paymentResult.paymentIntent?.status === "succeeded") {
-                    axios.put(`/api/wallet/update-value?userId=${userDetails._id}&amount=${rechargeAmount}`)
+                    axios.put(`/api/wallet/action?userId=${userDetails._id}&amount=${rechargeAmount}&type=add`)
                     .then(res => {
                         toast.success("Recharge successful!", { position: "top-center" });
                         setRechargeAmount(undefined);

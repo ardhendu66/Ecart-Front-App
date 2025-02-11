@@ -13,6 +13,9 @@ interface EnvironemntVariables {
     cloudApiSecret: string;
     jwtSecret: string;
     jwtExpiresIn: string;
+    productionEmail: string;
+    productionEmailPassword: string;
+    domainName: string;
 }
 
 export const envVariables: EnvironemntVariables = {
@@ -30,6 +33,9 @@ export const envVariables: EnvironemntVariables = {
     cloudApiSecret: process.env.CLOUDINARY_API_SECRET as string,
     jwtSecret: process.env.JWT_SECRET_KEY as string,
     jwtExpiresIn: process.env.JWT_EXPIRES_IN as string,
+    productionEmail: process.env.PRODUCTION_EMAIL as string,
+    productionEmailPassword: process.env.PRODUCTION_EMAIL_PASSWORD as string,
+    domainName: process.env.DOMAIN_URL as string,
 }
 
 export const loaderColor = '#1b6ea5';

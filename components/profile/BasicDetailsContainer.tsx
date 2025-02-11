@@ -5,6 +5,7 @@ import { TiTick } from "react-icons/ti";
 import { toast } from "react-toastify";
 import { PuffLoader, PulseLoader } from "react-spinners";
 import { loaderColor } from "@/config/config";
+import { useSession } from "next-auth/react";
 
 export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDetails } : { 
     fetchDetailsOfUser: LoggedInUserDetail,
@@ -13,6 +14,7 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
     
     const [blobImageForUpload, setblobImageForUpload] = useState<string>();
     const [isUploadingProfileImage, setIsUploadingProfileImage] = useState(false);
+    const { data: session } = useSession();
 
     const handleOnUpload = (event: ChangeEvent<HTMLInputElement>) => {
         setIsUploadingProfileImage(true);
@@ -58,6 +60,20 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
         .finally(() => setIsUploadingProfileImage(false));
     }
 
+    const sendEmail = () => {
+        axios.post(
+            `/api/auth/send-email?userId=${session?.user._id}&email=${fetchDetailsOfUser.email}&name=${fetchDetailsOfUser.name}`
+        )
+            .then(res => {
+                toast.success(res.data.message, {position: "top-center"});
+            })
+            .catch((err: AxiosError) => {
+                //@ts-ignore
+                toast.error(err.message || err.response?.data);
+            })
+    }
+
+
     return (
         <div 
             className={`w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 bg-white p-10 shadow-sm ${!isUploadingProfileImage ? "h-[430px]" : "lg:h-[560px]"}`}
@@ -85,6 +101,7 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
                 <button 
                     type="button"
                     className={`bg-blue-600 px-2 py-1 text-white ml-2 rounded-sm tracking-wide ${fetchDetailsOfUser.emailVerified && "hidden"}`}
+                    onClick={sendEmail}
                 >
                     Verify
                 </button>

@@ -186,7 +186,7 @@ export default function RegisterPage() {
                     {
                         isSigningUp ?
                             <ClipLoader color="white" size={40} speedMultiplier={0.5} />
-                            : "Register"
+                        : "Register"
                     }
                     </button>
                     <div className="flex justify-end text-sm w-full mr-4">
@@ -200,7 +200,7 @@ export default function RegisterPage() {
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

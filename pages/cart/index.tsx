@@ -13,12 +13,12 @@ import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetail
 import { WalletClass } from "@/config/types";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { encryptUserInfo } from "@/utils/hashObject";
+import crypto from "crypto";
 
 export default function Cart() {
     const { cartProducts, clearCartProducts } = useContext(CartContext) as CartContextType;
-    const { 
-        userDetails, setUserDetails 
-    } = useContext(UserDetailsContext) as UserDetailsContextType;
+    const { userDetails } = useContext(UserDetailsContext) as UserDetailsContextType;
     const [products, setProducts] = useState<Product[]>([]);
     const [paymentProcessing, setPaymentProcessing] = useState(false);
     const [paymentMode, setPaymentMode] = useState("wallet");
@@ -55,12 +55,26 @@ export default function Cart() {
 
     const handleOnPaymentProcessing = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
+        setPaymentProcessing(true);
         if(paymentMode === "wallet") {
-
+            const paymentBody = {
+                userId: userDetails?._id as string,
+                totalPrice: subTotalPrice,
+                sessionId: `${crypto.randomUUID({ disableEntropyCache: true })}`,
+            }
+            axios.post('/api/wallet/payment', paymentBody)
+                .then(res => {
+                    router.push(`/cart/payment-verification?userInfo=${encryptUserInfo("")}`);
+                })
+                .catch((err: AxiosError) => {
+                    toast.error("Payment request failed!", { position: "top-center" });
+                    console.error({
+                        message: err.message,
+                        paymentMsg: "Payment request failed!"
+                    });
+                })
         }
         else if(paymentMode === "card") {
-            setPaymentProcessing(true);
             axios.post('/api/cart/checkout', {
                 userId: userDetails._id,
                 email: userDetails.email,
@@ -84,7 +98,7 @@ export default function Cart() {
         else if(paymentMode === "upi") {
             toast.error("UPI mode currently unavailable", { position: "top-center" })
         }
-
+        setPaymentProcessing(false);
     }
     
     if(!cartProducts.length) {
@@ -225,7 +239,7 @@ const PaymentMode = ({totalPrice, paymentMode, setPaymentMode}: PaymentModeProps
             <div className="flex gap-x-10 border border-gray-300 px-10 py-4 mt-4">
 
                 <div 
-                    className={`${paymentMode === "wallet" ? "border-sky-900 border-[1.6px] py-2 px-4 rounded" : "border-sky-900 border py-2 px-4 rounded"} ${paymentMode === "wallet" && Number(walletDetails?.balance) < totalPrice && "opacity-45 text-gray-300"}`}
+                    className={`${paymentMode === "wallet" ? "border-sky-900 border-[1.6px] py-2 px-4 rounded" : "py-2 px-4 rounded"} ${paymentMode === "wallet" && Number(walletDetails?.balance) < totalPrice && "opacity-45 text-gray-300"}`}
                 >
                     <input 
                         type="radio" 
@@ -250,7 +264,7 @@ const PaymentMode = ({totalPrice, paymentMode, setPaymentMode}: PaymentModeProps
                     </div>
                 </div>
 
-                <div className={`${paymentMode === "card" ? "border-sky-900 border-[1.6px] py-2 px-4 rounded" : "border-sky-900 border py-2 px-4 rounded"} max-h-10`}>
+                <div className={`${paymentMode === "card" ? "border-sky-900 border-[1.6px] py-2 px-4 rounded" : "py-2 px-4 rounded"} max-h-10`}>
                     <input 
                         type="radio" 
                         value="card"
@@ -261,7 +275,7 @@ const PaymentMode = ({totalPrice, paymentMode, setPaymentMode}: PaymentModeProps
                     <label htmlFor="">Card</label>
                 </div>
 
-                <div className={`${paymentMode === "upi" ? "border-sky-900 border-[1.6px] py-2 px-4 rounded" : "border-sky-900 border py-2 px-4 rounded"} max-h-10`}>
+                <div className={`${paymentMode === "upi" ? "border-sky-900 border-[1.6px] py-2 px-4 rounded" : "py-2 px-4 rounded"} max-h-10`}>
                     <input 
                         type="radio" 
                         value="upi"

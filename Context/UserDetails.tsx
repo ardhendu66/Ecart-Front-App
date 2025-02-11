@@ -10,6 +10,8 @@ interface User {
     phoneNo: string,
     image: string,
     emailVerified: boolean,
+    verifyToken: string,
+    forgotPasswordToken: string,
     address?: {
         _id: string,
         name: string,

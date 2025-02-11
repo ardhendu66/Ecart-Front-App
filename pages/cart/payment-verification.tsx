@@ -1,54 +1,57 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Header from "@/components/Header";
-import Layout from "@/components/Layout";
+import ProtectedLayout from "@/components/Layout";
 import Footer from "@/components/Footer";
 import { loaderColor } from "@/config/config";
-import { FadeLoader, MoonLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 import { HiCheckBadge } from "react-icons/hi2";
+import Animation from "@/components/Payment/animation";
+import { decryptUserInfo } from "@/utils/hashObject";
+import axios, { AxiosError, CancelTokenSource } from "axios";
+import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetails";
+import { toast } from "react-toastify";
 
 export default function PaymentVerification() {
+    const { userDetails } = useContext(UserDetailsContext) as UserDetailsContextType;
+    const cancelTokenRef = useRef<CancelTokenSource | null>(null);
     const [paymentVerifying, setPaymentVerifying] = useState(false);
     const router = useRouter();
-    const orderId = router?.query?.orderId;
-    const userId = router?.query?.userId;   
+    const userInfo = router?.query?.userInfo;
 
     useEffect(() => {
         setPaymentVerifying(true);
-        setTimeout(() => setPaymentVerifying(false), 5000)
+        setTimeout(() => setPaymentVerifying(false), 50)
     }, [])
 
-    if(paymentVerifying) {
+    if(!paymentVerifying) {
         return (
-            <Layout>
+            <ProtectedLayout>
                 <div className="sticky top-0 z-10">
                     <Header />
                 </div>
-                <div className="h-[430px] flex flex-col items-center pt-12 gap-y-8">
-                    <MoonLoader
-                        color={loaderColor}
-                        size={150}
-                        speedMultiplier={0.6}
-                    />
-                    <div className="flex gap-x-5 items-end justify-center ml-5">
-                        <span className="text-2xl mb-1">Payment verifying</span>
+                <div className="flex flex-col items-center">
+                    <div className="-mt-24">
+                        <Animation />
+                    </div>
+                    <div className="flex items-center -mt-10">
+                        <p className="text-2xl">
+                            Payment is verifying, don't close or reload the window.
+                        </p>
                         <FadeLoader 
-                            color={loaderColor}
+                            color={loaderColor} 
+                            className="w-14 h-14 ml-5"
                         />
                     </div>
-                    <p>
-                        Please don't close this window or reload this page while your payment is being verified...
-                    </p>
                 </div>
-                <Footer />
-            </Layout>
+            </ProtectedLayout>
         )
     }
 
 
     return (
-        <Layout>
+        <ProtectedLayout>
             <div className="sticky top-0 z-10">
                 <Header />
             </div>
@@ -73,7 +76,9 @@ export default function PaymentVerification() {
                                         <Link 
                                             href={'/cart'} 
                                             className="mx-2 underline italic font-semibold text-lg"
-                                        >cart</Link>
+                                        >
+                                            cart
+                                        </Link>
                                         <span>
                                             page, if you don't want to purchase the same products.
                                         </span>
@@ -91,6 +96,6 @@ export default function PaymentVerification() {
                 </div>
             </main>
             <Footer />
-        </Layout>
+        </ProtectedLayout>
     )
 }

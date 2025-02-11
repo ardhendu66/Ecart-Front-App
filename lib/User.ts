@@ -82,8 +82,6 @@ interface UserClass extends Document {
     emailVerified: boolean,
     verifyToken?: string,
     forgotPasswordToken?: string,
-    verifyTokenExpiry?: Date,
-    forgotPasswordTokenExpiry?: Date,
     address?: AddressClass,
     products?: UserProducts,
 }
@@ -156,14 +154,6 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
     },
     forgotPasswordToken: {
         type: String,
-    },
-    verifyTokenExpiry: {
-        type: Date,
-        default: new Date(new Date().setHours(new Date().getHours() + 5)),
-    },
-    forgotPasswordTokenExpiry: {
-        type: Date,
-        default: new Date(new Date().setMinutes(new Date().getMinutes() + 30)),
     },
     address: {
         type: addressSchema,
