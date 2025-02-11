@@ -20,15 +20,13 @@ export default function ProductsDetailsProvider({children}: any) {
     const fetchProducts = () => {
         setIsLoadingProducts(true);
         axios.get('/api/product/get-products')
-        .then(res => {
-            // console.log(res.data.products);            
-            setProductsDetails(res.data.products);
-        })
-        .catch((err: AxiosError) => {
-            console.log(err.message, err.response?.data);           
-            toast.error("Something went wrong", { position: "top-center" });
-        })
-        .finally(() => setIsLoadingProducts(false));
+            .then(res => {            
+                setProductsDetails(res.data.products);
+            })
+            .catch((err: AxiosError) => {
+                console.log(err.message, err.response?.data);
+            })
+            .finally(() => setIsLoadingProducts(false));
     }
 
     useEffect(() => {
