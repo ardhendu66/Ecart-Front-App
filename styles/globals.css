@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, * {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.hide-nav {
+  display: flex;
+}
+
+@media (max-width: 470px) {
+  .hide-nav {
+    display: none;
+  }
+}
+
+#footer-sm {
+  display: flex;
+  justify-content: space-around;
+}
+
+@media (max-width: 430px) {
+  #footer-sm {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 470px) {
+  #order-id {
+    width: 92%;
+  }
+}
+
+.scroll-visible {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Slider-Carousel Style */
+.slick-slide > div {
+  margin: 0;
+}
+.slick-arrow.slick-next,
+.slick-arrow.slick-prev {
+  background-color: white;
+  color: black;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0.8;
+  z-index: 10;
+  padding: 6px;
+}
+.slick-arrow.slick-next:hover,
+.slick-arrow.slick-prev:hover {
+  background-color: white;
+  color: black;
+  opacity: 10;
+}
+.slick-prev::before,
+.slick-next::before {
+  display: none;
+}
+.arrows {
+  height: 28px;
+  width: 28px;
+  margin: 1px;
+}
+
+/* Profile dropdown style */
+.dropdown {
+  position: absolute;
+  top: 4rem;
+  right: 2rem;
+  width: 200px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 26px;
+  padding-right: 26px;
+  border-radius: 8px;
+  background-color: white;
+  z-index: 100;
+}
+
+
+/* input:file style */
+input[type="file"] {
+  position: relative;
+}
+
+input[type="file"]::file-selector-button {
+  width: 154px;
+  color: transparent;
+}
+
+input[type="file"]::before {
+  position: absolute;
+  pointer-events: none;
+  top: 10px;
+  left: 16px;
+  height: 20px;
+  width: 20px;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+}
+
+input[type="file"]::after {
+  position: absolute;
+  pointer-events: none;
+  top: 11px;
+  left: 40px;
+  color: #0964b0;
+  content: "Upload photo";
+}
+
+input[type="file"]::file-selector-button {
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 46px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  margin-right: 16px;
+  padding-top: 10px;
+  transition: background-color 200ms;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #f3f4f6;
+}
+
+input[type="file"]::file-selector-button:active {
+  background-color: #e5e7eb;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
