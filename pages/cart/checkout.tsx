@@ -6,7 +6,7 @@ import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetail
 import Custom404 from "../404";
 import { CartContext, CartContextType } from "@/Context/CartContext";
 import PriceDetails from "@/components/Cart/PriceDetails";
-import CheckoutLoginComp from "@/components/Checkout/LoggedInComponent";
+import CheckoutLoginComp from "@/components/Checkout/Loggedincomponent";
 import CheckoutCartDetailsComp from "@/components/Checkout/Cartdetailscomponent";
 import CheckoutDeliveryAddressComp from "@/components/Checkout/Deliveryaddresscomponent";
 
