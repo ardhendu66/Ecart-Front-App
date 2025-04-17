@@ -1,10 +1,10 @@
-# Ecomstore
+#  Ecomstore
 
 **Ecomstore** is a full-featured ecommerce web application built using **Next.js (with TypeScript)**, **MongoDB**. It provides both frontend and backend functionality in a single, seamless application.
 
 ---
 
-## 🚀 Tech Stack
+##  🚀 Tech Stack
 
 - **Frontend & Backend**: [Next.js](https://nextjs.org/) with TypeScript  
 - **Database**: [MongoDB](https://www.mongodb.com/)  
@@ -12,7 +12,7 @@
 
 ---
 
-## ✨ Features
+##  ✨ Features
 
 - User Authentication (Sign up, Sign in with sessions)
 - Product Listings with detailed view
@@ -25,7 +25,7 @@
 
 ---
 
-## ⚙️ Environment Configuration
+##  ⚙️ Environment Configuration
 
 All environment variables are managed in a centralized file located at:
 
@@ -35,30 +35,36 @@ Make sure to update it with your own values such as MongoDB URI, NextAuth secret
 
 ---
 
-## 🛠️ Installation & Setup
+##  🛠️ Installation & Setup
 
 1. **Clone the repository**
 
 ```bash
 git clone https://github.com/ardhendu66/Ecart-Front-App.git
 cd Ecart-Front-Apo
+```
 
+2. **Install dependencies**
 
-2. Install dependencies
-
+```bash
 npm install
+```
 
 
-3. Set up MongoDB
+3. **Set up MongoDB**
 
 Ensure MongoDB is running locally. Default connection string used:
 
+```bash
 mongodb://127.0.0.1:27017/ecomstore
+```
 
 
-4. Run the development server
+4. **Run the development server**
 
+```bash
 npm run dev
+```
 
 App will be running at: http://localhost:3000
 
@@ -68,23 +74,21 @@ Since this is a Next.js full-stack app, both frontend and backend are served fro
 
 ---
 
-☁️ Deployment
+##  ☁️ Deployment
 
 This project is deployed using Vercel. Simply connect your GitHub repository and Vercel will handle the rest. All environment variables should be added in the Vercel dashboard under Project Settings > Environment Variables.
 
 
 ---
 
-📄 License
+##  📄 License
 
 This project is open-source and available under the MIT License.
 
 
 ---
 
-🤝 Contributing
+##  🤝 Contributing
 
 Contributions are welcome! Feel free to fork the repo and submit a pull request.
-
----
 
