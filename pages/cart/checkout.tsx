@@ -9,6 +9,7 @@ import PriceDetails from "@/components/Cart/PriceDetails";
 import CheckoutLoginComp from "@/components/Checkout/Loggedincomponent";
 import CheckoutCartDetailsComp from "@/components/Checkout/Cartdetailscomponent";
 import CheckoutDeliveryAddressComp from "@/components/Checkout/Deliveryaddresscomponent";
+import CheckoutPaymentModeComp from "@/components/Checkout/Paymentmodecomponent";
 
 export default function CartCheckout() {
     const { userDetails } = useContext(UserDetailsContext) as UserDetailsContextType;
@@ -44,6 +45,10 @@ export default function CartCheckout() {
                         userDetails={userDetails} 
                         view={Number(view)} 
                     />
+                    <CheckoutPaymentModeComp 
+                        userDetails={userDetails} 
+                        view={Number(view)} 
+                    />
                 </div>
 
                 {/* Price Details Section */}
@@ -52,6 +57,8 @@ export default function CartCheckout() {
                     uniqueProductsOnCart={uniqueProductsOnCart}
                     outerDivStyle="md:w-[32%] w-full bg-white shadow p-6 h-fit rounded-sm my-5"
                 />
+
+                {/* Payment Confirm Area */}
             </div>
         </Layout>
     )

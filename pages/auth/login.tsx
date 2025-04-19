@@ -75,12 +75,12 @@ export default function LoginPage() {
 
 
     return (
-        <div>
+        <div className="max-sm:pt-24">
             {/* Background Image */}
             <div className="absolute inset-0 bg-[url('/images/login-bg.jpg')] bg-cover bg-center opacity-20 z-0"></div>
 
             {/* Login Card */}
-            <div className="flex items-center justify-center mt-14 mb-10 relative z-10 animate-fadeIn">
+            <div className="flex items-center justify-center mt-14 mb-10 max-sm:px-4 relative z-10 animate-fadeIn">
                 <div 
                     className="flex flex-col items-center justify-center w-full max-w-md px-8 py-6 bg-white bg-opacity-90 shadow-2xl rounded-sm transition-all duration-300 backdrop-blur-md"
                 >

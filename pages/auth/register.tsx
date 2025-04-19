@@ -88,13 +88,13 @@ export default function RegisterPage() {
 
 
     return (
-        <div className="relative min-h-screen py-10">
+        <div className="relative min-h-screen py-10 max-sm:pt-20">
 
             {/* Background Image */}
             <div className="absolute inset-0 bg-[url('/images/login-bg.jpg')] bg-cover bg-center opacity-20 z-0"></div>
 
             {/* Signup Card */}
-            <div className="flex items-center justify-center mb-10 relative z-10 animate-fadeIn">
+            <div className="flex items-center justify-center mb-10 max-sm:px-4 relative z-10 animate-fadeIn">
                 <div
                     className="flex flex-col items-center justify-center w-full max-w-md px-8 py-6 bg-white bg-opacity-90 shadow-2xl rounded-sm transition-all duration-300 backdrop-blur-md"
                 >
@@ -187,7 +187,7 @@ export default function RegisterPage() {
                     <button
                         type="button"
                         disabled={!areDetailsFilledUp}
-                        className={`w-full py-2 rounded-sm text-white font-mono font-semibold text-lg shadow-md transition-all duration-200 bg-sky-600 hover:bg-sky-700
+                        className={`w-full py-2 rounded-md text-white font-mono font-semibold text-lg tracking-wide shadow-md transition-all duration-200 bg-sky-600 hover:bg-sky-700
                         ${areDetailsFilledUp ? "cursor-pointer" : "cursor-not-allowed"}`}
                         onClick={registerUser}
                     >
