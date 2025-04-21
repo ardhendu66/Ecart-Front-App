@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import ProtectedLayout from "@/components/Layout";
 import { decodeData } from "@/utils/encode_decode";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetails";
 import { ClipLoader } from "react-spinners";
 
@@ -40,15 +40,14 @@ export default function VerifyAccount() {
             `/api/user/update-email?userId=${userDetails._id}&date=${userDetails.verifyToken}`
         )
             .then(res => {
-                toast.success(res.data.message, { position: "top-center" });
+                toast.success(res.data.message);
                 setUserDetails(prev => ({...prev, emailVerified: true}));
             })
             .catch((err: AxiosError) => {
-                console.error(err);
+                console.error(err.toJSON());
                 toast.error(
                     //@ts-ignore
                     err.response?.data.message || err.message + err.code,
-                    { position: "top-center" }
                 );
             })
             .finally(() => setIsLoading(false));

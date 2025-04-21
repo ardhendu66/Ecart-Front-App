@@ -12,18 +12,12 @@ export default function Header() {
     if(session) {
         return (
             <div>
-                <header 
-                    // className={`grid grid-cols-8 bg-gradient-to-r from-red-500 to-green-600 text-white max-md:hidden shadow-md px-6 py-4`}
-                    className={`grid grid-cols-8 bg-gradient-to-r from-[#db6a41] via-white to-[#138808] text-white max-md:hidden shadow-md px-6 py-4`}
-                    // className={`grid grid-cols-8 bg-green-600 text-white max-md:hidden shadow-md px-6 py-4`}
-                >
+                <header className={`grid grid-cols-8 bg-gradient-to-r from-[#db6a41] via-white to-[#138808] text-white max-md:hidden shadow-md px-6 py-4`}>
                     <NormalHeaderWithSession 
                         setCollapseNavbar={setCollapseNavbar} 
                     />
                 </header>
-                <header 
-                    className="text-white bg-gradient-to-r from-red-500 to-green-600 md:hidden transition-all shadow-md px-4 py-3"
-                >
+                <header className="text-white bg-gradient-to-r from-[#be5934] via-white to-[#138808] md:hidden transition-all shadow-md px-4 py-3">
                     <ResponsiveHeaderWithSession
                         collapseNavbar={collapseNavbar}
                         setCollapseNavbar={setCollapseNavbar}
@@ -35,17 +29,13 @@ export default function Header() {
 
     return (
         <>
-            <header 
-                className={`grid grid-cols-8 bg-gradient-to-r from-red-500 to-green-600 text-white max-md:hidden shadow-xl pt-2 pb-5`}
-            >
+            <header className={`grid grid-cols-8 bg-gradient-to-r from-[#db6a41] via-white to-[#138808] text-white max-md:hidden shadow-xl pt-2 pb-5`}>
                 <NormalHeaderWithNoSession 
                     setCollapseNavbar={setCollapseNavbar}
                 />
             </header>
 
-            <header 
-                className="text-white bg-gradient-to-r from-red-500 to-green-600 md:hidden transition-all shadow-xl pb-4"
-            >
+            <header className="text-white bg-gradient-to-r from-red-500 to-green-600 md:hidden transition-all shadow-xl pb-4">
                 <ResponsiveHeaderWithNoSession
                     collapseNavbar={collapseNavbar}
                     setCollapseNavbar={setCollapseNavbar}

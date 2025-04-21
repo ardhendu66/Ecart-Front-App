@@ -86,13 +86,13 @@ export const SearchInputBar = () => {
                 className="w-[70%] px-4 text-black rounded-md mr-1 border-gray-400 border-[1.4px] outline-none font-normal h-10"
                 onChange={e => setSearchInput(e.target.value)}
             />
-            <button
+            {/* <button
                 type="button"
                 className="bg-gray-400 h-10 font-normal text-white px-5 rounded-md shadow-md hover:bg-gray-500"
                 onClick={() => handleOnSearch(searchInput)}
             >
                 Search
-            </button>
+            </button> */}
             </div>
         </div>
     )

@@ -58,21 +58,21 @@ export default function NormalHeaderWhileNoSession({ setCollapseNavbar } : Heade
                 <input 
                     type="text"
                     placeholder="Search products by name"
-                    className="w-[80%] px-4 text-black rounded-md mr-1 border-gray-400 border-[1.4px] outline-none font-normal h-10"
+                    className="w-[80%] px-4 text-black rounded-xl mr-1 outline-yellow-400 font-normal h-10"
                     onChange={e => setSearchInput(e.target.value)}
                 />
-                <button 
+                {/* <button 
                     type="button"
                     className="bg-gray-400 h-10 font-normal text-white px-5 rounded-md shadow-md hover:bg-gray-500"
                     onClick={e => handleOnSearch(searchInput)}
                 >
                     Search
-                </button>
+                </button> */}
             </div>
             <span className="col-span-1 flex items-center justify-between mt-1">
                 <Link
                     href={`/auth/login`}
-                    className="flex items-center justify-center font-semibold bg-bl py-[6px] lg:px-6 md:px-3 text-gray-600 text-lg rounded-[4px] bg-yellow-500 hover:bg-yellow-400 shadow-md"
+                    className="flex items-center justify-center font-semibold bg-bl py-[6px] lg:px-6 md:px-3 text-white text-lg rounded-[4px] bg-yellow-600 hover:bg-yellow-400 shadow-md"
                 >
                     Log in
                 </Link>

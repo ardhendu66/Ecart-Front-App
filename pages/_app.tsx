@@ -24,7 +24,39 @@ export default function App({Component, pageProps: {session, ...pageProps}}: App
               </Head>
               <Component {...pageProps} />
               <ToastContainer />
-              <Toaster />
+              <Toaster
+                toastOptions={{
+                  position: "bottom-center",
+                  style: {
+                    background: "#1a1919",
+                    color: "#fff",
+                    fontSize: "18px",
+                    fontWeight: "900",
+                    lineHeight: "1.5rem",
+                    padding: "1rem",
+                    borderRadius: "2px",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                    margin: "0.5rem",
+                    letterSpacing: "1px",
+                    minWidth: '400px',
+                    maxWidth: '600px',
+                  },
+                  success: {
+                    icon: (
+                      <span style={{ fontSize: '24px' }}>
+                        ✅
+                      </span>
+                    ),
+                  },
+                  error: {
+                    icon: (
+                      <span style={{ fontSize: '22px' }}>
+                        ❌
+                      </span>
+                    ),
+                  }
+                }}
+              />
             </CartProvider>
           </CategoryDetailsProvider>
         </UserDetailsProvider>

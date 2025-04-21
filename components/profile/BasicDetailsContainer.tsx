@@ -2,10 +2,10 @@ import { LoggedInUserDetail } from "@/config/Props";
 import axios, { AxiosError } from "axios";
 import { ChangeEvent, useState } from "react";
 import { TiTick } from "react-icons/ti";
-import { toast } from "react-toastify";
 import { PuffLoader, PulseLoader } from "react-spinners";
 import { loaderColor } from "@/config/config";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDetails } : { 
     fetchDetailsOfUser: LoggedInUserDetail,
@@ -35,29 +35,29 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
                 'Content-Type': 'multipart/form-data',
             },
         })
-        .then(res => {
-            console.log(res.data.url);
-            axios.put("/api/user/update-image", { 
-                email: fetchDetailsOfUser.email, url: res.data.url 
-            })
-            .then(resp => {
-                if(resp.status === 202) {
-                    toast.success(res.data.message, { position: "top-center" });
-                    fetchUserDetails();
-                }
+            .then(res => {
+                console.log(res.data.url);
+                axios.put("/api/user/update-image", { 
+                    email: fetchDetailsOfUser.email, url: res.data.url 
+                })
+                .then(resp => {
+                    if(resp.status === 202) {
+                        toast.success(res.data.message, { position: "top-center" });
+                        fetchUserDetails();
+                    }
+                })
+                .catch((err: AxiosError) => {
+                    console.error(err);
+                    //@ts-ignore
+                    toast.error(err.response?.data.message || err.response?.data || err.message, { position: "top-center" });            
+                })
             })
             .catch((err: AxiosError) => {
                 console.error(err);
                 //@ts-ignore
                 toast.error(err.response?.data.message || err.response?.data || err.message, { position: "top-center" });            
             })
-        })
-        .catch((err: AxiosError) => {
-            console.error(err);
-            //@ts-ignore
-            toast.error(err.response?.data.message || err.response?.data || err.message, { position: "top-center" });            
-        })
-        .finally(() => setIsUploadingProfileImage(false));
+            .finally(() => setIsUploadingProfileImage(false));
     }
 
     const sendEmail = () => {
@@ -171,6 +171,26 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
                     onChange={(e) => handleOnUpload(e)}
                 />
             </div>
+            {/* <div className="mt-15 flex flex-col gap-y-3">
+                <button 
+                    type="button"
+                    className="w-full bg-green-600 px-2 py-1 text-white rounded-sm tracking-wide"
+                    onClick={
+                        () => toast.success('Profile of "Ardhendu Roy" tested successfully')
+                    }
+                >
+                    Success
+                </button>
+                <button 
+                    type="button"
+                    className="w-full bg-red-500 px-2 py-1 text-white rounded-sm tracking-wide"
+                    onClick={
+                        () => toast.error('Profile fetch failed somehow')
+                    }
+                >
+                    Error
+                </button>
+            </div> */}
         </div>
     )
 }

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { ProductsDetailsContext, ProductsDetailsContextType } from "./ProductContext";
 import { Product } from "@/config/types";
 import axios, { AxiosError } from "axios";
+import { moneyComaSeperator } from "@/config/functions";
 
 export interface CartContextType {
     cartProducts: string[],
@@ -63,17 +64,17 @@ export default function CartProvider({children}: any) {
 
     useEffect(() => {
         fetchCartProducts();
-    }, [session])
+    }, [session]);
 
 
     const addProductToCart = (productId: string) => {
         if(!session) {
-            toast.error("Please Log in to add products to cart");
+            toast.error("Please Log in to add products to cart", {position: "top-center"});
             return;
         }
 
         let totalPrice = 0;
-        for (const id of cartProducts) {
+        for(const id of cartProducts) {
             const productPrice = productsDetails.find(p => p._id === id)?.price || 0;
             totalPrice += productPrice;
         }
@@ -81,14 +82,23 @@ export default function CartProvider({children}: any) {
         const newProductPrice = productsDetails.find(p => p._id === productId)?.price || 0;
         if(totalPrice + newProductPrice > 800000) {
             toast.error(
-                `Maximum Cart price of ₹800,000 exceeded. Cannot add item  with price ₹${newProductPrice}.`
+                <span 
+                    dangerouslySetInnerHTML={{ 
+                        __html: `Oops! Adding this item would exceed the cart limit of <strong class="text-xl font-extrabold">₹8,00,000</strong>` 
+                    }} 
+                />,
+                {position: "top-center"}
             );
             return;
         }
 
         if(cartProducts.length >= 10) {
             toast.error(
-                "Maximum 10 items can be added to Cart at a time", 
+                <span 
+                    dangerouslySetInnerHTML={{ 
+                        __html: `maximum <strong class="text-xl font-extrabold">10 items</strong> can be added to cart at a time.` 
+                    }} 
+                />, 
                 { position: "top-center" }
             );
             return;
@@ -99,24 +109,28 @@ export default function CartProvider({children}: any) {
                 if(res.status === 200 || res.status === 201) {
                     setCartProducts(prev => {
                         if(!prev.find(p => p === productId)) {
-                            toast.success(
-                                "One '" + 
-                                uniqueProductsOnCart.find(p => p._id === productId)?.name 
-                                + "' added to Cart"
-                            );
+                            toast.success("Item added to cart successfully");
                         }
                         return [...prev, productId as string]
                     });
-                    toast.success(
-                        "One more '" + 
-                        uniqueProductsOnCart.find(p => p._id === productId)?.name 
-                        + "' added to Cart"
-                    );
+
+                    if(cartProducts.find(p => p === productId)) {
+                        toast.success(
+                            <span 
+                                dangerouslySetInnerHTML={{ 
+                                    __html: `One more <strong class="text-xl font-extrabold">${uniqueProductsOnCart.find(p => p._id === productId)?.name}</strong> added to Cart` 
+                                }} 
+                            />
+                        );
+                    }
                 }
                 else {
                     toast.error(
-                        uniqueProductsOnCart.find(p => p._id === productId)?.name 
-                        + "' not added to Cart"
+                        <span 
+                            dangerouslySetInnerHTML={{ 
+                                __html: `<strong class="text-xl font-extrabold">${uniqueProductsOnCart.find(p => p._id === productId)?.name}</strong> not added to Cart` 
+                            }} 
+                        />
                     );
                 }
             })
@@ -125,7 +139,7 @@ export default function CartProvider({children}: any) {
 
     const removeProductFromCart = (productId: string) => {
         if(!session) {
-            toast.error("Please Log in to remove products from cart");
+            toast.error("Please Log in to remove products from cart", {position: "top-center"});
             return;
         }
 
@@ -149,15 +163,20 @@ export default function CartProvider({children}: any) {
                         return prev.filter((value, index) => index !== pos);
                     })
                     toast.success(
-                        "One '" + 
-                        uniqueProductsOnCart.find(p => p._id === productId)?.name 
-                        + "' removed from Cart"
+                        <span 
+                            dangerouslySetInnerHTML={{ 
+                                __html: `One <strong>${uniqueProductsOnCart.find(p => p._id === productId)?.name}</strong> removed from Cart` 
+                            }} 
+                        />
                     );
                 }
                 else {
-                    toast.error( 
-                        uniqueProductsOnCart.find(p => p._id === productId)?.name 
-                        + "' not removed from Cart"
+                    toast.error(
+                        <span 
+                            dangerouslySetInnerHTML={{ 
+                                __html: `<strong>${uniqueProductsOnCart.find(p => p._id === productId)?.name}</strong> not removed from Cart` 
+                            }} 
+                        />
                     );
                 }
             })
@@ -180,14 +199,18 @@ export default function CartProvider({children}: any) {
                     });
                 }
                 else {
-                    toast.success(
-                        uniqueProductsOnCart.find(p => p._id === productId)?.name 
-                        + "' not removed from Cart"
+                    toast.error(
+                        <span 
+                            dangerouslySetInnerHTML={{ 
+                                __html: `<strong>${uniqueProductsOnCart.find(p => p._id === productId)?.name}</strong> not removed from Cart` 
+                            }} 
+                        />
                     );
                 }
             })
             .catch((err: AxiosError) => {
-                toast.error(err?.message);
+                //@ts-ignore
+                toast.error(err?.response?.data || err?.message);
             });
     }
     

@@ -24,7 +24,7 @@ export default function Index() {
       <SearchInputBar />
       <Categories />
       <div className="flex items-center justify-around ml-10 mt-10 mb-5 text-gray-600 max-sm:flex-col max-sm:gap-y-4">
-        <div className="flex">
+        <div className="flex max-sm:hidden">
           <div className="text-4xl font-normal mr-2">Products Found: </div>
           <div className="flex items-center justify-center text-2xl border-gray-300 border rounded px-3 bg-white shadow-md">
             {productsDetails.length}
@@ -38,7 +38,7 @@ export default function Index() {
           <AiOutlineReload className="w-5 h-5" />
           <div>Refresh</div>
         </button>
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-2 max-sm:hidden">
           <FilteredByCategory />
         </div>
       </div>

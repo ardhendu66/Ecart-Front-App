@@ -22,7 +22,6 @@ const CartProductsComponent = ({ products, swal }: Props) => {
         addProductToCart,
         removeProductFromCart,
         removeCertainProduct,
-        isLoadingCart,
     } = useContext(CartContext) as CartContextType;
     const { userDetails } = useContext(UserDetailsContext) as UserDetailsContextType;
 
@@ -118,12 +117,13 @@ const CartProductsComponent = ({ products, swal }: Props) => {
                                 </div>
                             </div>
 
-                            <div className="flex md:flex-col justify-between max-sm:justify-center items-end md:items-center">
-                                <MdOutlineDeleteOutline
-                                    className="text-red-500 w-8 h-8 cursor-pointer hover:scale-110 transition max-sm:w-10 max-sm:h-10"
+                            <div>
+                                <button
+                                    type="button"
+                                    className="uppercase text-red-500 text-lg font-semibold tracking-wider max-md:mt-3"
                                     id={`delete-icon-${product._id}`}
                                     onClick={() => confirmDeleteAction(product._id)}
-                                />
+                                >REMOVE</button>
                                 <Tooltip
                                     place="top"
                                     anchorId={`delete-icon-${product._id}`}
