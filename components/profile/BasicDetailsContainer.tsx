@@ -76,7 +76,7 @@ export default function BasicDetailsContainer({fetchDetailsOfUser, fetchUserDeta
 
     return (
         <div 
-            className={`w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 bg-white p-10 shadow-sm ${!isUploadingProfileImage ? "h-[430px]" : "lg:h-[560px]"}`}
+            className={`w-1/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full max-lg:mb-5 max-sm:shadow-sm max-sm:border-gray-200 max-sm:border max-sm:rounded-sm p-10 ${!isUploadingProfileImage ? "h-[430px]" : "lg:h-[560px]"}`}
         >
             <div className="flex items-center justify-start gap-x-5">
                 <img 

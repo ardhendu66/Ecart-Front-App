@@ -5,7 +5,6 @@ import { withSwal } from "react-sweetalert2";
 import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetails";
 import axios, { AxiosError } from "axios";
 import { signOut } from "next-auth/react";
-import { CartContext, CartContextType } from "@/Context/CartContext";
 
 const capitalizeWords = (str: string) => {
     if(!str) return;
@@ -86,7 +85,7 @@ const DeleteProfile = ({swal, username}: {swal: any, username: string}) => {
     }
 
     return (
-        <div className="bg-white px-10 py-7 tracking-wider">
+        <div className="shadow-sm border-gray-200 border rounded-sm px-10 py-7 tracking-wider">
             <h1 className="text-xl font-bold">Delete your Account</h1>
             <div className="border border-red-600 py-4 px-6 mt-5 bg-red-100">
                 <div className="flex items-center max-sm:flex-col max-sm:items-start gap-x-4 max-sm:gap-y-3">
