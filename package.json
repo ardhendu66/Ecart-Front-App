@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@heroicons/react": "^2.2.0",
+    "@lottiefiles/dotlottie-react": "^0.13.4",
     "@react-icons/all-files": "^4.1.0",
     "@stripe/stripe-js": "^4.9.0",
     "@types/bcryptjs": "^2.4.6",

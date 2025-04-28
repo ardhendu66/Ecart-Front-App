@@ -8,7 +8,7 @@ interface RequestBody {
     sessionId: string,
 }
 
-// Wallet details Operation
+// Find Wallet details
 export async function getUserWalletInfo(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { userId } = req.query;
@@ -21,6 +21,7 @@ export async function getUserWalletInfo(req: NextApiRequest, res: NextApiRespons
     }
 }
 
+// Create Wallet for user
 export async function createUserWallet(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { userId } = req.query;
@@ -39,12 +40,35 @@ export async function createUserWallet(req: NextApiRequest, res: NextApiResponse
     }
 }
 
+// Add balance to Wallet
 export async function addBalanceToWallet(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { userId, amount } = req.query;
+
+        if(Number(amount) <= 0) {
+            return res.status(400).json({ message: "Amount should be greater than zero" });
+        }
+
+        if(Number(amount) > 100000) {
+            return res.status(400).json({ message: "Amount should be less than 1,00,000" });
+        }
+
+        const existingWallet = await WalletModel.findOne({userId});
+
+        if (!existingWallet) {
+            return res.status(404).json({ message: "Wallet not found" });
+        }
+
+        if(existingWallet.balance + Number(amount) > 10000000) {
+            return res.status(400).json({ 
+                message: "Wallet balance should be less than 1,00,00,000" 
+            });
+        }
         
         const wallet = await WalletModel.findOneAndUpdate({userId}, {
-            $inc: { balance: Number(amount) },
+            $inc: { 
+                balance: Number(amount) 
+            },
             $push: { 
                 debit_credit: {
                     amount: Number(amount), 
@@ -57,7 +81,7 @@ export async function addBalanceToWallet(req: NextApiRequest, res: NextApiRespon
             return res.status(200).json({message: "Wallet updated suceesfully"});
         }
 
-        return res.status(400).json({message: "Wallet neither found nor updated"});
+        return res.status(400).json({message: "Either Wallet not found or not updated"});
     } 
     catch(err) {
         console.error("wallet updation : ", err);
@@ -67,6 +91,7 @@ export async function addBalanceToWallet(req: NextApiRequest, res: NextApiRespon
     }
 }
 
+// Deduct balance from Wallet
 export async function deductBalanceFromWallet(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { userId, amount } = req.query;
@@ -75,8 +100,20 @@ export async function deductBalanceFromWallet(req: NextApiRequest, res: NextApiR
             return res.status(400).json({ message: "Invalid amount provided" });
         }
 
+        const existingWallet = await WalletModel.findOne({userId});
+
+        if (!existingWallet) {
+            return res.status(404).json({ message: "Wallet not found" });
+        }
+
+        if (existingWallet.balance < Number(amount)) {
+            return res.status(400).json({ message: "Insufficient balance" });
+        }
+
         const wallet = await WalletModel.findOneAndUpdate({ userId }, {
-            $inc: { balance: -Number(amount) },
+            $inc: { 
+                balance: -Number(amount) 
+            },
             $push: {
                 debit_credit: {
                     amount: Number(amount),
@@ -89,7 +126,7 @@ export async function deductBalanceFromWallet(req: NextApiRequest, res: NextApiR
             return res.status(200).json({ message: "Wallet updated successfully" });
         }
 
-        return res.status(400).json({ message: "Wallet neither found nor updated" });
+        return res.status(400).json({ message: "Either Wallet not found or not being updated" });
     } 
     catch(err) {
         console.error("wallet updation: ", err);

@@ -46,7 +46,7 @@ export default function CheckoutCartDetailsComp(
             {/* Headline */}
             <div className={`flex items-center gap-x-2 p-5 ${view === 3 && "bg-blue-600 text-white py-3 px-5"}`}>
                 <div className={`p-1 px-2 bg-gray-200 text-blue-700 text-xs font-semibold rounded mr-2`}>3</div>
-                <div className="uppercase font-semibold tracking-wider text-lg">
+                <div className={`uppercase font-semibold tracking-wider text-lg ${view !== 3 && "text-gray-400"}`}>
                     ORDER SUMMARY
                 </div>
                 <IoCheckmarkOutline

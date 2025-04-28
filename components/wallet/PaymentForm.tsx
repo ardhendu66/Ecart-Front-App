@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import axios, { AxiosError } from "axios";
 import { Loader } from "rsuite";
 import 'rsuite/dist/rsuite.min.css';
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetails";
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -38,24 +38,24 @@ export default function WalletPaymentForm({ onSuccessfulPayment }: WalletProps) 
                 });
 
                 if(paymentResult.error) {
-                    toast.error(paymentResult.error.message, { position: "top-center" });
+                    toast.error(paymentResult.error.message as string);
                 }
                 else if (paymentResult.paymentIntent?.status === "succeeded") {
                     axios.put(`/api/wallet/action?userId=${userDetails._id}&amount=${rechargeAmount}&type=add`)
                     .then(res => {
-                        toast.success("Recharge successful!", { position: "top-center" });
+                        toast.success("Recharge successful!");
                         setRechargeAmount(undefined);
                         onSuccessfulPayment();
                     })
                     .catch((err: AxiosError) => {
                         console.error(err.toJSON())
-                        toast.error("Payment failed, please try again", { position: "top-center" });
+                        toast.error("Payment failed, please try again");
                     });
                 }
             }
             catch(error) {
                 console.error("Error processing payment", error);
-                toast.error("Payment failed. Please try again.", { position: "top-center" });
+                toast.error("Payment failed. Please try again.");
             }
             finally {
                 setIsRechargingWallet(false);
@@ -66,14 +66,14 @@ export default function WalletPaymentForm({ onSuccessfulPayment }: WalletProps) 
     return (
         <form
             onSubmit={handleRecharge}
-            className="w-full bg-white p-6 shadow-md rounded mt-7"
+            className="w-full bg-white p-10 pt-6 shadow-md rounded mt-7"
         >
             <h2 className="text-2xl font-extrabold mb-5">
                 Recharge Your Wallet
             </h2>
             <input
                 type="number"
-                className="w-full border-black border-[1.4px] rounded outline-none py-1 px-4 text-xl font-bold mb-4"
+                className="w-full border-gray-200 border rounded outline-none py-1 px-4 text-xl font-bold mb-4 placeholder:font-normal placeholder:text-sm"
                 placeholder="Enter amount"
                 value={rechargeAmount}
                 onChange={(e) => setRechargeAmount(Number(e.target.value))}
@@ -86,7 +86,7 @@ export default function WalletPaymentForm({ onSuccessfulPayment }: WalletProps) 
             <button
                 type="submit"
                 disabled={!stripe || isRechargingWallet}
-                className={`w-full bg-blue-600 text-white rounded ${isRechargingWallet ? "p-0" : "p-2"}`}
+                className={`uppercase text-lg w-full bg-blue-600 text-white rounded ${isRechargingWallet ? "p-0" : "p-2"}`}
             >
             {
                 isRechargingWallet ? 

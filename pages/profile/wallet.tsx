@@ -7,14 +7,14 @@ import { FaWallet } from "react-icons/fa6";
 import axios, { AxiosError } from "axios";
 import { Loader } from "rsuite";
 import 'rsuite/dist/rsuite.min.css';
-import { toast } from "react-toastify";
 import { UserDetailsContext, UserDetailsContextType } from "@/Context/UserDetails";
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { envVariables } from "@/config/config";
 import WalletPaymentForm from "@/components/wallet/PaymentForm";
 import { moneyComaSeperator } from "@/config/functions";
-import MoneyBagIcon from "@/components/wallet/Icon";
+import { GiWallet } from "react-icons/gi";
+import toast from "react-hot-toast";
 
 const stripePromise = loadStripe(envVariables.stripePublicKey);
 
@@ -38,7 +38,7 @@ export default function Wallet() {
         axios.post(`/api/wallet/action?userId=${userDetails._id}`)
             .then(() => {
                 setTimeout(() => {
-                    toast.success("Wallet has been activated", { position: "top-center" });
+                    toast.success("Wallet has been activated");
                     setIsActivatingWallet(false);
                     setTimeout(() => {
                         fetchWalletDetails();
@@ -47,7 +47,7 @@ export default function Wallet() {
             })
             .catch((err: AxiosError) => {
                 console.error(err.toJSON());
-                toast.error(err.response?.data as string, { position: "top-center" });
+                toast.error(err.response?.data as string);
                 setIsActivatingWallet(false);
             });
     };
@@ -58,12 +58,12 @@ export default function Wallet() {
                 <Header />
             </div>
             <div className="flex flex-col items-center min-h-[200px] max-md:px-3">
-                <h1 className="text-center mt-5 text-black font-bold tracking-wide text-5xl">
-                    Ecomstore Wallet
+                <h1 className="text-center my-5 text-black font-bold text-5xl font-mono underline">
+                    Your Wallet
                 </h1>
                 {   walletDetails && walletDetails.isActive ? (
                     <div 
-                        className="flex items-center justify-center w-[60%] max-lg:w-[90%] max-sm:w-[98%] text-xl uppercase text-green-600 px-3 mt-3 bg-white tracking-wide pt-3 pb-2 border border-green-500 rounded"
+                        className={`flex items-center justify-center w-[60%] max-lg:w-[90%] max-sm:w-[98%] text-xl uppercase text-green-600 px-3 mt-3 bg-white tracking-wide pt-3 pb-2 border border-green-500 rounded ${walletDetails?.isActive && "hidden"}`}
                     >
                         <FaWallet className="w-10 h-10 mr-3" /> is Active
                     </div>
@@ -87,9 +87,9 @@ export default function Wallet() {
                     )}
 
                     <div 
-                        className="max-sm:overflow-x-scroll max-sm:hide-scrollbar flex justify-start items-center gap-x-8 bg-white border-gray-300 border h-20 rounded-md px-4 mt-10"
+                        className="max-sm:overflow-x-scroll max-sm:hide-scrollbar flex max-sm:flex-col justify-start items-center gap-x-8 bg-white border-green-500 border-[1.4px] sm:h-20 rounded-md px-4 mt-10"
                     >
-                        <MoneyBagIcon />
+                        <GiWallet className="w-10 h-10 text-green-600" />
                         <span className="text-6xl">
                             ₹<span className="ml-[2px] text-6xl">
                                 {moneyComaSeperator(walletDetails?.balance || 0)}
@@ -114,8 +114,8 @@ interface WalletProps {
 }
 const TransactionTable = ({walletDetails}: WalletProps) => {
     return (
-        <div className="w-[60%] max-lg:w-[90%] max-sm:w-[98%] overflow-x-auto max-sm:overscroll-x-contain">
-            <table className="min-w-full bg-white border border-gray-200 rounded-md shadow-md max-md:overflow-x-scroll">
+        <div className="w-[60%] max-lg:w-[90%] max-sm:w-[98%] overflow-x-auto max-sm:overscroll-x-contain shadow-md">
+            <table className="min-w-full bg-white border border-gray-200 shadow-md max-md:overflow-x-scroll">
                 <thead className="bg-gray-100 border-b border-gray-200">
                     <tr>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase rounded-tl-md"> Amount(₹)</th>
