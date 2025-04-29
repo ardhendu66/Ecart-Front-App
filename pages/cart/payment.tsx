@@ -9,6 +9,7 @@ import { decodeData } from '@/utils/encode_decode';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
+import { PaymentObject } from '@/components/Checkout/Paymentmodecomponent';
 
 export default function Payment() {
     const [paymentProcessing, setPaymentProcessing] = useState(false);
@@ -23,9 +24,9 @@ export default function Payment() {
         return null;
     }
 
-    const { userId, totalPrice, paymentMode, previousView, walletId }: any = userObject;
+    const { userId, totalPrice, paymentMode, previousView, walletId, sessionValidity }: any = userObject;
     
-    if(userId === userDetails?._id && (paymentMode === "wallet" || paymentMode === "card") && totalPrice && previousView === 4 && walletId) {  
+    if(userId === userDetails?._id && (paymentMode === "wallet" || paymentMode === "card") && totalPrice && previousView === 4 && walletId && sessionValidity) {  
               
         const handleOnClick = () => {
             setPaymentProcessing(true);
@@ -33,17 +34,16 @@ export default function Payment() {
                 .then(res => {
                     if(res.status === 200) {
                         setTimeout(() => {
-                            // toast.success('Payment successfull');
                             setPaymentProcessing(false);
                             setPaymentSuccess(true);
                         }, 2000);
+                        setTimeout(() => router.push('/cart/checkout?view=1'), 8000);
                     }
                 })
                 .catch((err: AxiosError) => {
                     console.error(err.toJSON()); 
                     toast.error(err.response?.data as string || err.message);                   
-                })
-                .finally(() => setTimeout(() => router.push('/cart/checkout?view=1'), 6000));
+                });
         }
 
 

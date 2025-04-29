@@ -1,12 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import WalletModel from "@/lib/Wallet";
-import WalletPaymentModel from "@/lib/WalletPayment";
 
-interface RequestBody {
-    userId: string,
-    totalPrice: number,
-    sessionId: string,
-}
 
 // Find Wallet details
 export async function getUserWalletInfo(req: NextApiRequest, res: NextApiResponse) {
@@ -133,47 +127,5 @@ export async function deductBalanceFromWallet(req: NextApiRequest, res: NextApiR
         return res.status(500).json({
             message: "Wallet updation after payment failed with 500 error-code",
         });
-    }
-}
-
-
-// Wallet Payment Operation
-export async function getWalletPaymentSession(req: NextApiRequest, res: NextApiResponse) {
-    try {
-        
-    }
-    catch(err) {
-        console.error(err);
-        return res.status(500).json({ message: "Payment Session not valid.Error-Code: 500" });
-    }
-}
-
-export async function createWalletPaymentSession(req: NextApiRequest, res: NextApiResponse) {
-    try {
-        const { userId, totalPrice, sessionId }: RequestBody = req.body;
-
-        const paymentSession = await WalletPaymentModel.findOne({ userId, sessionId });
-
-        if(paymentSession) {
-            return res.status(400).json({ message: "Invalid Session", sessionId });
-        }
-
-        const paymentSessionV2 = await WalletPaymentModel.create({
-            sessionId,
-            userId,
-            mode: "wallet",
-            totalPrice,
-            paymentCount: 0,
-        })
-
-        if(paymentSessionV2) {
-            return res.status(201).json({message: "Payment Session created successfully."});
-        }
-
-        return res.status(400).json({message: "Payment Session expired."});
-    }
-    catch(err) {
-        console.error(err);
-        return res.status(500).json({message: "Payment through wallet failed.ErrorCode:500"})
     }
 }

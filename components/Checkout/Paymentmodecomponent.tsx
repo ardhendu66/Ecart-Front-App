@@ -21,6 +21,15 @@ interface CheckoutComponentProps {
     view: number;
 }
 
+export interface PaymentObject {
+    userId: string;
+    totalPrice: number;
+    paymentMode: string;
+    previousView: number;
+    walletId: string;
+    sessionValidity: string;
+}
+
 export default function CheckoutPaymentModeComp(
     { userDetails, view }: CheckoutComponentProps) 
 {
@@ -63,6 +72,69 @@ export default function CheckoutPaymentModeComp(
             fetchWalletDetails();
         }
     }, [userDetails]);
+
+
+    const handleOnCreatePaymentSession = () => {
+        if(selectedPaymentMode !== "wallet") {
+            return;
+        }
+
+        // calculating cart total price
+        var subTotalPrice = 0, charge = 51 + 9;
+        for(const productId of cartProducts) {
+            const product = uniqueProductsOnCart.find(
+                p => p._id === productId
+            );
+            subTotalPrice += product?.price || 0;
+        }
+        const totalPrice = subTotalPrice + charge;
+
+        // checking if wallet contains enough balance
+        if(walletDetails?.balance! < totalPrice) {
+            toast.error(
+                "Insufficient balance in wallet. Either recharge wallet or use another payment method.",
+                {position: "top-center", duration: 4000}
+            );
+            return;
+        }
+
+        setIsLoading(true);
+
+        // payment object
+        const uobj: PaymentObject = {
+            userId: userDetails?._id,
+            totalPrice,
+            paymentMode: "wallet",
+            previousView: 4,
+            walletId: walletDetails?._id!,
+            sessionValidity: new Date(
+                new Date(Date.now()).getMinutes() + 10
+            ).toString(),
+        }
+
+        // api call for session validity
+        axios.post('/api/pay/wallet-pay', {
+            userId: userDetails?._id!,
+            walletId: walletDetails?._id!,
+            price: totalPrice,
+            mode: "wallet",
+            products: cartProducts,
+        })
+            .then(res => {
+                if(res.status === 201) {
+                    toast.success('a Valid Payment Session created');
+                    setTimeout(() => setIsLoading(false), 1500);
+                    setTimeout(() => {
+                        router.push(`/cart/payment?pid=${encodeData(uobj, "pid")}`);
+                    }, 2000)
+                }
+            })
+            .catch((err: AxiosError) => {
+                //@ts-ignore
+                toast.error((err.response?.data) || err.message);
+                console.error(err.toJSON());                
+            })
+    }
 
 
 
@@ -111,36 +183,7 @@ export default function CheckoutPaymentModeComp(
                 <button
                     type="button"
                     className={`${view !== 4 && "hidden"} my-2 uppercase ${isLoading ? "pt-1" : "py-3 px-10"} bg-orange-600 font-semibold text-white tracking-wider rounded-sm sm:w-60`}
-                    onClick={() => {
-                        if(selectedPaymentMode === "wallet") {
-                            var subTotalPrice = 0, charge = 51 + 9;
-                            for(const productId of cartProducts) {
-                                const product = uniqueProductsOnCart.find(
-                                    p => p._id === productId
-                                );
-                                subTotalPrice += product?.price || 0;
-                            }
-                            if(walletDetails?.balance! < subTotalPrice + charge) {
-                                toast.error(
-                                    "Insufficient balance in wallet. Either recharge wallet or use other payment method.",
-                                    {position: "top-center", duration: 4000}
-                                );
-                                return;
-                            }
-                            const uobj = {
-                                userId: userDetails?._id,
-                                totalPrice: subTotalPrice + charge,
-                                paymentMode: "wallet",
-                                previousView: 4,
-                                walletId: walletDetails?._id!
-                            }
-                            setIsLoading(true);
-                            setTimeout(() => {
-                                setIsLoading(false);
-                                router.push(`/cart/payment?pid=${encodeData(uobj, "pid")}`);
-                            }, 1500);
-                        }
-                    }}
+                    onClick={handleOnCreatePaymentSession}
                 >
                     {isLoading ? <ClipLoader size={40} color="white" /> : "Pay Now"}
                 </button>
