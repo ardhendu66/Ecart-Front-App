@@ -1,5 +1,4 @@
 import { Schema, model, models, Document, Types } from "mongoose";
-const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
 interface AddressClass extends Document {
@@ -17,7 +16,7 @@ interface AddressClass extends Document {
 const addressSchema: Schema<AddressClass> = new Schema<AddressClass>({
     name: {
         type: String,
-        required: [true, "Name is required!"],
+        required: true,
         trim: true,
     },
     pincode: {
@@ -89,7 +88,7 @@ interface UserClass extends Document {
 const userSchema: Schema<UserClass> = new Schema<UserClass>({
     name: {
         type: String,
-        required: [true, "Name is required!"],
+        required: true,
         trim: true,
         minlength: [6, "Name must be of 6 characters"],
         maxlength: [80, "Name does not exceed 80 characters"],
@@ -99,14 +98,10 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
         required: true,
         unique: true,
         lowercase: true,
-        validate: {
-            validator: (value: string) => emailRegex.test(value),
-            message: ({value}) => `EmailId-${value} is not valid`
-        },
     },
     password: {
         type: String,
-        required: [true, "Password is required!"],
+        required: true,
         validate: {
             validator(value: string) {
                 passwordRegex.test(value)
@@ -140,13 +135,13 @@ const userSchema: Schema<UserClass> = new Schema<UserClass>({
     },
     image: {
         type: String,
-        required: [true, "Image is required"],
+        required: true,
         trim: true,
         default: "https://res.cloudinary.com/next-ecom-cloud/image/upload/v1722359725/profile_gspnec.jpg",
     },
     emailVerified: {
         type: Boolean,
-        required: [true, "Email verification is mandatory"],
+        required: true,
         default: false,
     },
     verifyToken: {
