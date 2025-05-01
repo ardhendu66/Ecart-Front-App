@@ -40,7 +40,7 @@ const paymentSessionSchema: Schema<PaymentSession> = new Schema<PaymentSession>(
     },
     expireAt: {
         type: Date,
-        default: () => new Date(Date.now() + 60 * 1000),
+        default: () => new Date(Date.now() + 4 * 60 * 1000), // 4 minutes from now
         expires: 0 // TTL index kicks in at the time in expireAt
     }
 }, {
