@@ -20,8 +20,8 @@ export async function createUserWallet(req: NextApiRequest, res: NextApiResponse
     try {
         const { userId } = req.query;
         const wallet = new WalletModel({
-            balance: 10, 
-            debit_credit: [{amount: 10, type: "credit"}],
+            balance: 0, 
+            debit_credit: [],
             isActive: true,
             userId
         });
@@ -43,8 +43,8 @@ export async function addBalanceToWallet(req: NextApiRequest, res: NextApiRespon
             return res.status(400).json({ message: "Amount should be greater than zero" });
         }
 
-        if(Number(amount) > 100000) {
-            return res.status(400).json({ message: "Amount should be less than 1,00,000" });
+        if(Number(amount) > 150000) {
+            return res.status(400).json({ message: "Amount should be less than 150,000" });
         }
 
         const existingWallet = await WalletModel.findOne({userId});
@@ -53,9 +53,9 @@ export async function addBalanceToWallet(req: NextApiRequest, res: NextApiRespon
             return res.status(404).json({ message: "Wallet not found" });
         }
 
-        if(existingWallet.balance + Number(amount) > 10000000) {
+        if(existingWallet.balance + Number(amount) > 5000000) {
             return res.status(400).json({ 
-                message: "Wallet balance should be less than 1,00,00,000" 
+                message: "Wallet balance should be less than 5,000,000" 
             });
         }
         

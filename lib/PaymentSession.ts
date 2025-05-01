@@ -6,7 +6,7 @@ interface PaymentSession extends Document {
     price: number,
     mode: string,
     products: Types.ObjectId[],
-    createdAt: Date,
+    expireAt: Date,
 }
 
 const paymentSessionSchema: Schema<PaymentSession> = new Schema<PaymentSession>({
@@ -38,10 +38,10 @@ const paymentSessionSchema: Schema<PaymentSession> = new Schema<PaymentSession>(
         ref: "Product",
         required: true,
     },
-    createdAt: {
+    expireAt: {
         type: Date,
-        default: Date.now,
-        expires: 600, // Auto-delete after 600 seconds (10 minutes)
+        default: () => new Date(Date.now() + 60 * 1000),
+        expires: 0 // TTL index kicks in at the time in expireAt
     }
 }, {
     timestamps: true,
