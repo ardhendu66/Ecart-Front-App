@@ -11,14 +11,14 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 const settings = {
     dots: true,
     infinite: true,
-    speed: 1000,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
     className:"slides",
-    prevArrow: <IoIosArrowBack to="prev" />,
-    nextArrow: <IoIosArrowForward to="next"/>,
+    // prevArrow: <IoIosArrowBack to="prev" />,
+    // nextArrow: <IoIosArrowForward to="next"/>,
 }
 
 export default function CategoriesComponent() {
@@ -64,7 +64,7 @@ export default function CategoriesComponent() {
                                 className={`object-contain w-16 h-16 hover:scale-125 hover:transition-all hover:duration-300 ${c.name === "Cloths" ? "rounded-full" : c.name === "Shoe" && "scale-125 hover:scale-150 mb-3"}`}
                             />
                         </div>
-                        <div className="text-sm font-semibold">
+                        <div className="text-sm mt-1">
                             {c.name === "Smartphones" ? "Mobiles" : c.name}
                         </div>
                     </Link>

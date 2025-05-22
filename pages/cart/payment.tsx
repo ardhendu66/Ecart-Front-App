@@ -67,7 +67,7 @@ export default function Payment() {
                 </div>
 
                 {/* Payment Processing */}
-                <div className={`${(!paymentProcessing || paymentSuccess) && 'hidden'} flex flex-col items-center -mt-16`}>
+                <div className={`${(!paymentProcessing || paymentSuccess) && 'hidden'} flex flex-col items-center sm:-mt-16`}>
                     <div className='w-3/5 max-sm:w-full max-sm:px-7 max-md:w-2/3'>
                         <DotLottieReact
                             src="https://lottie.host/b2c9919a-becc-40fc-a469-1c094e68a056/MVd9KDZfFr.lottie"

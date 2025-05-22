@@ -36,7 +36,7 @@ export default function AddressDetailsContainer({
     return (
         <div className="flex flex-col gap-y-6 w-2/3 max-lg:w-[75%] max-md:w-[80%] max-sm:w-full">
             {/* Personal Details section */}
-            <div className="flex flex-col shadow-sm border-gray-200 border rounded-sm p-10 max-sm:p-4">
+            <div className="flex flex-col shadow-sm border-gray-100 border rounded-sm p-10 max-sm:p-4">
                 <Field 
                     label="Personal Information"
                     inputValues={inputValues}
@@ -64,7 +64,7 @@ export default function AddressDetailsContainer({
             </div>
 
             {/* Manage Address Section */}
-            <div className="p-10 shadow-sm border-gray-200 border rounded-sm">
+            <div className="p-10 shadow-sm border-gray-100 border rounded-sm">
                 <div className="mb-5 font-bold text-xl tracking-wide">
                     Manage Addresses
                 </div>

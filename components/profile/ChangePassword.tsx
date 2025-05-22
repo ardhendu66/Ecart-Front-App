@@ -77,7 +77,7 @@ const ChangePasswordComponent = ({swal, username}: {swal: any, username: string}
     }
 
     return (
-        <div className="shadow-sm border-gray-200 border rounded-sm px-10 py-7 tracking-wider">
+        <div className="shadow-sm border-gray-100 border rounded-sm px-10 py-7 tracking-wider">
             <h1 className="text-xl font-bold">
                 Change your password
             </h1>

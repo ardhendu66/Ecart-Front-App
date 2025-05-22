@@ -56,8 +56,8 @@ body, * {
 }
 .slick-arrow.slick-next,
 .slick-arrow.slick-prev {
-  background-color: white;
-  color: black;
+  /* background-color: white; */
+  /* color: black; */
   height: 50px;
   width: 50px;
   display: flex;
@@ -70,8 +70,8 @@ body, * {
 }
 .slick-arrow.slick-next:hover,
 .slick-arrow.slick-prev:hover {
-  background-color: white;
-  color: black;
+  /* background-color: white; */
+  /* color: black; */
   opacity: 10;
 }
 .slick-prev::before,
@@ -127,10 +127,11 @@ input[type="file"]::after {
   top: 11px;
   left: 40px;
   color: #0964b0;
-  content: "Upload photo";
+  content: "upload profile photo";
 }
 
 input[type="file"]::file-selector-button {
+  width: 200px;
   border-radius: 4px;
   padding: 0 16px;
   height: 46px;
