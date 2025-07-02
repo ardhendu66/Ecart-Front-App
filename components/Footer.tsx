@@ -11,7 +11,7 @@ export default function Footer() {
     return (
         <div className="flex flex-col bg-gray-800 text-gray-400 text-sm py-6 mt-20">
             <div className="flex mb-3 max-md:flex-col">
-                <div className="flex justify-around w-1/2 max-md:w-full text-lg">
+                <div className="flex justify-around w-1/2 max-md:w-full text-lg max-md:px-3 max-sm:px-5 max-sm:text-sm">
                     <div>
                         ABOUT
                         <div className="mt-2 text-white">

@@ -35,9 +35,9 @@ export default function ImageSlider({product}: Props) {
                     </div>
                 </div>
             </div>
-            <div className="mt-6 w-full flex justify-center">
+            <div className="mt-6 w-full flex justify-end">
                 <button 
-                    className="bg-yellow-600 text-white text-lg p-3 rounded-md flex items-center justify-center mb-1 w-full hover:bg-yellow-500"
+                    className="lg:w-[85%] bg-orange-500 text-white text-lg p-3 rounded-sm flex items-center justify-center mb-1 w-full hover:bg-orange-400 font-bold"
                     onClick={() => addProductToCart(product?._id as string)}
                 >
                     <MdShoppingCart className="w-6 h-6 mr-2" />

@@ -13,6 +13,7 @@ import ProductsList from "@/components/Products/ProductComponent";
 import Footer from "@/components/Footer";
 import { ProductsDetailsContext, ProductsDetailsContextType } from "@/Context/ProductContext";
 import { CartContext, CartContextType } from "@/Context/CartContext";
+import { encodeData } from "@/utils/encode_decode";
 
 export default function SingleProductPage() {
     const [product, setProduct] = useState<Product | null>(null);
@@ -20,15 +21,15 @@ export default function SingleProductPage() {
     const { productsDetails } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
     const { addProductToCart } = useContext(CartContext) as CartContextType;
     const router = useRouter();
-    const { id } = router?.query;
+    const { name } = router?.query;
 
     useEffect(() => {
-        if(!id) {
+        if(!name) {
             return;
         }
         const fetchProduct = () => {
             setIsLoadingProduct(true);
-            axios.get(`/api/product/get-product?id=${id}`)
+            axios.get(`/api/product/get-product?name=${name}`)
             .then(res => setProduct(res.data.product))
             .catch((err: AxiosError) => console.log({
                 message: err.message,
@@ -39,7 +40,7 @@ export default function SingleProductPage() {
             .finally(() => setIsLoadingProduct(false));
         }
         fetchProduct();
-    }, [id])
+    }, [name])
 
     return (
         <div className="bg-white min-h-screen">
@@ -65,18 +66,9 @@ export default function SingleProductPage() {
                             <ProductInfo product={product} />
                         </div>
                     </div>
-                    <div className="mt-4">
+                    {/* <div className="mt-4">
                         <div className="border-gray-200 border-t-[1px]"></div>
-                    </div>
-                    <div className="mt-5 mb-4">
-                        <h2 className="text-2xl px-12">Similar products</h2>
-                    </div>
-                    <ProductsList 
-                        products={
-                            productsDetails.filter(p => p.subCategory === product?.subCategory && (Math.abs(30000-product.price) <= p.price && p.price <= Math.abs(30000+product.price))).filter(p => p.name !== product?.name)
-                        }
-                        addProductToCart={addProductToCart}
-                    />
+                    </div> */}
                 </div>
             }
             <Footer />

@@ -5,13 +5,6 @@ export const encodeData = (data: object, secretKey: string) => {
     return encodeURIComponent(encryptedData);
 };
 
-// export const decodeData = (encryptedData: string, secretKey: string) => {
-//     const decodedData = decodeURIComponent(encryptedData);
-//     const decryptedBytes = CryptoJS.AES.decrypt(decodedData, secretKey);
-//     const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
-//     return JSON.parse(decryptedText);
-// };
-
 export const decodeData = (encryptedData: string, secretKey: string) => {
     try {
         if (!encryptedData) {
@@ -30,3 +23,4 @@ export const decodeData = (encryptedData: string, secretKey: string) => {
         return null;
     }
 };
+
