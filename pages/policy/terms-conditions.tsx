@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Link from "next/link";
 
 export default function TermsAndConditions() {
   return (
@@ -41,7 +42,7 @@ export default function TermsAndConditions() {
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">4. Return and Exchange</h2>
         <p className="mb-2">
-          Refer to our <a href="/policy/refund-exchange-policy" className="text-blue-600 underline">Return and Exchange Policy</a> for details on returns, refunds, and exchanges.
+          Refer to our <Link href="/policy/refund-exchange-policy" className="text-blue-600 underline">Return and Exchange Policy</Link> for details on returns, refunds, and exchanges.
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">5. Intellectual Property</h2>
@@ -59,7 +60,7 @@ export default function TermsAndConditions() {
           For questions or concerns about these Terms and Conditions, please contact us:
         </p>
         <p className="mb-2">
-          <strong>Email:</strong> <a href="mailto:ardhenduroy600@gmail.com" className="text-blue-600 underline font-semibold">ardhenduroy600@gmail.com</a>
+          <strong>Email:</strong> <Link href="mailto:ardhenduroy600@gmail.com" className="text-blue-600 underline font-semibold">ardhenduroy600@gmail.com</Link>
         </p>
       </div>
     </div>

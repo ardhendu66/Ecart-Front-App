@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Link from "next/link";
 
 export default function RefundPolicy() {
   return (
@@ -31,7 +32,7 @@ export default function RefundPolicy() {
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">3. Contact Information</h2>
         <p className="mb-2">
-          For assistance, please reach out to us at: <strong>Email:</strong> <a href="mailto:ardhenduroy600@gmail.com" className="text-blue-600 underline font-semibold">ardhenduroy600@gmail.com</a>
+          For assistance, please reach out to us at: <strong>Email:</strong> <Link href="mailto:ardhenduroy600@gmail.com" className="text-blue-600 underline font-semibold">ardhenduroy600@gmail.com</Link>
         </p>
       </div>
     </div>

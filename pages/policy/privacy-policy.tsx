@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Link from "next/link";
 
 export default function PrivacyPolicy() {
   return (
@@ -64,7 +65,7 @@ export default function PrivacyPolicy() {
           For privacy-related questions, contact us at:
         </p>
         <p className="mb-2">
-          <strong>Email:</strong> <a href="mailto:ardhenduroy600@gmail.com" className="text-blue-600 underline font-semibold">ardhenduroy600@gmail.com</a>
+          <strong>Email:</strong> <Link href="mailto:ardhenduroy600@gmail.com" className="text-blue-600 underline font-semibold">ardhenduroy600@gmail.com</Link>
         </p>
       </div>
     </div>
