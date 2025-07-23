@@ -5,11 +5,10 @@ import Product from "@/lib/Product";
 export default async function handler(request: NextApiRequest, res: NextApiResponse) {
     await ConnectionWithMongoose();
 
-    const { name } = request.query;
-    // const decodedName = decodeURI(name as string);
-    if(request.method === "GET" && name) {
+    const { id } = request.query;
+    if(request.method === "GET" && id) {
         try {
-            const product = await Product.findOne({name: (name as string).replaceAll('%20', ' ')}).populate([{
+            const product = await Product.findById(id).populate([{
                 path: 'Category',
                 strictPopulate: false,
             }])

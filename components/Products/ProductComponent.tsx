@@ -16,7 +16,7 @@ export default function ProductsList({products, addProductToCart}: Props) {
         {
             products?.map((product: Product) => (
                 <Link 
-                    href={`/products/${product.name}`} 
+                    href={`/products/${product._id}?name=${product.name}`} 
                     target="_blank" 
                     key={product._id} 
                     className="cols-span-1 bg-gray-300 flex flex-col items-center justify-center gap-y-3 shadow-sm rounded-sm overflow-hidden border border-gray-300 pb-2"

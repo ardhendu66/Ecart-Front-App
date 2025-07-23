@@ -21,15 +21,15 @@ export default function SingleProductPage() {
     const { productsDetails } = useContext(ProductsDetailsContext) as ProductsDetailsContextType;
     const { addProductToCart } = useContext(CartContext) as CartContextType;
     const router = useRouter();
-    const { name } = router?.query;
+    const { id, name } = router?.query;
 
     useEffect(() => {
-        if(!name) {
+        if(!id) {
             return;
         }
         const fetchProduct = () => {
             setIsLoadingProduct(true);
-            axios.get(`/api/product/get-product?name=${name}`)
+            axios.get(`/api/product/get-product?id=${id}`)
             .then(res => setProduct(res.data.product))
             .catch((err: AxiosError) => console.log({
                 message: err.message,
@@ -40,7 +40,7 @@ export default function SingleProductPage() {
             .finally(() => setIsLoadingProduct(false));
         }
         fetchProduct();
-    }, [name])
+    }, [id])
 
     return (
         <div className="bg-white min-h-screen">

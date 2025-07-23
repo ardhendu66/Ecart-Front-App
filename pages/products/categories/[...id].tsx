@@ -163,11 +163,13 @@ export default function SingleCategories() {
                                 key={c._id}  
                                 className="bg-gray-300 flex flex-col justify-between col-span-1 max-h-[370px] shadow-md pb-3 border border-gray-300 rounded"
                             >
-                                <Link href={`/products/${c._id}`} className="bg-gray-300 max-h-56">
+                                <Link 
+                                    href={`/products/${c._id}?name=${c.name}`} className="bg-gray-300 max-h-56"
+                                >
                                     <img 
-                                        src={c.images[1]} 
+                                        src={c.images[0]} 
                                         alt="error"
-                                        className="w-full h-full hover:scale-110 hover:transition-all hover:duration-300" 
+                                        className="w-full h-full" 
                                     />
                                 </Link>
                                 <ProductCardInfo product={c} />
