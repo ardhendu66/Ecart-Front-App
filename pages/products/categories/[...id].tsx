@@ -122,7 +122,10 @@ export default function SingleCategories() {
                     {
                         categories.length > 0 &&
                         categories.map((cat) => (
-                            <div key={cat._id} className="flex my-2">
+                            <div 
+                                key={cat._id} 
+                                className={`flex my-2 ${["6692989bbfb3fcddde404efa", "6692985fbfb3fcddde404ef6", "66929845bfb3fcddde404ef2"].some(id => cat._id === id) ? "" : "hidden"}`}
+                            >
                                 <input 
                                     type="checkbox" 
                                     value={cat._id}

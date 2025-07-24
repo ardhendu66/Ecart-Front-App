@@ -6,8 +6,9 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
     await ConnectionWithMongoose();
     if(request.method === "GET") {
         try {
-            if(request.query.id) {
-                const products = await Product.find({category: request.query.id as string})
+            const { id } = request.query;
+            if(id) {
+                const products = await Product.find({category: id as string})
                     .populate('category');
 
                 if(products) {
@@ -20,6 +21,7 @@ export default async function handler(request: NextApiRequest, res: NextApiRespo
                 .populate('category');
 
             if(products) {
+                console.log(products);                
                 return res.status(200).json({products: products}); 
             }
             return res.status(205).json({message: "Products not found"}); 

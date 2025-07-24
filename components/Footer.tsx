@@ -11,47 +11,58 @@ export default function Footer() {
     return (
         <div className="flex flex-col bg-gray-800 text-gray-400 text-sm py-6 mt-20">
             <div className="flex mb-3 max-md:flex-col">
-                <div className="flex justify-around w-1/2 max-md:w-full text-lg max-md:px-3 max-sm:px-5 max-sm:text-sm">
+                <div className="flex justify-around w-[45%] max-md:w-full text-lg max-md:px-3 max-sm:px-5 max-sm:text-sm">
                     <div>
                         ABOUT
                         <div className="mt-2 text-white">
-                            <div className="hover:underline hover:cursor-pointer">Contact us</div>
-                            <div className="hover:underline hover:cursor-pointer">About us</div>
-                            <div className="hover:underline hover:cursor-pointer">Careers</div>
-                            <div className="hover:underline hover:cursor-pointer">Press</div>
                             <div className="hover:underline hover:cursor-pointer">
-                                Corporate Info
+                                <Link href="mailto:ardhenduroy600@gmail.com">Contact us</Link>
                             </div>
+                            <div className="hover:underline hover:cursor-pointer">About us</div>
+                            {/* <div className="hover:underline hover:cursor-pointer">Careers</div> */}
+                            {/* <div className="hover:underline hover:cursor-pointer">Press</div> */}
+                            {/* <div className="hover:underline hover:cursor-pointer">
+                                Corporate Info
+                            </div> */}
                         </div>
                     </div>
-                    <div>
-                        HELP
-                        <div className="mt-2 text-white">
-                            <div className="hover:underline hover:cursor-pointer">Payments</div>
-                            <div className="hover:underline hover:cursor-pointer">Shipping</div>
-                            <div className="flex flex-col hover:underline hover:cursor-pointer">
+
+                    {/* <div> */}
+                        {/* HELP */}
+                        {/* <div className="mt-2 text-white"> */}
+                            {/* <div className="hover:underline hover:cursor-pointer">Payments</div> */}
+                            {/* <div className="hover:underline hover:cursor-pointer">
+                                <Link href="/policy/shipping-policy">Shipping Policy</Link>
+                            </div> */}
+                            {/* <div className="flex flex-col hover:underline hover:cursor-pointer">
                                 <span>Cancellation &</span>
                                 <span>Returns</span>
-                            </div>
-                            <div className="hover:underline hover:cursor-pointer">FAQ</div>
-                            <div className="hover:underline hover:cursor-pointer">Report Infringement</div>
-                        </div>
-                    </div>
+                            </div> */}
+                            {/* <div className="hover:underline hover:cursor-pointer">FAQ</div>
+                            <div className="hover:underline hover:cursor-pointer">Report Infringement</div> */}
+                        {/* </div> */}
+                    {/* </div> */}
+                    
                     <div>
                         CONSUMER POLICY
                         <div className="mt-2 text-white">
                             <div className="flex flex-col hover:underline hover:cursor-pointer">
-                                <span>Cancellation &</span>
-                                <span>Returns</span>
+                                <Link href="/policy/refund-exchange-policy">Refund & Exchange</Link>
                             </div>
-                            <div className="hover:underline hover:cursor-pointer">Terms Of Use</div>
-                            <div className="hover:underline hover:cursor-pointer">Security</div>
-                            <div className="hover:underline hover:cursor-pointer">Privacy</div>
-                            <div className="hover:underline hover:cursor-pointer">Sitemap</div>
                             <div className="hover:underline hover:cursor-pointer">
-                                Grievence Redressal
+                                <Link href="/policy/terms-conditions">Terms & Conditions</Link>
                             </div>
-                            <div className="hover:underline hover:cursor-pointer">EPR Compliance</div>
+                            {/* <div className="hover:underline hover:cursor-pointer">Security</div> */}
+                            <div className="hover:underline hover:cursor-pointer">
+                                <Link href="/policy/privacy-policy">Privacy Policy</Link>
+                            </div>
+                            <div className="hover:underline hover:cursor-pointer">
+                                <Link href="/policy/shipping-policy">Shipping Policy</Link>
+                            </div>
+                            {/* <div className="hover:underline hover:cursor-pointer">
+                                Grievence Redressal
+                            </div> */}
+                            {/* <div className="hover:underline hover:cursor-pointer">EPR Compliance</div> */}
                         </div>
                     </div>
                 </div>
@@ -59,15 +70,23 @@ export default function Footer() {
                 <div className="md:hidden my-2 mx-4 border-gray-400 border-t"></div>
                 <div className="flex justify-around w-1/2 pl-5 pr-5 max-md:w-full" id="footer-sm">
                     <div>
-                        <div className="text-lg">Mail Us:</div>
-                        <div className="mt-2 text-white mb-4">
+                        <div className="text-lg">
+                            Mail Us: 
+                            <Link 
+                                href="mailto:ardhenduroy600@gmail.com"
+                                className="ml-2 text-sm font-semibold hover:text-blue-500 hover:underline"
+                            >
+                                ardhenduroy600@gmail.com
+                            </Link>
+                        </div>
+                        {/* <div className="mt-2 text-white mb-4">
                             <div>Ecomstore India Private Limited,</div>
                             <div>Buildings Alyassa, Begonia &</div>
                             <div>Clove Embassy Tech Village</div>
                             <div>Outer Ring Road, Devarabeesanahalli Village,</div>
                             <div>Bengaluru, 560103,</div>
                             <div>Karnataka, India</div>
-                        </div>
+                        </div> */}
                         <div className="text-lg">Social:</div>
                         <div className="mt-1 flex text-white gap-x-4">
                             <Link href={'https://facebook.com'}>
@@ -87,18 +106,17 @@ export default function Footer() {
                     <div>
                         <div className="text-lg">Registered Office Address:</div>
                         <div className="mt-2 text-white mb-4">
-                            <div>Ecomstore India Private Limited,</div>
-                            <div>Buildings Alyassa, Begonia &</div>
-                            <div>Clove Embassy Tech Village</div>
-                            <div>Outer Ring Road, Devarabeesanahalli Village,</div>
-                            <div>Bengaluru, 560103,</div>
-                            <div>Karnataka, India</div>
-                            <div>
+                            <div>Ecomstore</div>
+                            <div>Bank Of India ATM</div>
+                            <div>Arambagh, B C Sen Road</div>
+                            <div>Arambagh, Hooghly, 712601</div>
+                            <div>West Bengal, India</div>
+                            {/* <div>
                                 CIN: <span className="text-blue-700">U51109KA2012PTC066107</span>
                             </div>
                             <div>
                                 Telephone: <span className="text-blue-700">044-45614700</span>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

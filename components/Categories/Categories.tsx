@@ -6,7 +6,6 @@ import { bannerArray, categoriesImageSupplier } from "@/config/data";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const settings = {
     dots: true,
@@ -17,8 +16,6 @@ const settings = {
     autoplay: true,
     autoplaySpeed: 4000,
     className:"slides",
-    // prevArrow: <IoIosArrowBack to="prev" />,
-    // nextArrow: <IoIosArrowForward to="next"/>,
 }
 
 export default function CategoriesComponent() {
@@ -51,7 +48,7 @@ export default function CategoriesComponent() {
                     return <Link key={index} 
                         href={`/products/categories/${c._id}?category=${c.name}`} 
                         target="_blank"
-                        className="flex flex-col items-center justify-center mx-3.5"
+                        className={`flex flex-col items-center justify-center mx-3.5 ${["6692989bbfb3fcddde404efa", "6692985fbfb3fcddde404ef6", "66929845bfb3fcddde404ef2"].some(id => c._id === id) ? "" : "hidden"}`}
                     >
                         <div 
                             className={`w-[88px] h-[88px] flex items-center justify-center bg-slate-300 rounded-full ${["Laptops"].some(f => f === c.name) ? "p-5" : c.name === "Refrigerator" ? "p-8" : c.name === "Headphones" ? "p-6" : c.name === "Processor" && "p-4"}`}
