@@ -5,11 +5,14 @@ import frige from "@/public/f1.png";
 import processor from "@/public/intel1.png";
 import headphone from "@/public/headphone.png";
 import shoe from "@/public/shoe1.png";
-import cloth from "@/public/clothes2.png";
+import cloth from "@/public/clothes3.png";
 import keyboard from "@/public/keyboard.png";
-import mouse from "@/public/mouse.png";
-import banner1 from "@/public/banner2.png";
-import banner2 from "@/public/banner3.png";
+import mouse from "@/public/mouse1.png";
+import banner1 from "@/public/banner1.jpg";
+import banner2 from "@/public/banner2.jpg";
+import banner3 from "@/public/banner3.jpg";
+import banner4 from "@/public/banner4.jpg";
+import banner5 from "@/public/banner5.jpg";
 
 export const data = [
     {
@@ -40,7 +43,7 @@ export const data = [
 ]
 
 export const bannerArray = [
-    banner1.src, banner2.src,
+    banner1.src, banner2.src, banner3.src, banner4.src, banner5.src,
 ]
 
 export const categoriesImageSupplier = [{

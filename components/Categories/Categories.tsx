@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 const settings = {
     dots: true,
     infinite: true,
-    speed: 2000,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -76,7 +76,7 @@ export default function CategoriesComponent() {
                             <img 
                                 src={b}
                                 alt="error"
-                                className="w-full h-[200px] rounded"
+                                className="w-full h-[280px] rounded"
                             />
                         </div>
                     ))
