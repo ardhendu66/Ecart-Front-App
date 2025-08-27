@@ -23,6 +23,7 @@
     "react": "^18",
     "react-dom": "^18",
     "stripe": "^15.12.0",
+    "uuid": "^11.1.0",
     "validator": "^13.12.0"
   },
   "devDependencies": {
